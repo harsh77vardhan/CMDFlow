@@ -16,13 +16,13 @@
   - Fast resolve latency (<3ms)
   - Unit tests: 13 test suites (100% passing)
   - Target: Tag `v0.1.0-core` (COMPLETED)
-- [ ] **M2: Shell Integration & Installer (`shell/`, `cli`)**
+- [x] **M2: Shell Integration & Installer (`shell/`, `cli`)**
   - Directive protocol (`cmdflow __run <shell> -- <args>`)
   - Real shell hooks for Bash, Zsh, Fish, and PowerShell
   - Safe, idempotent installer (`cmdflow install`/`uninstall`) with rc backups
   - Dynamic shell completions and `cmdflow doctor`
-  - Sourced shell test suite in temporary sandbox
-  - Target: Tag `v0.2.0-shells`
+  - Sourced shell test suite in temporary sandbox (Bash, Zsh, Fish passing 100%, PowerShell snapshot tests passing)
+  - Target: Tag `v0.2.0-shells` (COMPLETED)
 - [ ] **M3: AI & Deterministic Risk Classifier (`cli`, `docs/AI.md`)**
   - Safe system context gathering
   - Deterministic risk categorizer (Safe / Caution / Destructive) with 60+ test cases
