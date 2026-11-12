@@ -30,11 +30,12 @@
   - Interactive approval terminal UX with gated typing verification for caution and destructive commands
   - Detailed specification written in `docs/AI.md`
   - Target: Tag `v0.3.0-ai` (COMPLETED)
-- [ ] **M4: Edge Backend Worker (`src/worker`)**
-  - API endpoints: `/api/health`, `/api/releases/latest`, `/api/waitlist`, `/api/ai/command`, `/api/install-token`, `/api/feedback`
-  - D1 waitlist database and KV rate limiting
-  - Vitest / Miniflare test suite
-  - Target: Tag `v0.4.0-backend`
+- [x] **M4: Edge Backend Worker (`src/worker`)**
+  - API endpoints: `/api/health`, `/api/releases/latest`, `/api/releases`, `/api/waitlist`, `/api/ai/command`, `/api/install-token`, `/api/feedback`
+  - D1 waitlist database migration (`migrations/0001_init.sql`) and KV rate limiting
+  - Secret examples (`.dev.vars.example`) and updated `wrangler.jsonc`
+  - Vitest test suite (`src/worker/worker.test.ts`) passing 100%
+  - Target: Tag `v0.4.0-backend` (COMPLETED)
 - [ ] **M5: Settings UI & Embedded Loopback Server (`settings-ui`, `cli`)**
   - Dedicated Vite + Vanilla TS settings interface matching design tokens
   - Embedded in Rust binary via `rust-embed`
