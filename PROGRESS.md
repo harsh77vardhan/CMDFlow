@@ -36,11 +36,12 @@
   - Secret examples (`.dev.vars.example`) and updated `wrangler.jsonc`
   - Vitest test suite (`src/worker/worker.test.ts`) passing 100%
   - Target: Tag `v0.4.0-backend` (COMPLETED)
-- [ ] **M5: Settings UI & Embedded Loopback Server (`settings-ui`, `cli`)**
+- [x] **M5: Settings UI & Embedded Loopback Server (`settings-ui`, `cli`)**
   - Dedicated Vite + Vanilla TS settings interface matching design tokens
-  - Embedded in Rust binary via `rust-embed`
-  - Secure loopback server on `127.0.0.1:<random-port>` with one-time token
-  - Target: Tag `v0.5.0-ui`
+  - Embedded directly into Rust binary via `rust-embed`
+  - Secure loopback server on `127.0.0.1:<port>` with random token authentication
+  - Live `/api/config` endpoint for reading and atomic saving
+  - Target: Tag `v0.5.0-ui` (COMPLETED)
 - [ ] **M6: Website Integration, Documentation & Security (`src/client`, `docs`)**
   - Client wired to real API and shared starter pack
   - Documentation suite: `SPEC.md`, `SECURITY.md`, `SHELLS.md`, `FLOWS.md`, `AI.md`, `PLUGINS.md`, `CONTRIBUTING.md`

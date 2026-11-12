@@ -1,0 +1,13 @@
+{
+  "name": "cmdflow-settings-ui",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "build": "vite build"
+  },
+  "devDependencies": {
+    "typescript": "^5.9.0",
+    "vite": "^8.3.0"
+  }
+}

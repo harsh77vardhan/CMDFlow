@@ -1,0 +1,270 @@
+:root {
+  --font-display: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-body: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --mono: 'SFMono-Regular', ui-monospace, Menlo, Consolas, monospace;
+
+  --bg: #05060a;
+  --bg-soft: #080a11;
+  --surface: #0b0e16;
+  --surface-2: #10141e;
+  --line: rgba(255, 255, 255, 0.08);
+  --line-strong: rgba(255, 255, 255, 0.16);
+
+  --text: #eef1f8;
+  --muted: #99a1b5;
+  --dim: #6f778b;
+
+  --blue: #5b8cff;
+  --purple: #a274ff;
+  --green: #5be3a4;
+  --accent: linear-gradient(135deg, #6f9bff, #a97cff);
+
+  color-scheme: dark;
+  font-family: var(--font-body);
+  color: var(--text);
+  background: var(--bg);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 32px 16px;
+  background: radial-gradient(120% 80% at 50% -10%, #10162a 0%, transparent 60%), var(--bg);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+}
+
+#app {
+  width: 100%;
+  max-width: 900px;
+}
+
+.settings-window {
+  border: 1px solid var(--line);
+  background: rgba(11, 14, 22, 0.85);
+  backdrop-filter: blur(20px);
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+}
+
+.settings-bar {
+  display: flex;
+  align-items: center;
+  padding: 14px 18px;
+  border-bottom: 1px solid var(--line);
+  background: rgba(8, 10, 17, 0.6);
+}
+
+.terminal-dots {
+  display: flex;
+  gap: 7px;
+  margin-right: 16px;
+}
+
+.terminal-dots i {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.settings-title {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--muted);
+}
+
+.settings-version {
+  margin-left: auto;
+  font-size: 11px;
+  color: var(--dim);
+}
+
+.settings-body {
+  display: flex;
+  min-height: 520px;
+}
+
+.settings-tabs {
+  width: 200px;
+  border-right: 1px solid var(--line);
+  padding: 12px 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.settings-tab {
+  text-align: left;
+  padding: 9px 14px;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--muted);
+  border: none;
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.settings-tab:hover {
+  background: var(--surface-2);
+  color: var(--text);
+}
+
+.settings-tab.is-active {
+  background: rgba(91, 140, 255, 0.14);
+  color: var(--blue);
+  font-weight: 500;
+}
+
+.settings-pane {
+  flex: 1;
+  padding: 24px 28px;
+  overflow-y: auto;
+}
+
+.pane-head {
+  margin-bottom: 24px;
+}
+
+.pane-head h3 {
+  margin: 0 0 6px;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.pane-head p {
+  margin: 0;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.row-label {
+  font-size: 14px;
+  font-weight: 500;
+  display: block;
+  margin-bottom: 3px;
+}
+
+.row-hint {
+  font-size: 12px;
+  color: var(--dim);
+}
+
+.toggle {
+  width: 38px;
+  height: 22px;
+  background: var(--surface-2);
+  border: 1px solid var(--line);
+  border-radius: 11px;
+  position: relative;
+  cursor: pointer;
+  display: inline-block;
+  transition: all 0.2s ease;
+}
+
+.toggle i {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--muted);
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.toggle.is-on {
+  background: var(--blue);
+  border-color: var(--blue);
+}
+
+.toggle.is-on i {
+  left: 18px;
+  background: #fff;
+}
+
+.fake-input {
+  font-size: 12px;
+  padding: 6px 12px;
+  background: var(--surface-2);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  color: var(--text);
+}
+
+.fake-input.is-mono {
+  font-family: var(--mono);
+}
+
+.alias-table {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.alias-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px;
+  background: var(--surface-2);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+}
+
+.kbd {
+  font-family: var(--mono);
+  background: rgba(255, 255, 255, 0.08);
+  padding: 2px 7px;
+  border-radius: 4px;
+  font-size: 12px;
+}
+
+.alias-arrow {
+  color: var(--dim);
+}
+
+code {
+  font-family: var(--mono);
+  color: var(--blue);
+  font-size: 13px;
+}
+
+.btn-primary {
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.toast {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  background: var(--surface-2);
+  border: 1px solid var(--line-strong);
+  padding: 12px 18px;
+  border-radius: 8px;
+  font-size: 13px;
+  color: var(--text);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+}
