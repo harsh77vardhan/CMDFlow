@@ -20,7 +20,7 @@ pub enum ConfigError {
     },
 
     #[error("Failed to parse TOML configuration in {0}: {1}")]
-    TomlParse(PathBuf, #[source] toml::de::Error),
+    TomlParse(PathBuf, #[source] Box<toml::de::Error>),
 
     #[error("Validation error: {0}")]
     Validation(String),
@@ -302,7 +302,7 @@ impl Config {
                     message: e.message().to_string(),
                 }
             } else {
-                ConfigError::TomlParse(path.to_path_buf(), e)
+                ConfigError::TomlParse(path.to_path_buf(), Box::new(e))
             }
         })
     }
