@@ -23,12 +23,13 @@
   - Dynamic shell completions and `cmdflow doctor`
   - Sourced shell test suite in temporary sandbox (Bash, Zsh, Fish passing 100%, PowerShell snapshot tests passing)
   - Target: Tag `v0.2.0-shells` (COMPLETED)
-- [ ] **M3: AI & Deterministic Risk Classifier (`cli`, `docs/AI.md`)**
-  - Safe system context gathering
+- [x] **M3: AI & Deterministic Risk Classifier (`cli`, `docs/AI.md`)**
+  - Safe system context gathering (no secret leakage, structural metadata only)
   - Deterministic risk categorizer (Safe / Caution / Destructive) with 60+ test cases
   - Provider abstraction (Anthropic, OpenAI, Gemini, Ollama, Mock, Cloud Proxy)
-  - Interactive approval terminal UX
-  - Target: Tag `v0.3.0-ai`
+  - Interactive approval terminal UX with gated typing verification for caution and destructive commands
+  - Detailed specification written in `docs/AI.md`
+  - Target: Tag `v0.3.0-ai` (COMPLETED)
 - [ ] **M4: Edge Backend Worker (`src/worker`)**
   - API endpoints: `/api/health`, `/api/releases/latest`, `/api/waitlist`, `/api/ai/command`, `/api/install-token`, `/api/feedback`
   - D1 waitlist database and KV rate limiting
