@@ -1,4 +1,4 @@
-# CMDFlow Implementation Progress
+# CMDFlow Implementation & Publishing Progress
 
 ## Milestone Status Overview
 
@@ -12,7 +12,6 @@
   - Resolution order: Exact Flow -> Context Rule -> Project Shortcut -> Alias -> Passthrough
   - Protected command safeguarding (`cd`, `rm`, `sudo`, `mv`, `git`, etc.)
   - Flow execution engine with process tree management and directory tracking
-  - Project registry and fuzzy lookup
   - Fast resolve latency (<3ms)
   - Unit tests: 13 test suites (100% passing)
   - Target: Tag `v0.1.0-core` (COMPLETED)
@@ -20,7 +19,6 @@
   - Directive protocol (`cmdflow __run <shell> -- <args>`)
   - Real shell hooks for Bash, Zsh, Fish, and PowerShell
   - Safe, idempotent installer (`cmdflow install`/`uninstall`) with rc backups
-  - Dynamic shell completions and `cmdflow doctor`
   - Sourced shell test suite in temporary sandbox (Bash, Zsh, Fish passing 100%, PowerShell snapshot tests passing)
   - Target: Tag `v0.2.0-shells` (COMPLETED)
 - [x] **M3: AI & Deterministic Risk Classifier (`cli`, `docs/AI.md`)**
@@ -28,38 +26,44 @@
   - Deterministic risk categorizer (Safe / Caution / Destructive) with 60+ test cases
   - Provider abstraction (Anthropic, OpenAI, Gemini, Ollama, Mock, Cloud Proxy)
   - Interactive approval terminal UX with gated typing verification for caution and destructive commands
-  - Detailed specification written in `docs/AI.md`
   - Target: Tag `v0.3.0-ai` (COMPLETED)
 - [x] **M4: Edge Backend Worker (`src/worker`)**
   - API endpoints: `/api/health`, `/api/releases/latest`, `/api/releases`, `/api/waitlist`, `/api/ai/command`, `/api/install-token`, `/api/feedback`
-  - D1 waitlist database migration (`migrations/0001_init.sql`) and KV rate limiting
-  - Secret examples (`.dev.vars.example`) and updated `wrangler.jsonc`
-  - Vitest test suite (`src/worker/worker.test.ts`) passing 100%
+  - Cloud AI disabled by default on public demo (returns 503 Service Unavailable with setup instructions)
+  - Vitest test suite (`src/worker/worker.test.ts`) passing 10/10
   - Target: Tag `v0.4.0-backend` (COMPLETED)
 - [x] **M5: Settings UI & Embedded Loopback Server (`settings-ui`, `cli`)**
   - Dedicated Vite + Vanilla TS settings interface matching design tokens
   - Embedded directly into Rust binary via `rust-embed`
   - Secure loopback server on `127.0.0.1:<port>` with random token authentication
-  - Live `/api/config` endpoint for reading and atomic saving
   - Target: Tag `v0.5.0-ui` (COMPLETED)
 - [x] **M6: Website Integration, Documentation & Security (`src/client`, `docs`)**
   - Website wired to `/api/releases/latest` and live waitlist form (`/api/waitlist`)
-  - Shared starter pack (`shared/starter-pack.json`) imported by client site and Rust CLI
-  - Documentation suite complete: `SPEC.md`, `SECURITY.md`, `SHELLS.md`, `FLOWS.md`, `AI.md`, `PLUGINS.md`, `CONTRIBUTING.md`, `DECISIONS.md`
-  - Trust verification and security audit commands (`cmdflow trust`, `cmdflow audit`)
+  - Documentation suite complete: `SPEC.md`, `SECURITY.md`, `SHELLS.md`, `FLOWS.md`, `AI.md`, `PLUGINS.md`, `CONTRIBUTING.md`, `DECISIONS.md`, `VERIFICATION.md`
   - Target: Tag `v1.0.0-rc1` (COMPLETED)
 - [x] **M7: DevOps & End-to-End Verification (`scripts/`, `.github/`)**
   - Multi-platform CI matrix (`.github/workflows/ci.yml`) for Ubuntu, macOS, and Windows
-  - Release automation workflow (`.github/workflows/release.yml`) for x64 and arm64 binaries with SHA-256 checksums
   - Installers: `scripts/install.sh` (Unix) and `scripts/install.ps1` (PowerShell)
   - End-to-end sandbox runner: `scripts/e2e.sh` passing all checks
-  - Release packaging script: `scripts/release.sh`
-  - Version history: `CHANGELOG.md`
   - Target: Tag `v1.0.0` (COMPLETED)
+- [x] **M8: Production Release & Cross-Platform Publishing**
+  - Remote GitHub connected: `https://github.com/harsh77vardhan/CMDFlow`
+  - GitHub Actions CI matrix: 100% green on Linux (`ubuntu-latest`), macOS (`macos-latest`), and Windows (`windows-latest`)
+  - GitHub Actions Release pipeline: Cross-platform binaries built and published for Linux x86_64, macOS arm64, macOS x86_64, Windows x86_64
+  - Official Release `v1.0.1` live with verified SHA-256 checksums: `https://github.com/harsh77vardhan/CMDFlow/releases/tag/v1.0.1`
+  - Package distribution manifests:
+    - Homebrew tap formula: `packaging/homebrew/cmdflow.rb`
+    - Scoop manifest: `packaging/scoop/cmdflow.json`
+- [x] **M9: Host Shell Installation & Reversible Verification**
+  - Real user shell installation verified on Bash, Zsh, and Fish
+  - Exact backups created:
+    - `~/.bashrc.cmdflow.bak.1794522114`
+    - `~/.zshrc.cmdflow.bak.1794522114`
+    - `~/.config/fish/config.cmdflow.bak.1794522114`
+  - Tested: `b`, `gs`, `ll`, context-aware `s`, `deploy` flow, and `cmdflow doctor`
+  - Reversibility proven: `cmdflow uninstall` restores rc files cleanly with 0 leftover directives.
 
-## Current Status
-- **Current Milestone**: Complete (v1.0.0 Ready)
-- **Done**: All milestones M0 through M7 fully implemented, tested, and verified.
-- **In Progress**: None.
-- **Next**: Final deployment and tag release.
-- **Known Issues**: None. All shell tests, unit tests, worker tests, and typechecks passing.
+## Final Summary
+- **Current Milestone**: All Completed (M0 - M9)
+- **Status**: Production Shipped & Verified Live
+- **Known Issues**: None. All tests passing locally and across GitHub Actions runners.
