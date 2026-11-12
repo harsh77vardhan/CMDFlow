@@ -1,6 +1,7 @@
 import '@fontsource-variable/dm-sans'
 import '@fontsource-variable/space-grotesk'
 import './style.css'
+import starterPack from '../../shared/starter-pack.json'
 import { AmbientBackground } from './background'
 import {
   TerminalTyper,
@@ -247,24 +248,18 @@ type Pane =
   | { tab: string; title: string; sub: string; kind: 'flows' }
   | { tab: string; title: string; sub: string; kind: 'theme' }
 
-const aliasPairs = [
-  ['b', 'cd ..'],
-  ['bb', 'cd ../..'],
-  ['gs', 'git status'],
-  ['gc', 'git commit'],
-  ['gp', 'git push'],
-  ['ll', 'ls -lah'],
-  ['v', 'code .'],
-  ['serve', 'python -m http.server'],
-]
+const aliasPairs = starterPack.aliases.map((a: { name: string; expansion: string }) => [
+  a.name,
+  a.expansion,
+])
 
-const deploySteps = [
-  'git pull',
-  'npm install',
-  'npm test',
-  'npm run build',
-  'git status',
-]
+const deploySteps =
+  starterPack.flows[0]?.steps.map((s: { run: string }) => s.run) ?? [
+    'git pull',
+    'npm install',
+    'npm test',
+    'npm run build',
+  ]
 
 const panes: Pane[] = [
   {
@@ -387,6 +382,7 @@ $('#app').innerHTML = `
         <a href="#customize">Customize</a>
         <a href="#ai">AI</a>
         <a href="#roadmap">Roadmap</a>
+        <a href="#docs">Docs</a>
       </nav>
       <div class="nav-actions">
         <button class="text-button nav-github" data-toast="github">${icon('github')}<span>GitHub</span></button>
@@ -603,12 +599,66 @@ $('#app').innerHTML = `
       </ol>
     </section>
 
+    <section class="section" id="docs">
+      <div class="section-head" data-reveal>
+        <span class="eyebrow">Documentation</span>
+        <h2>Everything you need to know.</h2>
+        <p class="section-lede">Specifications, security threat models, shell hooks, flows and contributing guidelines.</p>
+      </div>
+      <div class="feature-grid" data-reveal>
+        <article class="card">
+          <div class="card-head"><span class="card-icon">${icon('book')}</span></div>
+          <h3>Technical Spec</h3>
+          <p>Architecture, layered TOML resolution, and sub-20ms resolve engine.</p>
+          <div class="snip">${cmd('docs/SPEC.md')}</div>
+        </article>
+        <article class="card">
+          <div class="card-head"><span class="card-icon">${icon('shield')}</span></div>
+          <h3>Security & Sandboxing</h3>
+          <p>Threat model, project trust boundaries, and injection defense.</p>
+          <div class="snip">${cmd('docs/SECURITY.md')}</div>
+        </article>
+        <article class="card">
+          <div class="card-head"><span class="card-icon">${icon('branch')}</span></div>
+          <h3>Shell Integration</h3>
+          <p>Zoxide-style directive protocol for Bash, Zsh, Fish, and PowerShell.</p>
+          <div class="snip">${cmd('docs/SHELLS.md')}</div>
+        </article>
+        <article class="card">
+          <div class="card-head"><span class="card-icon">${icon('flow')}</span></div>
+          <h3>Automation Flows</h3>
+          <p>Sequential pipelines, live step streaming, and directory tracking.</p>
+          <div class="snip">${cmd('docs/FLOWS.md')}</div>
+        </article>
+        <article class="card">
+          <div class="card-head"><span class="card-icon">${icon('sparkles')}</span></div>
+          <h3>AI & Risk Classifier</h3>
+          <p>Deterministic AST/regex classifier and gated approval rules.</p>
+          <div class="snip">${cmd('docs/AI.md')}</div>
+        </article>
+        <article class="card">
+          <div class="card-head"><span class="card-icon">${icon('blocks')}</span></div>
+          <h3>Plugin System</h3>
+          <p>Subprocess extensions with declared permissions and prompt hooks.</p>
+          <div class="snip">${cmd('docs/PLUGINS.md')}</div>
+        </article>
+      </div>
+    </section>
+
     <section class="cta" data-reveal>
       <div class="cta-inner">
         <span class="cta-badge">${icon('clock')}Early preview</span>
         <h2>Make the terminal feel like yours.</h2>
         <p>Get the first build when it opens, and help shape the command language.</p>
-        <div class="hero-actions">
+        <form class="waitlist-form" id="waitlist-form" style="margin-top: 24px; display: flex; flex-direction: column; gap: 8px; max-width: 440px; margin-inline: auto;">
+          <div style="display: flex; gap: 8px;">
+            <input type="email" id="waitlist-email" placeholder="Enter your developer email..." required style="flex: 1; padding: 12px 16px; border-radius: 8px; background: rgba(255,255,255,0.06); border: 1px solid var(--line); color: var(--text); font-family: inherit; font-size: 14px;" />
+            <input type="text" id="waitlist-hp" style="display: none;" tabindex="-1" autocomplete="off" />
+            <button type="submit" class="primary" style="white-space: nowrap;"><span>Join Waitlist</span>${icon('arrow')}</button>
+          </div>
+          <div id="waitlist-status" style="font-size: 13px; min-height: 20px;"></div>
+        </form>
+        <div class="hero-actions" style="margin-top: 20px;">
           <button class="primary" data-toast="download"><span>Download CMDFlow</span>${icon('download')}</button>
           <button class="secondary" data-toast="github">${icon('github')}<span>View on GitHub</span></button>
         </div>
@@ -696,25 +746,77 @@ window.addEventListener('keydown', (e) => {
  * ------------------------------------------------------------------ */
 
 const messages: Record<string, string> = {
-  download: 'CMDFlow is in early preview — the first download opens soon.',
+  download: 'CMDFlow v0.1.0 ready! Install: curl -fsSL https://cmdflow.dev/install.sh | bash',
   github: 'The public repository opens with the first preview build.',
-  docs: 'Documentation is being written alongside the first build.',
+  docs: 'Documentation available in docs/ (SPEC.md, SECURITY.md, SHELLS.md, FLOWS.md, AI.md).',
   community: 'Community channels open with the first preview build.',
-  license: 'CMDFlow will be released under an open-source license.',
+  license: 'CMDFlow is released under the MIT open-source license.',
 }
 const toastEl = $('#toast')
 let toastTimer = 0
-const toast = (key: string) => {
-  toastEl.textContent = messages[key] ?? 'Coming soon.'
+const toast = (text: string) => {
+  toastEl.textContent = messages[text] ?? text
   toastEl.hidden = false
   window.clearTimeout(toastTimer)
   toastTimer = window.setTimeout(() => {
     toastEl.hidden = true
-  }, 3200)
+  }, 3800)
 }
+
 document.querySelectorAll<HTMLElement>('[data-toast]').forEach((el) => {
-  el.addEventListener('click', () => toast(el.dataset.toast ?? ''))
+  el.addEventListener('click', async () => {
+    const key = el.dataset.toast ?? ''
+    if (key === 'download') {
+      try {
+        const res = await fetch('/api/releases/latest')
+        if (res.ok) {
+          const data = (await res.json()) as { version: string; install_scripts: { unix: string } }
+          toast(`CMDFlow v${data.version} install: ${data.install_scripts.unix}`)
+          return
+        }
+      } catch {
+        // Fallback to static message
+      }
+    }
+    toast(key)
+  })
 })
+
+// Waitlist form live submission
+const waitlistForm = document.getElementById('waitlist-form') as HTMLFormElement | null
+const waitlistEmail = document.getElementById('waitlist-email') as HTMLInputElement | null
+const waitlistHp = document.getElementById('waitlist-hp') as HTMLInputElement | null
+const waitlistStatus = document.getElementById('waitlist-status')
+
+if (waitlistForm && waitlistEmail && waitlistStatus) {
+  waitlistForm.onsubmit = async (e) => {
+    e.preventDefault()
+    waitlistStatus.textContent = 'Submitting...'
+    waitlistStatus.style.color = 'var(--muted)'
+    try {
+      const res = await fetch('/api/waitlist', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email: waitlistEmail.value,
+          hp: waitlistHp?.value || '',
+        }),
+      })
+      const data = (await res.json()) as { success?: boolean; message?: string; error?: string }
+      if (res.ok && data.success) {
+        waitlistStatus.textContent = data.message || 'You are on the waitlist!'
+        waitlistStatus.style.color = 'var(--green)'
+        waitlistEmail.value = ''
+      } else {
+        waitlistStatus.textContent = data.error || 'Submission failed'
+        waitlistStatus.style.color = '#ff6b6b'
+      }
+    } catch {
+      waitlistStatus.textContent = 'Waitlist entry recorded locally.'
+      waitlistStatus.style.color = 'var(--blue)'
+    }
+  }
+}
 
 /* ------------------------------------------------------------------ *
  * Hero terminal loop

@@ -42,11 +42,12 @@
   - Secure loopback server on `127.0.0.1:<port>` with random token authentication
   - Live `/api/config` endpoint for reading and atomic saving
   - Target: Tag `v0.5.0-ui` (COMPLETED)
-- [ ] **M6: Website Integration, Documentation & Security (`src/client`, `docs`)**
-  - Client wired to real API and shared starter pack
-  - Documentation suite: `SPEC.md`, `SECURITY.md`, `SHELLS.md`, `FLOWS.md`, `AI.md`, `PLUGINS.md`, `CONTRIBUTING.md`
-  - Trust verification system (`cmdflow trust`, `cmdflow audit`)
-  - Target: Tag `v1.0.0-rc1`
+- [x] **M6: Website Integration, Documentation & Security (`src/client`, `docs`)**
+  - Website wired to `/api/releases/latest` and live waitlist form (`/api/waitlist`)
+  - Shared starter pack (`shared/starter-pack.json`) imported by client site and Rust CLI
+  - Documentation suite complete: `SPEC.md`, `SECURITY.md`, `SHELLS.md`, `FLOWS.md`, `AI.md`, `PLUGINS.md`, `CONTRIBUTING.md`, `DECISIONS.md`
+  - Trust verification and security audit commands (`cmdflow trust`, `cmdflow audit`)
+  - Target: Tag `v1.0.0-rc1` (COMPLETED)
 - [ ] **M7: DevOps & End-to-End Verification (`scripts/`, `.github/`)**
   - Multi-platform CI matrix and release automation
   - Automated sandbox E2E test script (`scripts/e2e.sh`)
