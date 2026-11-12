@@ -1,6 +1,10 @@
+# Dependencies & build artifacts
 node_modules/
 dist/
+target/
 .wrangler/
-.env*
 .dev.vars*
+.env*
 preview.local.json
+*.log
+package-lock.json

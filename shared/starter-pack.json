@@ -1,0 +1,52 @@
+{
+  "version": "1.0.0",
+  "aliases": [
+    { "name": "b", "expansion": "cd ..", "description": "Go up one directory" },
+    { "name": "bb", "expansion": "cd ../..", "description": "Go up two directories" },
+    { "name": "gs", "expansion": "git status", "description": "Git status shorthand" },
+    { "name": "ga", "expansion": "git add", "description": "Git add shorthand" },
+    { "name": "gc", "expansion": "git commit", "description": "Git commit shorthand" },
+    { "name": "gp", "expansion": "git push", "description": "Git push shorthand" },
+    { "name": "gl", "expansion": "git pull", "description": "Git pull shorthand" },
+    { "name": "ll", "expansion": "ls -lah", "expansion_windows": "Get-ChildItem", "description": "List directory contents with details" },
+    { "name": "home", "expansion": "cd ~", "description": "Navigate to home directory" },
+    { "name": "c", "expansion": "clear", "expansion_windows": "Clear-Host", "description": "Clear the terminal screen" }
+  ],
+  "context_rules": [
+    {
+      "name": "s",
+      "description": "Context-aware status: git status in repositories, ls elsewhere",
+      "rules": [
+        {
+          "when": { "in_git_repo": true },
+          "expansion": "git status"
+        }
+      ],
+      "default": "ls"
+    }
+  ],
+  "projects": [
+    {
+      "name": "technea",
+      "path": "~/Documents/Technea",
+      "description": "Example project reference"
+    }
+  ],
+  "flows": [
+    {
+      "name": "deploy",
+      "description": "Standard multi-step deployment flow",
+      "steps": [
+        { "name": "Pull latest changes", "run": "git pull" },
+        { "name": "Install dependencies", "run": "npm install" },
+        { "name": "Run test suite", "run": "npm test" },
+        { "name": "Build project", "run": "npm run build" }
+      ]
+    }
+  ],
+  "protected": [
+    "cd", "rm", "sudo", "mv", "cp", "ssh", "git",
+    "sh", "bash", "zsh", "fish", "pwsh", "powershell",
+    "cmdflow", "cf", "flow"
+  ]
+}
