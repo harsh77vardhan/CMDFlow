@@ -98,5 +98,6 @@ if ((Get-Location).Path -ne $ProjectWithSpace) {
 }
 Write-Host "✓ Test 5: Path with spaces works passed"
 
-Remove-Item -Recurse -Force $Sandbox
+Set-Location ([System.IO.Path]::GetTempPath())
+Remove-Item -Recurse -Force $Sandbox -ErrorAction SilentlyContinue
 Write-Host "=== All PowerShell integration tests passed successfully! ==="
