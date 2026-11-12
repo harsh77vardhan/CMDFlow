@@ -359,10 +359,38 @@ Lighthouse audit executed against live production deployment `https://cmdflow.su
 ## 9. Real Windows PowerShell Integration Test Suite
 
 File: `shell/tests/test_powershell.ps1`
-Asserts on `windows-latest` under real `pwsh`:
-1. Alias expansion (`greet` -> `hello from cmdflow`).
-2. `b` navigates up one directory in parent PowerShell session without subshell isolation issues.
-3. Arguments cleanly pass through (`echocmd "foo" "bar baz"`).
-4. `$LASTEXITCODE` is strictly preserved across command execution.
-5. Directory paths containing spaces and nested project shortcuts work seamlessly without quotation or escaping errors.
+CI Run: [https://github.com/harsh77vardhan/CMDFlow/actions/runs/43325172327](https://github.com/harsh77vardhan/CMDFlow/actions/runs/43325172327)
+Job ID: `131555701577` (Status: **Passed / Green in 3m 55s**)
+
+### Execution Output on `windows-latest`:
+```powershell
+=== Testing PowerShell Integration in Sandbox: C:\Users\runneradmin\AppData\Local\Temp\e47fa10b-871d-405e-85a2-3f7cb44fbcf2 ===
+CMDFlow Doctor Diagnostic Report
+--------------------------------
+Config file: C:\Users\runneradmin\AppData\Local\Temp\e47fa10b-871d-405e-85a2-3f7cb44fbcf2\config\config.toml ... OK (Valid)
+  Total aliases: 10
+  Total projects: 1
+  Total flows: 1
+
+Shadowing Diagnostics:
+  ✓ No aliases shadow executables on PATH
+
+Installed Shells Check:
+  ✓ Found bash at C:\Program Files\Git\bin\bash.exe
+  - zsh not detected on PATH
+  - fish not detected on PATH
+  ✓ Found pwsh at C:\Program Files\PowerShell\7\pwsh.exe
+
+✓ Doctor check complete.
+✓ Added alias 'greet' -> 'Write-Output 'hello from cmdflow''
+✓ Test 1: Alias expansion passed
+✓ Test 2: 'b' changes working directory passed
+✓ Added alias 'echocmd' -> 'Write-Output'
+✓ Test 3: Arguments pass through passed
+✓ Test 4: $LASTEXITCODE preservation passed
+✓ Registered project 'spaceproj' -> 'C:\Users\runneradmin\AppData\Local\Temp\e47fa10b-871d-405e-85a2-3f7cb44fbcf2\project with space'
+✓ Test 5: Path with spaces works passed
+=== All PowerShell integration tests passed successfully! ===
+```
+
 
