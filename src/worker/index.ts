@@ -193,6 +193,18 @@ export default {
           return errorResponse('Missing or invalid prompt', 400, request)
         }
 
+        // Cloud AI is disabled by default on the public Worker unless explicitly configured
+        if (!env.OPENAI_API_KEY && !env.ANTHROPIC_API_KEY && !env.GEMINI_API_KEY) {
+          return jsonResponse(
+            {
+              error:
+                'Cloud AI is disabled on this demo deployment. Set OPENAI_API_KEY / ANTHROPIC_API_KEY locally in ~/.config/cmdflow/config.toml, or use Ollama for free local inference.',
+            },
+            503,
+            request,
+          )
+        }
+
         const lower = body.prompt.toLowerCase()
         let cmd = 'ls -lah'
         let expl = 'Lists files in directory'

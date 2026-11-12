@@ -68,13 +68,29 @@ describe('Cloudflare Worker API', () => {
     expect(data.install_token).toMatch(/^cf_tok_/)
   })
 
-  it('POST /api/ai/command classifies destructive requests', async () => {
+  it('POST /api/ai/command returns 503 when Cloud AI is disabled (default)', async () => {
     const req = new Request('http://localhost/api/ai/command', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ prompt: 'delete node modules' }),
     })
     const res = await worker.fetch(req, mockEnv)
+    expect(res.status).toBe(503)
+    const data = (await res.json()) as { error: string }
+    expect(data.error).toContain('Cloud AI is disabled')
+  })
+
+  it('POST /api/ai/command classifies destructive requests when API key is provided', async () => {
+    const req = new Request('http://localhost/api/ai/command', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ prompt: 'delete node modules' }),
+    })
+    const authEnv: Env = {
+      ...mockEnv,
+      OPENAI_API_KEY: 'test-key',
+    }
+    const res = await worker.fetch(req, authEnv)
     expect(res.status).toBe(200)
     const data = (await res.json()) as { command: string; risk: string }
     expect(data.command).toBe('rm -rf node_modules')
