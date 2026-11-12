@@ -9,4 +9,3 @@ target/
 .env*
 preview.local.json
 *.log
-package-lock.json

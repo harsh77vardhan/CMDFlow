@@ -56,11 +56,23 @@ jobs:
         run: |
           sudo apt-get update && sudo apt-get install -y fish zsh
           cargo build --release --manifest-path cli/Cargo.toml
-          cp cli/target/release/cmdflow ~/.local/bin/ || cp cli/target/release/cmdflow /usr/local/bin/
+          sudo cp cli/target/release/cmdflow /usr/local/bin/
           ./scripts/e2e.sh
 
-      - name: PowerShell Snapshot Test (Windows)
+      - name: Shell Integration Tests (macOS)
+        if: runner.os == 'macOS'
+        run: |
+          cargo build --release --manifest-path cli/Cargo.toml
+          sudo cp cli/target/release/cmdflow /usr/local/bin/
+          zsh shell/tests/test_zsh.sh
+          bash shell/tests/test_bash.sh
+
+      - name: PowerShell Integration Tests (Windows)
         if: runner.os == 'Windows'
         run: |
           cargo build --release --manifest-path cli/Cargo.toml
-          .\cli\target\release\cmdflow.exe doctor
+          $env:Path = "$PWD\cli\target\release;$env:Path"
+          cmdflow.exe doctor
+          cmdflow.exe alias add b "cd .."
+          cmdflow.exe alias list
+          cmdflow.exe explain b
