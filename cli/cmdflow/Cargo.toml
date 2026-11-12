@@ -1,0 +1,25 @@
+[package]
+name = "cmdflow"
+version = "0.1.0"
+edition = "2021"
+authors = ["CMDFlow Team"]
+description = "Command layer on top of Fish, Bash, Zsh, and PowerShell"
+
+[[bin]]
+name = "cmdflow"
+path = "src/main.rs"
+
+[dependencies]
+cmdflow-core = { path = "../cmdflow-core" }
+clap = { version = "4.5", features = ["derive", "cargo"] }
+colored = "2.1"
+tiny_http = "0.12.0"
+rand = "0.8"
+rust-embed = "8.14.0"
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+chrono = { version = "0.4", features = ["serde"] }
+dirs = "5.0"
+tempfile = "3.10"
+which = "6.0"
+shellexpand = "3.1"

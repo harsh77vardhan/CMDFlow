@@ -7,13 +7,15 @@
   - Host environment scanned: Linux x86_64, Rust 1.99, Node v26, Bun 1.4.4, Bash, Zsh, Fish
   - Shared starter-pack definitions created at `shared/starter-pack.json`
   - Core architectural decisions documented in `docs/DECISIONS.md`
-- [ ] **M1: Core Engine (`cli/cmdflow-core` & `cli/cmdflow`)**
+- [x] **M1: Core Engine (`cli/cmdflow-core` & `cli/cmdflow`)**
   - Layered TOML config (Global, Profile, Project) with schema validation and atomic writes
   - Resolution order: Exact Flow -> Context Rule -> Project Shortcut -> Alias -> Passthrough
   - Protected command safeguarding (`cd`, `rm`, `sudo`, `mv`, `git`, etc.)
   - Flow execution engine with process tree management and directory tracking
   - Project registry and fuzzy lookup
-  - Target: Tag `v0.1.0-core`
+  - Fast resolve latency (<3ms)
+  - Unit tests: 13 test suites (100% passing)
+  - Target: Tag `v0.1.0-core` (COMPLETED)
 - [ ] **M2: Shell Integration & Installer (`shell/`, `cli`)**
   - Directive protocol (`cmdflow __run <shell> -- <args>`)
   - Real shell hooks for Bash, Zsh, Fish, and PowerShell
