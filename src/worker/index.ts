@@ -24,25 +24,25 @@ interface ReleaseInfo {
 }
 
 const LATEST_RELEASE: ReleaseInfo = {
-  version: '1.0.0',
+  version: '1.0.1',
   release_date: '2026-11-13',
   notes: 'Production release: cross-platform command layer for Bash, Zsh, Fish, and PowerShell with embedded settings UI and AI assistant',
   platforms: {
     'linux-x86_64': {
-      url: 'https://github.com/harsh77vardhan/CMDFlow/releases/download/v1.0.0/cmdflow-linux-x86_64.tar.gz',
-      sha256: '8a32bf901c89e248b1d9bf5979ebfe87e7436b76136db6d73507cf2d2de7bc81',
+      url: 'https://github.com/harsh77vardhan/CMDFlow/releases/download/v1.0.1/cmdflow-linux-x86_64.tar.gz',
+      sha256: 'fef250891182783b99b22e6fd9a654e7562c0a59ad5735b95f7d8c2f91ad3e52',
     },
     'darwin-arm64': {
-      url: 'https://github.com/harsh77vardhan/CMDFlow/releases/download/v1.0.0/cmdflow-darwin-arm64.tar.gz',
-      sha256: '4b68427e90ccf9a65c92c57f7eb0989f668f447cfc3577d61f185ef4ec53cc29',
+      url: 'https://github.com/harsh77vardhan/CMDFlow/releases/download/v1.0.1/cmdflow-darwin-arm64.tar.gz',
+      sha256: '8a403f515b3caf0295e5a6564a05defbdf4f579538e9186c81741957e543cec6',
     },
     'darwin-x86_64': {
-      url: 'https://github.com/harsh77vardhan/CMDFlow/releases/download/v1.0.0/cmdflow-darwin-x86_64.tar.gz',
-      sha256: '65bc674f76d49934eef17f1fbc7bb2424cf39a6fb5f096aa26040a4de3a52f82',
+      url: 'https://github.com/harsh77vardhan/CMDFlow/releases/download/v1.0.1/cmdflow-darwin-x86_64.tar.gz',
+      sha256: '237e8a4780faf1c2c2bb7cde0ccedfcd33893c08d9bb345194eeacf2d775c879',
     },
     'windows-x86_64': {
-      url: 'https://github.com/harsh77vardhan/CMDFlow/releases/download/v1.0.0/cmdflow-windows-x86_64.zip',
-      sha256: 'e2a044bcbb6b69dbcb04a57c5f87b64082dc0a6a2a07c39fcff3f1b4c9b986b1',
+      url: 'https://github.com/harsh77vardhan/CMDFlow/releases/download/v1.0.1/cmdflow-windows-x86_64.zip',
+      sha256: 'f2e7f4bf54dd37e2292b0c861ef3647f31127e5208b3fb9217d400d845f5b825',
     },
   },
   install_scripts: {

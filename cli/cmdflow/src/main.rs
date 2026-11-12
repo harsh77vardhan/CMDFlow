@@ -331,16 +331,16 @@ flow() {{ cmdflow "$@"; }}
             );
             // Generate wrappers for all configured aliases, projects, flows, context rules
             for a in &cfg.aliases {
-                println!("{0}() {{ __cmdflow_run {0} \"$@\"; }}", a.name);
+                println!("unalias {0} 2>/dev/null; {0}() {{ __cmdflow_run {0} \"$@\"; }}", a.name);
             }
             for p in &cfg.projects {
-                println!("{0}() {{ __cmdflow_run {0} \"$@\"; }}", p.name);
+                println!("unalias {0} 2>/dev/null; {0}() {{ __cmdflow_run {0} \"$@\"; }}", p.name);
             }
             for f in &cfg.flows {
-                println!("{0}() {{ __cmdflow_run {0} \"$@\"; }}", f.name);
+                println!("unalias {0} 2>/dev/null; {0}() {{ __cmdflow_run {0} \"$@\"; }}", f.name);
             }
             for c in &cfg.context_rules {
-                println!("{0}() {{ __cmdflow_run {0} \"$@\"; }}", c.name);
+                println!("unalias {0} 2>/dev/null; {0}() {{ __cmdflow_run {0} \"$@\"; }}", c.name);
             }
         }
         "zsh" => {
@@ -373,16 +373,16 @@ flow() {{ cmdflow "$@"; }}
 "#
             );
             for a in &cfg.aliases {
-                println!("{0}() {{ __cmdflow_run {0} \"$@\"; }}", a.name);
+                println!("unalias {0} 2>/dev/null;\nfunction {0} {{ __cmdflow_run {0} \"$@\"; }}", a.name);
             }
             for p in &cfg.projects {
-                println!("{0}() {{ __cmdflow_run {0} \"$@\"; }}", p.name);
+                println!("unalias {0} 2>/dev/null;\nfunction {0} {{ __cmdflow_run {0} \"$@\"; }}", p.name);
             }
             for f in &cfg.flows {
-                println!("{0}() {{ __cmdflow_run {0} \"$@\"; }}", f.name);
+                println!("unalias {0} 2>/dev/null;\nfunction {0} {{ __cmdflow_run {0} \"$@\"; }}", f.name);
             }
             for c in &cfg.context_rules {
-                println!("{0}() {{ __cmdflow_run {0} \"$@\"; }}", c.name);
+                println!("unalias {0} 2>/dev/null;\nfunction {0} {{ __cmdflow_run {0} \"$@\"; }}", c.name);
             }
         }
         "fish" => {

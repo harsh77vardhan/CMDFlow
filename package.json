@@ -8,6 +8,7 @@
     "dev": "vite --host 127.0.0.1",
     "build": "vite build",
     "typecheck": "tsc --noEmit && tsc --noEmit -p tsconfig.worker.json",
+    "test": "npm run test:worker",
     "test:worker": "vitest run src/worker/worker.test.ts"
   },
   "dependencies": {
