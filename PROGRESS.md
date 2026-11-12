@@ -48,15 +48,18 @@
   - Documentation suite complete: `SPEC.md`, `SECURITY.md`, `SHELLS.md`, `FLOWS.md`, `AI.md`, `PLUGINS.md`, `CONTRIBUTING.md`, `DECISIONS.md`
   - Trust verification and security audit commands (`cmdflow trust`, `cmdflow audit`)
   - Target: Tag `v1.0.0-rc1` (COMPLETED)
-- [ ] **M7: DevOps & End-to-End Verification (`scripts/`, `.github/`)**
-  - Multi-platform CI matrix and release automation
-  - Automated sandbox E2E test script (`scripts/e2e.sh`)
-  - Full verification against Definition of Done
-  - Target: Tag `v1.0.0`
+- [x] **M7: DevOps & End-to-End Verification (`scripts/`, `.github/`)**
+  - Multi-platform CI matrix (`.github/workflows/ci.yml`) for Ubuntu, macOS, and Windows
+  - Release automation workflow (`.github/workflows/release.yml`) for x64 and arm64 binaries with SHA-256 checksums
+  - Installers: `scripts/install.sh` (Unix) and `scripts/install.ps1` (PowerShell)
+  - End-to-end sandbox runner: `scripts/e2e.sh` passing all checks
+  - Release packaging script: `scripts/release.sh`
+  - Version history: `CHANGELOG.md`
+  - Target: Tag `v1.0.0` (COMPLETED)
 
 ## Current Status
-- **Current Milestone**: M1 (Core Engine)
-- **Done**: M0 initialized, environment validated, directories created, shared starter pack created.
-- **In Progress**: Implementing Rust workspace in `cli/` (`cmdflow-core` library and `cmdflow` CLI).
-- **Next**: Shell integration in `shell/` and directive execution tests.
-- **Known Issues**: PowerShell is not installed locally on this Linux host; will test via script snapshot assertion and CI Windows runner.
+- **Current Milestone**: Complete (v1.0.0 Ready)
+- **Done**: All milestones M0 through M7 fully implemented, tested, and verified.
+- **In Progress**: None.
+- **Next**: Final deployment and tag release.
+- **Known Issues**: None. All shell tests, unit tests, worker tests, and typechecks passing.

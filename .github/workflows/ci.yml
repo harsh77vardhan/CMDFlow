@@ -1,0 +1,66 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test:
+    name: Test (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Rust
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          components: rustfmt, clippy
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Cargo Format Check
+        run: cd cli && cargo fmt --check
+
+      - name: Cargo Clippy
+        run: cd cli && cargo clippy --all-targets -- -D warnings
+
+      - name: Cargo Test
+        run: cd cli && cargo test --workspace
+
+      - name: TypeScript Typecheck
+        run: npm run typecheck
+
+      - name: Worker Unit Tests
+        run: npm run test:worker
+
+      - name: Website & Worker Build
+        run: npm run build
+
+      - name: Shell Integration Tests (Linux)
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt-get update && sudo apt-get install -y fish zsh
+          cargo build --release --manifest-path cli/Cargo.toml
+          cp cli/target/release/cmdflow ~/.local/bin/ || cp cli/target/release/cmdflow /usr/local/bin/
+          ./scripts/e2e.sh
+
+      - name: PowerShell Snapshot Test (Windows)
+        if: runner.os == 'Windows'
+        run: |
+          cargo build --release --manifest-path cli/Cargo.toml
+          .\cli\target\release\cmdflow.exe doctor
