@@ -24,30 +24,30 @@ interface ReleaseInfo {
 }
 
 const LATEST_RELEASE: ReleaseInfo = {
-  version: '0.1.0',
-  release_date: '2026-11-12',
-  notes: 'Initial CMDFlow release: command layer on top of Bash, Zsh, Fish, and PowerShell',
+  version: '1.0.0',
+  release_date: '2026-11-13',
+  notes: 'Production release: cross-platform command layer for Bash, Zsh, Fish, and PowerShell with embedded settings UI and AI assistant',
   platforms: {
     'linux-x86_64': {
-      url: 'https://github.com/harsh77vardhan/CMDFlow/releases/download/v0.1.0/cmdflow-linux-x86_64.tar.gz',
+      url: 'https://github.com/harsh77vardhan/CMDFlow/releases/download/v1.0.0/cmdflow-linux-x86_64.tar.gz',
       sha256: '8a32bf901c89e248b1d9bf5979ebfe87e7436b76136db6d73507cf2d2de7bc81',
     },
     'darwin-arm64': {
-      url: 'https://github.com/harsh77vardhan/CMDFlow/releases/download/v0.1.0/cmdflow-darwin-arm64.tar.gz',
+      url: 'https://github.com/harsh77vardhan/CMDFlow/releases/download/v1.0.0/cmdflow-darwin-arm64.tar.gz',
       sha256: '4b68427e90ccf9a65c92c57f7eb0989f668f447cfc3577d61f185ef4ec53cc29',
     },
     'darwin-x86_64': {
-      url: 'https://github.com/harsh77vardhan/CMDFlow/releases/download/v0.1.0/cmdflow-darwin-x86_64.tar.gz',
+      url: 'https://github.com/harsh77vardhan/CMDFlow/releases/download/v1.0.0/cmdflow-darwin-x86_64.tar.gz',
       sha256: '65bc674f76d49934eef17f1fbc7bb2424cf39a6fb5f096aa26040a4de3a52f82',
     },
     'windows-x86_64': {
-      url: 'https://github.com/harsh77vardhan/CMDFlow/releases/download/v0.1.0/cmdflow-windows-x86_64.zip',
+      url: 'https://github.com/harsh77vardhan/CMDFlow/releases/download/v1.0.0/cmdflow-windows-x86_64.zip',
       sha256: 'e2a044bcbb6b69dbcb04a57c5f87b64082dc0a6a2a07c39fcff3f1b4c9b986b1',
     },
   },
   install_scripts: {
-    unix: 'curl -fsSL https://cmdflow.dev/install.sh | bash',
-    powershell: 'iwr -useb https://cmdflow.dev/install.ps1 | iex',
+    unix: 'curl -fsSL https://raw.githubusercontent.com/harsh77vardhan/CMDFlow/main/scripts/install.sh | bash',
+    powershell: 'iwr -useb https://raw.githubusercontent.com/harsh77vardhan/CMDFlow/main/scripts/install.ps1 | iex',
   },
 }
 
@@ -106,7 +106,7 @@ export default {
         {
           status: 'ok',
           service: 'cmdflow-api',
-          version: '0.1.0',
+          version: '1.0.0',
           timestamp: new Date().toISOString(),
         },
         200,

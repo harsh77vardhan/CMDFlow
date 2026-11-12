@@ -50,3 +50,21 @@ This log records architectural decisions, engineering trade-offs, and rationale 
 - **Context**: `cmdflow settings` launches a local web UI.
 - **Decision**: The local server binds exclusively to `127.0.0.1` on a dynamically assigned OS port. Access requires a cryptographically random, single-use token in the query string. The server enforces strict CORS, origin validation, and automatic shutdown after 15 minutes of inactivity.
 - **Rationale**: Prevents cross-site request forgery and unauthorized local inspection.
+
+---
+
+### DECISION-007: Open Source Licensing (MIT)
+- **Context**: Selecting a license for public release on GitHub.
+- **Decision**: Adopt the standard MIT License.
+- **Rationale**: Provides maximum developer freedom, high industry adoption, and frictionless packaging across Homebrew, Scoop, and Cargo.
+
+---
+
+### DECISION-008: Release Packaging & Distribution Pipeline
+- **Context**: Need cross-platform distribution without external server dependencies.
+- **Decision**: Provide multi-channel distribution:
+  1. Homebrew tap formula in `packaging/homebrew/cmdflow.rb`.
+  2. Scoop manifest in `packaging/scoop/cmdflow.json`.
+  3. Universal Unix and PowerShell one-liner installers in `scripts/` with GitHub Releases fallback.
+  4. Embedded release proxy on Cloudflare Worker returning version metadata and asset checksums.
+- **Rationale**: Guarantees users can install and update CMDFlow seamlessly on Linux, macOS, and Windows.
