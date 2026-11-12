@@ -46,21 +46,37 @@ const LATEST_RELEASE: ReleaseInfo = {
     },
   },
   install_scripts: {
-    unix: 'curl -fsSL https://raw.githubusercontent.com/harsh77vardhan/CMDFlow/main/scripts/install.sh | bash',
-    powershell: 'iwr -useb https://raw.githubusercontent.com/harsh77vardhan/CMDFlow/main/scripts/install.ps1 | iex',
+    unix: 'curl -fsSL https://cmdflow.sudsy-bus.workers.dev/install.sh | bash',
+    powershell: 'iwr -useb https://cmdflow.sudsy-bus.workers.dev/install.ps1 | iex',
   },
 }
 
 const memoryRateLimits = new Map<string, { count: number; resetAt: number }>()
 
+const ALLOWED_ORIGIN_PATTERNS = [
+  /^https?:\/\/localhost(:\d+)?$/,
+  /^https?:\/\/127\.0\.0\.1(:\d+)?$/,
+  /^https:\/\/cmdflow\.sudsy-bus\.workers\.dev$/,
+  /^https:\/\/.*\.cmdflow\.pages\.dev$/,
+  /^https:\/\/cmdflow\.dev$/,
+]
+
+export function isOriginAllowed(origin: string | null): boolean {
+  if (!origin) return true
+  return ALLOWED_ORIGIN_PATTERNS.some((pattern) => pattern.test(origin))
+}
+
 function corsHeaders(request: Request): HeadersInit {
-  const origin = request.headers.get('Origin') ?? '*'
-  return {
-    'Access-Control-Allow-Origin': origin,
+  const origin = request.headers.get('Origin')
+  const headers: Record<string, string> = {
     'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
     'Access-Control-Allow-Headers': 'Content-Type, Authorization, X-Install-Token',
     'Access-Control-Max-Age': '86400',
   }
+  if (origin && isOriginAllowed(origin)) {
+    headers['Access-Control-Allow-Origin'] = origin
+  }
+  return headers
 }
 
 function jsonResponse(data: unknown, status = 200, request?: Request): Response {
@@ -74,7 +90,27 @@ function errorResponse(error: string, status = 400, request?: Request): Response
   return jsonResponse({ error }, status, request)
 }
 
-function checkRateLimit(key: string, limit: number, windowSeconds: number): boolean {
+async function checkRateLimit(
+  key: string,
+  limit: number,
+  windowSeconds: number,
+  kv?: KVNamespace,
+): Promise<boolean> {
+  if (kv) {
+    try {
+      const val = await kv.get(key)
+      const count = val ? parseInt(val, 10) : 0
+      if (count >= limit) {
+        return false
+      }
+      await kv.put(key, (count + 1).toString(), {
+        expirationTtl: Math.max(windowSeconds, 60),
+      })
+      return true
+    } catch {
+      // Fallback to memory
+    }
+  }
   const now = Date.now()
   const entry = memoryRateLimits.get(key)
   if (!entry || entry.resetAt < now) {
@@ -91,13 +127,22 @@ function checkRateLimit(key: string, limit: number, windowSeconds: number): bool
 export default {
   async fetch(request: Request, env: Env): Promise<Response> {
     const url = new URL(request.url)
+    const origin = request.headers.get('Origin')
 
     // Handle CORS preflight
     if (request.method === 'OPTIONS') {
+      if (origin && !isOriginAllowed(origin)) {
+        return new Response('CORS origin rejected', { status: 403 })
+      }
       return new Response(null, {
         status: 204,
         headers: corsHeaders(request),
       })
+    }
+
+    // Reject foreign origins on API namespace
+    if (url.pathname.startsWith('/api/') && origin && !isOriginAllowed(origin)) {
+      return errorResponse('Foreign Origin rejected by CORS', 403, request)
     }
 
     // Health check
@@ -106,7 +151,7 @@ export default {
         {
           status: 'ok',
           service: 'cmdflow-api',
-          version: '1.0.0',
+          version: '1.0.1',
           timestamp: new Date().toISOString(),
         },
         200,
@@ -128,7 +173,7 @@ export default {
     if (url.pathname === '/api/waitlist' && request.method === 'POST') {
       try {
         const ip = request.headers.get('CF-Connecting-IP') ?? '127.0.0.1'
-        if (!checkRateLimit(`wl:${ip}`, 5, 60)) {
+        if (!(await checkRateLimit(`wl:${ip}`, 5, 60, env.RATE_LIMIT_KV))) {
           return errorResponse('Rate limit exceeded. Please wait a moment.', 429, request)
         }
 
@@ -168,7 +213,7 @@ export default {
     // Install token issuance
     if (url.pathname === '/api/install-token' && request.method === 'POST') {
       const ip = request.headers.get('CF-Connecting-IP') ?? '127.0.0.1'
-      if (!checkRateLimit(`tok:${ip}`, 10, 60)) {
+      if (!(await checkRateLimit(`tok:${ip}`, 10, 60, env.RATE_LIMIT_KV))) {
         return errorResponse('Rate limit exceeded', 429, request)
       }
       const token = `cf_tok_${crypto.randomUUID().replace(/-/g, '')}`
@@ -179,7 +224,7 @@ export default {
     if (url.pathname === '/api/ai/command' && request.method === 'POST') {
       try {
         const ip = request.headers.get('CF-Connecting-IP') ?? '127.0.0.1'
-        if (!checkRateLimit(`ai:${ip}`, 20, 60)) {
+        if (!(await checkRateLimit(`ai:${ip}`, 20, 60, env.RATE_LIMIT_KV))) {
           return errorResponse('AI request rate limit exceeded', 429, request)
         }
 

@@ -68,3 +68,28 @@ This log records architectural decisions, engineering trade-offs, and rationale 
   3. Universal Unix and PowerShell one-liner installers in `scripts/` with GitHub Releases fallback.
   4. Embedded release proxy on Cloudflare Worker returning version metadata and asset checksums.
 - **Rationale**: Guarantees users can install and update CMDFlow seamlessly on Linux, macOS, and Windows.
+
+---
+
+### DECISION-009: Distributed Edge Rate-Limiting via Cloudflare KV
+- **Context**: Cloudflare Worker serverless isolates are spun up dynamically across global edge locations. In-memory maps do not share state across geographically distinct instances.
+- **Decision**: Bound `env.RATE_LIMIT_KV` to coordinate per-IP rate counters globally with automatic TTL expirations, with in-memory map fallback for local unit test environments (Vitest).
+- **Rationale**: Prevents distributed burst spam on waitlist and token endpoints while keeping vitest tests lightweight and offline.
+
+---
+
+### DECISION-010: PowerShell Execution Protocol & LASTEXITCODE Preservation
+- **Context**: In PowerShell, executing a function that returns a value (`return $x`) emits `$x` onto the pipeline stream as stdout, breaking command substitution and piping. Additionally, running the `cmdflow.exe` resolver subprocess clobbers `$LASTEXITCODE` before running the inner command.
+- **Decision**:
+  1. Never use `return <value>` inside PowerShell wrapper functions;
+  2. Capture `$orig_exit = $global:LASTEXITCODE` prior to calling `cmdflow.exe`;
+  3. Restore `$global:LASTEXITCODE = $orig_exit` before invoking navigation cmdlets (e.g. `Set-Location`), and preserve the exit code of external executable commands directly from `Invoke-Expression`.
+- **Rationale**: Preserves PowerShell pipeline purity, transparently maintains command chaining logic (e.g. `&&`, `$?`), and enables directory changes in parent sessions.
+
+---
+
+### DECISION-011: Target Architectures and ARM64 Staging
+- **Context**: Linux arm64 and Windows arm64 build support.
+- **Decision**: Release v1.0.1 provides tier-1 support for `linux-x86_64`, `darwin-arm64`, `darwin-x86_64`, and `windows-x86_64`. Windows ARM64 is documented in known limitations due to lack of free hosted GitHub Actions runners and proprietary MSVC cross-linkers; Linux arm64 is scheduled for v1.1.0 via `cross` or native ARM runners.
+- **Rationale**: Ensures every published release artifact is thoroughly compiled, tested, and verified on real GitHub Actions runners without brittle or unverified toolchains.
+

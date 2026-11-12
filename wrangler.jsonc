@@ -7,21 +7,21 @@
   "assets": {
     "binding": "ASSETS",
     "not_found_handling": "single-page-application",
-    "run_worker_first": ["/api/*"],
+    "run_worker_first": ["/api/*"]
   },
   "d1_databases": [
     {
       "binding": "DB",
       "database_name": "cmdflow-db",
-      "database_id": "00000000-0000-0000-0000-000000000000",
+      "database_id": "92228e9b-9d51-4b07-b1c9-e70230078b7e",
       "migrations_dir": "migrations"
     }
   ],
   "kv_namespaces": [
     {
       "binding": "RATE_LIMIT_KV",
-      "id": "cmdflow-rate-limits"
+      "id": "e8a1f88f76594ea5b65925f4b7b6ddc3"
     }
   ],
-  "observability": { "enabled": true },
+  "observability": { "enabled": true }
 }

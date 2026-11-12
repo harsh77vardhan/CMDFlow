@@ -128,7 +128,17 @@ impl<'a> Resolver<'a> {
         // Replace all arguments {@}
         if result.contains("{@}") {
             has_positional = true;
-            result = result.replace("{@}", &args.join(" "));
+            let formatted_args: Vec<String> = args
+                .iter()
+                .map(|a| {
+                    if a.contains(' ') && !a.starts_with('"') && !a.starts_with('\'') {
+                        format!("\"{}\"", a)
+                    } else {
+                        a.clone()
+                    }
+                })
+                .collect();
+            result = result.replace("{@}", &formatted_args.join(" "));
         }
 
         // Replace {cwd}
@@ -157,7 +167,17 @@ impl<'a> Resolver<'a> {
         // If template had NO argument placeholders and extra arguments were passed, append them
         if !has_positional && !args.is_empty() {
             result.push(' ');
-            result.push_str(&args.join(" "));
+            let formatted_args: Vec<String> = args
+                .iter()
+                .map(|a| {
+                    if a.contains(' ') && !a.starts_with('"') && !a.starts_with('\'') {
+                        format!("\"{}\"", a)
+                    } else {
+                        a.clone()
+                    }
+                })
+                .collect();
+            result.push_str(&formatted_args.join(" "));
         }
 
         result

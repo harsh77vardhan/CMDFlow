@@ -2,7 +2,8 @@
 
 [![CI](https://github.com/harsh77vardhan/CMDFlow/actions/workflows/ci.yml/badge.svg)](https://github.com/harsh77vardhan/CMDFlow/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-[![Release](https://img.shields.io/badge/Release-v1.0.0-emerald.svg)](https://github.com/harsh77vardhan/CMDFlow/releases)
+[![Release](https://img.shields.io/badge/Release-v1.0.1-emerald.svg)](https://github.com/harsh77vardhan/CMDFlow/releases)
+[![Website](https://img.shields.io/badge/Website-cmdflow.sudsy--bus.workers.dev-indigo.svg)](https://cmdflow.sudsy-bus.workers.dev)
 
 CMDFlow is an ultra-fast (<20ms startup), deterministic command layer that sits on top of your existing shells (**Bash**, **Zsh**, **Fish**, and **PowerShell**). Instead of memorizing obscure flags or navigating nested paths, CMDFlow provides instant aliases, project jumping, multi-step flows, context-aware routing, and a sandboxed AI assistant that checks command safety before execution.
 
@@ -12,13 +13,15 @@ CMDFlow is an ultra-fast (<20ms startup), deterministic command layer that sits 
 
 ### Linux & macOS
 ```bash
-curl -fsSL https://raw.githubusercontent.com/harsh77vardhan/CMDFlow/main/scripts/install.sh | bash
+curl -fsSL https://cmdflow.sudsy-bus.workers.dev/install.sh | bash
 ```
+*(or via GitHub raw: `curl -fsSL https://raw.githubusercontent.com/harsh77vardhan/CMDFlow/main/scripts/install.sh | bash`)*
 
 ### Windows (PowerShell)
 ```powershell
-iwr -useb https://raw.githubusercontent.com/harsh77vardhan/CMDFlow/main/scripts/install.ps1 | iex
+iwr -useb https://cmdflow.sudsy-bus.workers.dev/install.ps1 | iex
 ```
+*(or via GitHub raw: `iwr -useb https://raw.githubusercontent.com/harsh77vardhan/CMDFlow/main/scripts/install.ps1 | iex`)*
 
 ### From Source (Rust Cargo)
 ```bash
@@ -68,12 +71,16 @@ cmdflow ask "delete node modules"
 # Requires explicit confirmation before running.
 ```
 
-### 5. Diagnostics & Settings UI
+### 5. Diagnostics, Updates & Settings Console
 ```bash
 # Run self-diagnostics and detect shadow conflicts
 cmdflow doctor
 
-# Launch the embedded local web configuration UI
+# Check for updates and verify release checksums against the edge API
+cmdflow update
+
+# Launch the embedded local web configuration UI (alias: cmdflow ui)
+cmdflow settings
 cmdflow ui
 ```
 
@@ -127,11 +134,23 @@ cargo test --workspace --manifest-path cli/Cargo.toml
 bash shell/tests/test_bash.sh
 zsh shell/tests/test_zsh.sh
 fish shell/tests/test_fish.fish
-bash shell/tests/test_powershell_snapshot.sh
+pwsh shell/tests/test_powershell.ps1
 
 # Complete end-to-end sandbox test
 ./scripts/e2e.sh
 ```
+
+---
+
+## ⚠️ Known Limitations & Target Platforms
+
+- **Tier-1 Platforms**: Supported with pre-compiled binaries in every release:
+  - `linux-x86_64` (Linux x86_64 glibc)
+  - `darwin-arm64` (Apple Silicon M1/M2/M3/M4)
+  - `darwin-x86_64` (Intel Mac)
+  - `windows-x86_64` (Windows 10/11 x86_64)
+- **Linux arm64 (`aarch64-unknown-linux-gnu`)**: Feasible via `cross` or native ARM64 runners; planned for general availability in v1.1. Users on ARM64 Linux can build directly with `cargo install --path cli/cmdflow`.
+- **Windows arm64 (`aarch64-pc-windows-msvc`)**: Standard GitHub Actions free runners do not currently provide native Windows ARM64 environments, and MSVC cross-compilers require specialized proprietary SDK linkers. Users can compile natively with Rust toolchain on Windows on ARM.
 
 ---
 

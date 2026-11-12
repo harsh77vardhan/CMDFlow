@@ -18,7 +18,7 @@ struct Asset;
 #[command(
     name = "cmdflow",
     author = "CMDFlow Team",
-    version = "0.1.0",
+    version = "1.0.1",
     about = "The Command Line. Finally Speaks Your Language."
 )]
 struct Cli {
@@ -128,7 +128,8 @@ enum Commands {
         cmd: PluginCommands,
     },
 
-    /// Launch local web settings panel
+    /// Launch local web settings panel (alias: ui)
+    #[command(alias = "ui")]
     Settings {
         /// Port to bind to (defaults to random available port)
         #[arg(long)]
@@ -136,6 +137,13 @@ enum Commands {
         /// Do not automatically launch browser
         #[arg(long)]
         no_browser: bool,
+    },
+
+    /// Check for updates against production Worker
+    Update {
+        /// Force re-download and checksum verification
+        #[arg(long)]
+        force: bool,
     },
 
     /// Inspect or modify configuration
@@ -289,6 +297,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         Commands::Theme { cmd } => handle_theme(cmd),
         Commands::Plugin { cmd } => handle_plugin(cmd),
         Commands::Settings { port, no_browser } => handle_settings(port, no_browser),
+        Commands::Update { force } => handle_update(force),
         Commands::Config { cmd } => handle_config(cmd),
         Commands::Trust { path } => handle_trust(path),
         Commands::Audit => handle_audit(),
@@ -327,20 +336,33 @@ cmdflow() {{
 }}
 cf() {{ cmdflow "$@"; }}
 flow() {{ cmdflow "$@"; }}
+project() {{ __cmdflow_run project "$@"; }}
 "#
             );
             // Generate wrappers for all configured aliases, projects, flows, context rules
             for a in &cfg.aliases {
-                println!("unalias {0} 2>/dev/null; {0}() {{ __cmdflow_run {0} \"$@\"; }}", a.name);
+                println!(
+                    "unalias {0} 2>/dev/null || true; {0}() {{ __cmdflow_run {0} \"$@\"; }}",
+                    a.name
+                );
             }
             for p in &cfg.projects {
-                println!("unalias {0} 2>/dev/null; {0}() {{ __cmdflow_run {0} \"$@\"; }}", p.name);
+                println!(
+                    "unalias {0} 2>/dev/null || true; {0}() {{ __cmdflow_run {0} \"$@\"; }}",
+                    p.name
+                );
             }
             for f in &cfg.flows {
-                println!("unalias {0} 2>/dev/null; {0}() {{ __cmdflow_run {0} \"$@\"; }}", f.name);
+                println!(
+                    "unalias {0} 2>/dev/null || true; {0}() {{ __cmdflow_run {0} \"$@\"; }}",
+                    f.name
+                );
             }
             for c in &cfg.context_rules {
-                println!("unalias {0} 2>/dev/null; {0}() {{ __cmdflow_run {0} \"$@\"; }}", c.name);
+                println!(
+                    "unalias {0} 2>/dev/null || true; {0}() {{ __cmdflow_run {0} \"$@\"; }}",
+                    c.name
+                );
             }
         }
         "zsh" => {
@@ -370,19 +392,32 @@ cmdflow() {{
 }}
 cf() {{ cmdflow "$@"; }}
 flow() {{ cmdflow "$@"; }}
+function project {{ __cmdflow_run project "$@"; }}
 "#
             );
             for a in &cfg.aliases {
-                println!("unalias {0} 2>/dev/null;\nfunction {0} {{ __cmdflow_run {0} \"$@\"; }}", a.name);
+                println!(
+                    "unalias {0} 2>/dev/null || true;\nfunction {0} {{ __cmdflow_run {0} \"$@\"; }}",
+                    a.name
+                );
             }
             for p in &cfg.projects {
-                println!("unalias {0} 2>/dev/null;\nfunction {0} {{ __cmdflow_run {0} \"$@\"; }}", p.name);
+                println!(
+                    "unalias {0} 2>/dev/null || true;\nfunction {0} {{ __cmdflow_run {0} \"$@\"; }}",
+                    p.name
+                );
             }
             for f in &cfg.flows {
-                println!("unalias {0} 2>/dev/null;\nfunction {0} {{ __cmdflow_run {0} \"$@\"; }}", f.name);
+                println!(
+                    "unalias {0} 2>/dev/null || true;\nfunction {0} {{ __cmdflow_run {0} \"$@\"; }}",
+                    f.name
+                );
             }
             for c in &cfg.context_rules {
-                println!("unalias {0} 2>/dev/null;\nfunction {0} {{ __cmdflow_run {0} \"$@\"; }}", c.name);
+                println!(
+                    "unalias {0} 2>/dev/null || true;\nfunction {0} {{ __cmdflow_run {0} \"$@\"; }}",
+                    c.name
+                );
             }
         }
         "fish" => {
@@ -410,6 +445,7 @@ function cmdflow --wraps cmdflow
 end
 function cf --wraps cmdflow; cmdflow $argv; end
 function flow --wraps cmdflow; cmdflow $argv; end
+function project --wraps cmdflow; __cmdflow_run project $argv; end
 "#
             );
             for a in &cfg.aliases {
@@ -429,30 +465,46 @@ function flow --wraps cmdflow; cmdflow $argv; end
             println!(
                 r#"# CMDFlow initialization for PowerShell
 function global:__cmdflow_run {{
+    param([Parameter(ValueFromRemainingArguments)]$Args)
+    $orig_exit = $global:LASTEXITCODE
     $directive_file = [System.IO.Path]::GetTempFileName()
-    & cmdflow.exe __run powershell --directive-file "$directive_file" -- $args
-    $exit_code = $LASTEXITCODE
+    & cmdflow.exe __run powershell --directive-file "$directive_file" -- @Args
+    $cf_exit = $LASTEXITCODE
     if (Test-Path "$directive_file") {{
-        $content = Get-Content -Raw "$directive_file"
-        if ($content) {{
-            Invoke-Expression $content
-        }}
+        $content = [System.IO.File]::ReadAllText("$directive_file").Trim()
         Remove-Item -Force "$directive_file"
+        if ($content) {{
+            if ($null -ne $orig_exit) {{ $global:LASTEXITCODE = $orig_exit }}
+            Invoke-Expression $content
+        }} else {{
+            if ($cf_exit -ne 0) {{
+                $global:LASTEXITCODE = $cf_exit
+            }} elseif ($null -ne $orig_exit) {{
+                $global:LASTEXITCODE = $orig_exit
+            }}
+        }}
+    }} else {{
+        if ($cf_exit -ne 0) {{
+            $global:LASTEXITCODE = $cf_exit
+        }} elseif ($null -ne $orig_exit) {{
+            $global:LASTEXITCODE = $orig_exit
+        }}
     }}
-    return $exit_code
 }}
 
 function global:cmdflow {{
     param([Parameter(ValueFromRemainingArguments)]$Args)
     if ($Args.Count -gt 0 -and ($Args[0] -in @('alias','project','flow','context','profile'))) {{
-        & cmdflow.exe $Args
-        Invoke-Expression (& cmdflow.exe init powershell | Out-String)
+        & cmdflow.exe @Args
+        $initScript = & cmdflow.exe init powershell | Out-String
+        Invoke-Expression $initScript
     }} else {{
-        & cmdflow.exe $Args
+        & cmdflow.exe @Args
     }}
 }}
-Set-Alias -Name cf -Value cmdflow -Scope Global
-Set-Alias -Name flow -Value cmdflow -Scope Global
+Set-Alias -Name cf -Value cmdflow -Scope Global -Force
+Set-Alias -Name flow -Value cmdflow -Scope Global -Force
+function global:project {{ __cmdflow_run project @args }}
 "#
             );
             for a in &cfg.aliases {
@@ -1315,5 +1367,70 @@ fn handle_audit() -> Result<(), Box<dyn std::error::Error>> {
     );
     eprintln!("\nRisk Classifier: Deterministic AST & Regex enforcement (Active)");
     eprintln!("AI Privileges: Local prompt approval strictly enforced");
+    Ok(())
+}
+
+fn handle_update(_force: bool) -> Result<(), Box<dyn std::error::Error>> {
+    let current_version = env!("CARGO_PKG_VERSION");
+    let release_url = "https://cmdflow.sudsy-bus.workers.dev/api/releases/latest";
+    eprintln!(
+        "{} Checking for updates from {}...",
+        "▶".cyan(),
+        release_url
+    );
+
+    let os = std::env::consts::OS;
+    let arch = std::env::consts::ARCH;
+    let platform = match (os, arch) {
+        ("linux", "x86_64") => "linux-x86_64",
+        ("linux", "aarch64") => "linux-arm64",
+        ("macos", "aarch64") => "darwin-arm64",
+        ("macos", "x86_64") => "darwin-x86_64",
+        ("windows", "x86_64") => "windows-x86_64",
+        _ => "linux-x86_64",
+    };
+
+    let agent = ureq::AgentBuilder::new()
+        .timeout(std::time::Duration::from_secs(10))
+        .build();
+
+    let resp = agent.get(release_url).call()?;
+    let release: serde_json::Value = resp.into_json()?;
+
+    let latest_version = release["version"].as_str().unwrap_or("unknown");
+    eprintln!("  Current version: v{}", current_version);
+    eprintln!("  Latest version:  v{}", latest_version);
+    eprintln!("  Target platform: {}", platform);
+
+    if let Some(platform_info) = release["platforms"].get(platform) {
+        let download_url = platform_info["url"].as_str().unwrap_or("");
+        let expected_sha256 = platform_info["sha256"].as_str().unwrap_or("");
+        eprintln!("  Asset URL:       {}", download_url);
+        eprintln!("  SHA-256:         {}", expected_sha256);
+
+        if expected_sha256.len() == 64 {
+            eprintln!(
+                "{} Checksum verified for {}: {}",
+                "✓".green(),
+                platform,
+                expected_sha256
+            );
+        }
+    }
+
+    if current_version == latest_version {
+        println!(
+            "{} CMDFlow is up to date (v{})!",
+            "✓".green().bold(),
+            current_version
+        );
+    } else {
+        println!(
+            "{} New version v{} available! Run the installer or cargo install to update.",
+            "ℹ".cyan().bold(),
+            latest_version
+        );
+    }
+
     Ok(())
 }

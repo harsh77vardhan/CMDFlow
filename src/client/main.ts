@@ -386,7 +386,7 @@ $('#app').innerHTML = `
       </nav>
       <div class="nav-actions">
         <button class="text-button nav-github" data-toast="github">${icon('github')}<span>GitHub</span></button>
-        <button class="primary primary--sm" data-toast="download"><span>Download</span>${icon('arrow')}</button>
+        <button class="primary primary--sm" data-toast="download"><span class="download-label">Download v1.0.1</span>${icon('arrow')}</button>
         <button class="icon-button nav-toggle" id="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="nav-links">${icon('menu')}</button>
       </div>
     </div>
@@ -399,7 +399,7 @@ $('#app').innerHTML = `
         <h1 data-reveal>The Command Line.<br /><span class="grad">Finally Speaks Your Language.</span></h1>
         <p class="lede" data-reveal>Create your own command language. Stop memorizing commands. Build workflows that match the way you think.</p>
         <div class="hero-actions" data-reveal>
-          <button class="primary" data-toast="download"><span>Download CMDFlow</span>${icon('download')}</button>
+          <button class="primary" data-toast="download"><span class="download-label">Download CMDFlow v1.0.1</span>${icon('download')}</button>
           <button class="secondary" data-toast="github">${icon('github')}<span>View on GitHub</span></button>
         </div>
         <p class="hero-meta" data-reveal>No new terminal. No new habits. Your shell already knows how to run things.</p>
@@ -538,7 +538,7 @@ $('#app').innerHTML = `
         <div class="settings-bar">
           <span class="terminal-dots" aria-hidden="true"><i></i><i></i><i></i></span>
           <span class="settings-title">CMDFlow Settings</span>
-          <span class="settings-version">v0.1 preview</span>
+          <span class="settings-version">v1.0.1</span>
         </div>
         <div class="settings-body">
           <div class="settings-tabs" id="settings-tabs" role="tablist" aria-label="Settings sections"></div>
@@ -817,6 +817,24 @@ if (waitlistForm && waitlistEmail && waitlistStatus) {
     }
   }
 }
+
+// Dynamically refresh version from release proxy
+fetch('/api/releases/latest')
+  .then((res) => (res.ok ? res.json() : null))
+  .then((data: { version?: string } | null) => {
+    if (data?.version) {
+      document.querySelectorAll<HTMLElement>('.download-label').forEach((el) => {
+        if (el.textContent?.includes('CMDFlow')) {
+          el.textContent = `Download CMDFlow v${data.version}`
+        } else {
+          el.textContent = `Download v${data.version}`
+        }
+      })
+      const settingsVer = document.querySelector('.settings-version')
+      if (settingsVer) settingsVer.textContent = `v${data.version}`
+    }
+  })
+  .catch(() => {})
 
 /* ------------------------------------------------------------------ *
  * Hero terminal loop

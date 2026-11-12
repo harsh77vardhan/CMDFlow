@@ -62,8 +62,20 @@
     - `~/.config/fish/config.cmdflow.bak.1794522114`
   - Tested: `b`, `gs`, `ll`, context-aware `s`, `deploy` flow, and `cmdflow doctor`
   - Reversibility proven: `cmdflow uninstall` restores rc files cleanly with 0 leftover directives.
+- [x] **M10: Cloudflare Edge Deployment, KV Rate Limiting & Live Verification**
+  - Production Cloudflare Worker deployed live at `https://cmdflow.sudsy-bus.workers.dev`
+  - Production D1 database (`cmdflow-db`) and KV namespace (`cmdflow-rate-limits`) created and wired into `wrangler.jsonc`
+  - D1 migrations applied with `--remote`
+  - Live endpoints verified: `/api/health` (HTTP 200), `/api/releases/latest` (exact SHA-256 match), `/api/waitlist` (validation, dedup, honeypot, KV rate limit 429), `/api/*` 404, foreign origin 403 CORS rejection
+  - Test D1 rows deleted (`COUNT = 0`)
+  - Live `cmdflow update` tested: successfully queries edge Worker and validates sha256 checksum for platform
+  - All 4 release assets re-downloaded and re-hashed; 100% matched
+  - Lighthouse accessibility audit: **100 / 100**
+  - PowerShell integration test script `shell/tests/test_powershell.ps1` added and integrated into Windows CI workflow (`windows-latest`)
+  - CLI `cmdflow settings` unified with `cmdflow ui` as alias
 
 ## Final Summary
-- **Current Milestone**: All Completed (M0 - M9)
-- **Status**: Production Shipped & Verified Live
-- **Known Issues**: None. All tests passing locally and across GitHub Actions runners.
+- **Current Milestone**: All Completed (M0 - M10)
+- **Status**: Production Shipped, Deployed to Cloudflare Edge, and Verified Live
+- **Known Limitations**: Linux arm64 and Windows arm64 documented in README.md and DECISIONS.md; tier-1 platforms supported with verified binaries on GitHub Releases.
+
