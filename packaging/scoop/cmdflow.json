@@ -1,12 +1,12 @@
 {
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Ultra-fast cross-platform command layer on top of Fish, Bash, Zsh, and PowerShell",
   "homepage": "https://github.com/harsh77vardhan/CMDFlow",
   "license": "MIT",
   "architecture": {
     "64bit": {
-      "url": "https://github.com/harsh77vardhan/CMDFlow/releases/download/v1.0.1/cmdflow-windows-x86_64.zip",
-      "hash": "f2e7f4bf54dd37e2292b0c861ef3647f31127e5208b3fb9217d400d845f5b825"
+      "url": "https://github.com/harsh77vardhan/CMDFlow/releases/download/v1.0.2/cmdflow-windows-x86_64.zip",
+      "hash": "f6f30dc44de99387420007ec312d6413882de31f7bab0f26d057ebbfb0e78821"
     }
   },
   "bin": "cmdflow.exe",
