@@ -1,0 +1,552 @@
+{
+  "timing": [
+    {
+      "run": 1,
+      "t02": {
+        "hasBg": false,
+        "hasCanvas": false,
+        "opacity": null,
+        "transform": null,
+        "canvasW": 0,
+        "canvasH": 0
+      },
+      "t05": {
+        "hasBg": true,
+        "hasCanvas": false,
+        "opacity": "1",
+        "transform": "none",
+        "canvasW": 0,
+        "canvasH": 0
+      },
+      "t10": {
+        "hasBg": true,
+        "hasCanvas": false,
+        "opacity": "1",
+        "transform": "none",
+        "canvasW": 0,
+        "canvasH": 0
+      },
+      "consoleErrors": []
+    },
+    {
+      "run": 2,
+      "t02": {
+        "hasBg": false,
+        "hasCanvas": false,
+        "opacity": null,
+        "transform": null,
+        "canvasW": 0,
+        "canvasH": 0
+      },
+      "t05": {
+        "hasBg": true,
+        "hasCanvas": false,
+        "opacity": "1",
+        "transform": "none",
+        "canvasW": 0,
+        "canvasH": 0
+      },
+      "t10": {
+        "hasBg": true,
+        "hasCanvas": true,
+        "opacity": "1",
+        "transform": "none",
+        "canvasW": 720,
+        "canvasH": 450
+      },
+      "consoleErrors": []
+    },
+    {
+      "run": 3,
+      "t02": {
+        "hasBg": false,
+        "hasCanvas": false,
+        "opacity": null,
+        "transform": null,
+        "canvasW": 0,
+        "canvasH": 0
+      },
+      "t05": {
+        "hasBg": true,
+        "hasCanvas": false,
+        "opacity": "1",
+        "transform": "none",
+        "canvasW": 0,
+        "canvasH": 0
+      },
+      "t10": {
+        "hasBg": true,
+        "hasCanvas": false,
+        "opacity": "1",
+        "transform": "none",
+        "canvasW": 0,
+        "canvasH": 0
+      },
+      "consoleErrors": []
+    }
+  ],
+  "scroll": {
+    "scrollResults": [
+      {
+        "target": 0,
+        "actualScrollY": 0,
+        "opacity": "1",
+        "transform": "none",
+        "position": "fixed",
+        "shot": "scroll-0px.png"
+      },
+      {
+        "target": 1000,
+        "actualScrollY": 937,
+        "opacity": "1",
+        "transform": "none",
+        "position": "fixed",
+        "shot": "scroll-1000px.png"
+      },
+      {
+        "target": 2500,
+        "actualScrollY": 2310,
+        "opacity": "1",
+        "transform": "none",
+        "position": "fixed",
+        "shot": "scroll-2500px.png"
+      },
+      {
+        "target": "bottom",
+        "actualScrollY": 5132,
+        "opacity": "1",
+        "transform": "none",
+        "position": "fixed",
+        "shot": "scroll-bottom.png"
+      }
+    ],
+    "overflow": {
+      "clientWidth": 390,
+      "scrollWidth": 390,
+      "hasOverflow": false
+    },
+    "consoleErrors": []
+  },
+  "elements": [
+    {
+      "type": "Link",
+      "text": "Skip to content",
+      "href": "https://cmdflow.cmdflow.workers.dev/#main-content",
+      "target": "_self",
+      "status": "200 OK (Section anchor)"
+    },
+    {
+      "type": "Link",
+      "text": "CMDFlow",
+      "href": "https://cmdflow.cmdflow.workers.dev/#top",
+      "target": "_self",
+      "status": "200 OK (Section anchor)"
+    },
+    {
+      "type": "Link",
+      "text": "Features",
+      "href": "https://cmdflow.cmdflow.workers.dev/#features",
+      "target": "_self",
+      "status": "200 OK (Section anchor)"
+    },
+    {
+      "type": "Link",
+      "text": "Demo",
+      "href": "https://cmdflow.cmdflow.workers.dev/#demo",
+      "target": "_self",
+      "status": "200 OK (Section anchor)"
+    },
+    {
+      "type": "Link",
+      "text": "Install",
+      "href": "https://cmdflow.cmdflow.workers.dev/#install",
+      "target": "_self",
+      "status": "200 OK (Section anchor)"
+    },
+    {
+      "type": "Link",
+      "text": "Settings",
+      "href": "https://cmdflow.cmdflow.workers.dev/#settings",
+      "target": "_self",
+      "status": "200 OK (Section anchor)"
+    },
+    {
+      "type": "Link",
+      "text": "Roadmap",
+      "href": "https://cmdflow.cmdflow.workers.dev/#roadmap",
+      "target": "_self",
+      "status": "200 OK (Section anchor)"
+    },
+    {
+      "type": "Link",
+      "text": "Docs",
+      "href": "https://cmdflow.cmdflow.workers.dev/#docs",
+      "target": "_self",
+      "status": "200 OK (Section anchor)"
+    },
+    {
+      "type": "Link",
+      "text": "GitHub",
+      "href": "https://github.com/harsh77vardhan/CMDFlow",
+      "target": "_blank",
+      "status": "200 OK"
+    },
+    {
+      "type": "Link",
+      "text": "Download v1.0.3",
+      "href": "https://github.com/harsh77vardhan/CMDFlow/releases/download/v1.0.3/cmdflow-linux-x86_64.tar.gz",
+      "target": "_blank",
+      "status": "200 OK"
+    },
+    {
+      "type": "Link",
+      "text": "Download CMDFlow v1.0.3 (Linux)",
+      "href": "https://github.com/harsh77vardhan/CMDFlow/releases/download/v1.0.3/cmdflow-linux-x86_64.tar.gz",
+      "target": "_blank",
+      "status": "200 OK"
+    },
+    {
+      "type": "Link",
+      "text": "View on GitHub",
+      "href": "https://github.com/harsh77vardhan/CMDFlow",
+      "target": "_blank",
+      "status": "200 OK"
+    },
+    {
+      "type": "Link",
+      "text": "Linux (x86_64)",
+      "href": "https://github.com/harsh77vardhan/CMDFlow/releases/latest/download/cmdflow-linux-x86_64.tar.gz",
+      "target": "_blank",
+      "status": "200 OK"
+    },
+    {
+      "type": "Link",
+      "text": "macOS (Apple Silicon)",
+      "href": "https://github.com/harsh77vardhan/CMDFlow/releases/latest/download/cmdflow-darwin-arm64.tar.gz",
+      "target": "_blank",
+      "status": "200 OK"
+    },
+    {
+      "type": "Link",
+      "text": "macOS (Intel)",
+      "href": "https://github.com/harsh77vardhan/CMDFlow/releases/latest/download/cmdflow-darwin-x86_64.tar.gz",
+      "target": "_blank",
+      "status": "200 OK"
+    },
+    {
+      "type": "Link",
+      "text": "Windows (x86_64)",
+      "href": "https://github.com/harsh77vardhan/CMDFlow/releases/latest/download/cmdflow-windows-x86_64.zip",
+      "target": "_blank",
+      "status": "200 OK"
+    },
+    {
+      "type": "Link",
+      "text": "SHA256SUMS.txt",
+      "href": "https://github.com/harsh77vardhan/CMDFlow/releases/latest/download/SHA256SUMS.txt",
+      "target": "_blank",
+      "status": "200 OK"
+    },
+    {
+      "type": "Link",
+      "text": "View all assets on GitHub Releases →",
+      "href": "https://github.com/harsh77vardhan/CMDFlow/releases/latest",
+      "target": "_blank",
+      "status": "200 OK"
+    },
+    {
+      "type": "Link",
+      "text": "TECHNICAL SPEC Architecture & Resolve Engine Layered TOML resolution, sub-20ms resolve, and the full command model. docs/SPEC.md →",
+      "href": "https://github.com/harsh77vardhan/CMDFlow/blob/main/docs/SPEC.md",
+      "target": "_blank",
+      "status": "200 OK"
+    },
+    {
+      "type": "Link",
+      "text": "SECURITY Threat Model & Sandboxing Project trust boundaries, injection defense, and permission scopes. docs/SECURITY.md →",
+      "href": "https://github.com/harsh77vardhan/CMDFlow/blob/main/docs/SECURITY.md",
+      "target": "_blank",
+      "status": "200 OK"
+    },
+    {
+      "type": "Link",
+      "text": "SHELL INTEGRATION Directive Protocol Zoxide-style hooks for Bash, Zsh, Fish, and PowerShell. docs/SHELLS.md →",
+      "href": "https://github.com/harsh77vardhan/CMDFlow/blob/main/docs/SHELLS.md",
+      "target": "_blank",
+      "status": "200 OK"
+    },
+    {
+      "type": "Link",
+      "text": "AUTOMATION FLOWS Pipelines & Step Streaming Sequential pipelines, live step streaming, and directory tracking. docs/FLOWS.md →",
+      "href": "https://github.com/harsh77vardhan/CMDFlow/blob/main/docs/FLOWS.md",
+      "target": "_blank",
+      "status": "200 OK"
+    },
+    {
+      "type": "Link",
+      "text": "AI & RISK CLASSIFIER Deterministic Safety Rules AST/regex classifier, gated approval, and risk boundaries. docs/AI.md →",
+      "href": "https://github.com/harsh77vardhan/CMDFlow/blob/main/docs/AI.md",
+      "target": "_blank",
+      "status": "200 OK"
+    },
+    {
+      "type": "Link",
+      "text": "PLUGIN SYSTEM Subprocess Extensions Declared permissions, prompt hooks, and the extension API. docs/PLUGINS.md →",
+      "href": "https://github.com/harsh77vardhan/CMDFlow/blob/main/docs/PLUGINS.md",
+      "target": "_blank",
+      "status": "200 OK"
+    },
+    {
+      "type": "Link",
+      "text": "Browse complete documentation directory on GitHub →",
+      "href": "https://github.com/harsh77vardhan/CMDFlow/tree/main/docs",
+      "target": "_blank",
+      "status": "200 OK"
+    },
+    {
+      "type": "Link",
+      "text": "Download CMDFlow v1.0.3 (Linux)",
+      "href": "https://github.com/harsh77vardhan/CMDFlow/releases/download/v1.0.3/cmdflow-linux-x86_64.tar.gz",
+      "target": "_blank",
+      "status": "200 OK"
+    },
+    {
+      "type": "Link",
+      "text": "View on GitHub",
+      "href": "https://github.com/harsh77vardhan/CMDFlow",
+      "target": "_blank",
+      "status": "200 OK"
+    },
+    {
+      "type": "Link",
+      "text": "CMDFlow",
+      "href": "https://cmdflow.cmdflow.workers.dev/#top",
+      "target": "_self",
+      "status": "200 OK (Section anchor)"
+    },
+    {
+      "type": "Link",
+      "text": "GitHub",
+      "href": "https://github.com/harsh77vardhan/CMDFlow",
+      "target": "_blank",
+      "status": "200 OK"
+    },
+    {
+      "type": "Link",
+      "text": "Documentation",
+      "href": "https://github.com/harsh77vardhan/CMDFlow/tree/main/docs",
+      "target": "_blank",
+      "status": "200 OK"
+    },
+    {
+      "type": "Link",
+      "text": "Download",
+      "href": "https://github.com/harsh77vardhan/CMDFlow/releases/latest",
+      "target": "_blank",
+      "status": "200 OK"
+    },
+    {
+      "type": "Link",
+      "text": "Community & Issues",
+      "href": "https://github.com/harsh77vardhan/CMDFlow/issues",
+      "target": "_blank",
+      "status": "200 OK"
+    },
+    {
+      "type": "Link",
+      "text": "MIT License",
+      "href": "https://github.com/harsh77vardhan/CMDFlow/blob/main/LICENSE",
+      "target": "_blank",
+      "status": "200 OK"
+    },
+    {
+      "type": "Button",
+      "text": "Open menu",
+      "id": "nav-toggle",
+      "cls": "icon-button nav-toggle",
+      "action": "Open menu",
+      "destination": "Mobile navigation drawer toggle",
+      "status": "200 (Client DOM)"
+    },
+    {
+      "type": "Button",
+      "text": "Copy",
+      "id": "",
+      "cls": "copy-btn",
+      "action": "Copy install command",
+      "destination": "Clipboard copy action",
+      "status": "200 (Client Clipboard API)"
+    },
+    {
+      "type": "Button",
+      "text": "Copy",
+      "id": "",
+      "cls": "copy-btn",
+      "action": "Copy Linux/macOS install command",
+      "destination": "Clipboard copy action",
+      "status": "200 (Client Clipboard API)"
+    },
+    {
+      "type": "Button",
+      "text": "Copy",
+      "id": "",
+      "cls": "copy-btn",
+      "action": "Copy PowerShell install command",
+      "destination": "Clipboard copy action",
+      "status": "200 (Client Clipboard API)"
+    },
+    {
+      "type": "Button",
+      "text": "b",
+      "id": "",
+      "cls": "demo-button is-active",
+      "action": "b",
+      "destination": "Terminal demo switch (b)",
+      "status": "200 (Client State)"
+    },
+    {
+      "type": "Button",
+      "text": "gs",
+      "id": "",
+      "cls": "demo-button",
+      "action": "gs",
+      "destination": "Terminal demo switch (gs)",
+      "status": "200 (Client State)"
+    },
+    {
+      "type": "Button",
+      "text": "ll",
+      "id": "",
+      "cls": "demo-button",
+      "action": "ll",
+      "destination": "Terminal demo switch (ll)",
+      "status": "200 (Client State)"
+    },
+    {
+      "type": "Button",
+      "text": "home",
+      "id": "",
+      "cls": "demo-button",
+      "action": "home",
+      "destination": "Terminal demo switch (home)",
+      "status": "200 (Client State)"
+    },
+    {
+      "type": "Button",
+      "text": "project technea",
+      "id": "",
+      "cls": "demo-button",
+      "action": "project technea",
+      "destination": "Terminal demo switch (project technea)",
+      "status": "200 (Client State)"
+    },
+    {
+      "type": "Button",
+      "text": "delete node modules",
+      "id": "",
+      "cls": "demo-button",
+      "action": "delete node modules",
+      "destination": "Terminal demo switch (delete node modules)",
+      "status": "200 (Client State)"
+    },
+    {
+      "type": "Button",
+      "text": "deploy",
+      "id": "",
+      "cls": "demo-button",
+      "action": "deploy",
+      "destination": "Terminal demo switch (deploy)",
+      "status": "200 (Client State)"
+    },
+    {
+      "type": "Button",
+      "text": "Reset",
+      "id": "demo-reset",
+      "cls": "demo-reset",
+      "action": "Reset demo",
+      "destination": "Terminal demo reset",
+      "status": "200 (Client State)"
+    },
+    {
+      "type": "Button",
+      "text": "General",
+      "id": "",
+      "cls": "settings-tab is-active",
+      "action": "General",
+      "destination": "Settings UI tab (General)",
+      "status": "200 (Client State)"
+    },
+    {
+      "type": "Button",
+      "text": "Aliases",
+      "id": "",
+      "cls": "settings-tab",
+      "action": "Aliases",
+      "destination": "Settings UI tab (Aliases)",
+      "status": "200 (Client State)"
+    },
+    {
+      "type": "Button",
+      "text": "Projects",
+      "id": "",
+      "cls": "settings-tab",
+      "action": "Projects",
+      "destination": "Settings UI tab (Projects)",
+      "status": "200 (Client State)"
+    },
+    {
+      "type": "Button",
+      "text": "Flows",
+      "id": "",
+      "cls": "settings-tab",
+      "action": "Flows",
+      "destination": "Settings UI tab (Flows)",
+      "status": "200 (Client State)"
+    },
+    {
+      "type": "Button",
+      "text": "Plugins",
+      "id": "",
+      "cls": "settings-tab",
+      "action": "Plugins",
+      "destination": "Settings UI tab (Plugins)",
+      "status": "200 (Client State)"
+    },
+    {
+      "type": "Button",
+      "text": "Theme",
+      "id": "",
+      "cls": "settings-tab",
+      "action": "Theme",
+      "destination": "Settings UI tab (Theme)",
+      "status": "200 (Client State)"
+    },
+    {
+      "type": "Button",
+      "text": "Profiles",
+      "id": "",
+      "cls": "settings-tab",
+      "action": "Profiles",
+      "destination": "Settings UI tab (Profiles)",
+      "status": "200 (Client State)"
+    },
+    {
+      "type": "Button",
+      "text": "AI",
+      "id": "",
+      "cls": "settings-tab",
+      "action": "AI",
+      "destination": "Settings UI tab (AI)",
+      "status": "200 (Client State)"
+    },
+    {
+      "type": "Button",
+      "text": "Join waitlist",
+      "id": "",
+      "cls": "primary",
+      "action": "Join waitlist",
+      "destination": "POST /api/waitlist form submission",
+      "status": "200 (Worker API endpoint)"
+    }
+  ]
+}
