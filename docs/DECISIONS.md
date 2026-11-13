@@ -90,6 +90,28 @@ This log records architectural decisions, engineering trade-offs, and rationale 
 
 ### DECISION-011: Target Architectures and ARM64 Staging
 - **Context**: Linux arm64 and Windows arm64 build support.
-- **Decision**: Release v1.0.1 provides tier-1 support for `linux-x86_64`, `darwin-arm64`, `darwin-x86_64`, and `windows-x86_64`. Windows ARM64 is documented in known limitations due to lack of free hosted GitHub Actions runners and proprietary MSVC cross-linkers; Linux arm64 is scheduled for v1.1.0 via `cross` or native ARM runners.
+- **Decision**: Release v1.0.1 and v1.0.2 provide tier-1 support for `linux-x86_64`, `darwin-arm64`, `darwin-x86_64`, and `windows-x86_64`. Windows ARM64 is documented in known limitations due to lack of free hosted GitHub Actions runners and proprietary MSVC cross-linkers; Linux arm64 is scheduled for v1.1.0 via `cross` or native ARM runners.
 - **Rationale**: Ensures every published release artifact is thoroughly compiled, tested, and verified on real GitHub Actions runners without brittle or unverified toolchains.
+
+---
+
+### DECISION-012: Cloudflare Account Authentication Policy & Safeguarding
+- **Context**: Step 1 required verifying `wrangler whoami` without tokens. The local environment had expired temporary preview account settings (`Sudsy Bus`), and `wrangler whoami` returned unauthenticated.
+- **Decision**: Halted Step 1 deployment strictly as mandated by operating rule ("If it is temporary or not mine, STOP this step and tell me exactly what I must do"). Provided explicit browser login and scoped API token export commands for the user. Never touched or deleted existing Cloudflare resources.
+- **Rationale**: Guarantees production cloud infrastructure is deployed strictly under the user's permanent, authenticated Cloudflare account and prevents any accidental disruption of existing resources.
+
+---
+
+### DECISION-013: Cryptographic Asset Verification in `cmdflow update`
+- **Context**: Step 3 mandated that `cmdflow update` actually downloads the binary archive to a temporary file and verifies its checksum, rather than only printing the metadata.
+- **Decision**: Updated `handle_update` in `cli/cmdflow/src/main.rs` using `sha2::Sha256` and `tempfile::NamedTempFile`. Added streaming buffer hashing and cryptographic comparison against `expected_sha256`. Added automated fallback to query GitHub Releases API directly if the edge proxy is unreachable.
+- **Rationale**: Ensures zero execution of corrupted or tampered update binaries and guarantees resilience during CDN/edge network outages.
+
+---
+
+### DECISION-014: Mobile 390px Viewport Horizontal Containment
+- **Context**: Real browser testing on a 390px mobile viewport (iPhone 12/13/14 screen size) detected a slight horizontal scroll (`scrollWidth: 405px > clientWidth: 390px`) caused by unbounded decorative aura glows and terminal visual containers.
+- **Decision**: Enforced `overflow-x: hidden`, `width: 100%`, and `max-width: 100vw` across `html`, `body`, `#app`, and `.hero-visual` in `src/client/style.css`.
+- **Rationale**: Eliminates mobile horizontal wobble and guarantees a pixel-perfect, responsive UI across all mobile devices.
+
 

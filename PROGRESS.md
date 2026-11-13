@@ -74,8 +74,33 @@
   - PowerShell integration test script `shell/tests/test_powershell.ps1` added and integrated into Windows CI workflow (`windows-latest`)
   - CLI `cmdflow settings` unified with `cmdflow ui` as alias
 
+- [x] **M11: v1.0.2 Release, Browser Audit, Host Shell & Hygiene Verification**
+  - **Cloudflare Account Audit (Step 1)**: `wrangler whoami` identified expired preview account (`Sudsy Bus`). Halted deployment strictly per operating rules pending user authentication. Existing resources safeguarded.
+  - **Browser Checks & Lighthouse (Step 2)**:
+    - Download buttons dynamically show live `v1.0.2`.
+    - Waitlist form inline error and status messages validated.
+    - Interactive demo expansions match `cmdflow explain`.
+    - Mobile 390px viewport horizontal scroll fixed (`scrollWidth: 390px`, `horizontal scroll: false`).
+    - `prefers-reduced-motion` verified.
+    - Lighthouse accessibility audit: **100 / 100**.
+    - Screenshots recorded in `docs/screenshots/`.
+  - **Release v1.0.2 (Step 3)**:
+    - Tagged and published `v1.0.2` on GitHub Releases.
+    - Assets built across Linux, Windows, macOS (arm64 + x86_64) via GitHub Actions (`43384557215`).
+    - Recomputed SHA-256 for all 4 assets; 100% bit-for-bit match with `SHA256SUMS.txt`.
+    - Upgraded `cmdflow update` to stream-download asset to temp file and cryptographically verify checksum with resilient fallback.
+  - **Host Machine Shell Integration (Step 4)**:
+    - `cmdflow install` run for Bash, Zsh, and Fish.
+    - Timestamped backups created (`~/.bashrc.cmdflow.bak.1794554226`, etc.).
+    - Fresh subshell tests for `b`, `gs`, `ll`, `s`, and `deploy` passed 100%.
+    - **LEFT INSTALLED** on host machine with documented undo steps.
+  - **Hygiene Scan (Step 5)**:
+    - Zero tokens (`cfat_`, `ghp_`, API keys) across working tree and entire git history.
+    - Zero occurrences of `/home/harsh` in source files or templates.
+
 ## Final Summary
-- **Current Milestone**: All Completed (M0 - M10)
-- **Status**: Production Shipped, Deployed to Cloudflare Edge, and Verified Live
-- **Known Limitations**: Linux arm64 and Windows arm64 documented in README.md and DECISIONS.md; tier-1 platforms supported with verified binaries on GitHub Releases.
+- **Current Milestone**: M11 Completed
+- **Status**: Release v1.0.2 Published, Host Machine Configured, 100/100 Lighthouse & Zero-Overflow Mobile Verified
+- **Blocked / Paused Action**: Step 1 production Cloudflare redeployment paused pending user account login (clear instructions provided).
+
 
