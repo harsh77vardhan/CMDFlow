@@ -327,7 +327,8 @@ const aiCapabilities = [
 $('#app').innerHTML = `
   <div id="vanta-bg" aria-hidden="true"></div>
 
-  <a class="skip-link" href="#main-content">Skip to content</a>
+  <div class="content-wrapper">
+    <a class="skip-link" href="#main-content">Skip to content</a>
 
   <header class="nav" id="nav">
     <div class="nav-inner">
@@ -652,6 +653,7 @@ $('#app').innerHTML = `
       <span>Built for people who live in the terminal.</span>
     </div>
   </footer>
+  </div>
 `
 
 

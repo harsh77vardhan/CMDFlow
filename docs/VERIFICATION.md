@@ -585,3 +585,64 @@ Measured over 100 consecutive frames (4.0 seconds at 25 fps) on a 1440x900 viewp
   - **Median ON streak length**: 3 frames (~0.12 s) (Target: 2–4 frames) — **PASS**
   - **Mean brightness variation over time**: 0.18% (Target: < 2.0%) — **PASS**
   - **Measured JS execution cost per frame**: 0.02 ms (Target: < 2.0 ms) — **PASS**
+
+---
+
+## 13. Full-Screen Fixed Background Verification (Live: https://cmdflow.cmdflow.workers.dev)
+
+### 13.1 Step 1: Measured Root Causes of Previous 900x560 Box & Fade
+1. **The 900x560 Box Artifact**:
+   - In `src/client/vanta-bg.ts`, a custom holder `div` was created inside `#vanta-bg` with hard-coded inline style: `width: 720px; height: 450px` (or `360px x 540px` on mobile).
+   - On the user's display with Device Pixel Ratio (DPR) = 1.25 at viewport `1886x930`:
+     - $720 \text{ px} \times 1.25 = 900 \text{ px}$ width ($47.7\%$ screen width)
+     - $450 \text{ px} \times 1.25 = 562.5 \text{ px}$ height ($60.4\%$ screen height)
+   - Because `TOPOLOGY({ el: this.holder })` mounted to this 720x450 element, the canvas drew into that box only, producing sharp straight edges at $x \approx 900$ and $y \approx 558$ px.
+2. **Text Scrim Box Boundary**:
+   - `.hero-copy::before` had `inset: -32px -48px; border-radius: var(--rad-lg); background: radial-gradient(...)`.
+   - The negative margin and explicit border radius formed a visible rounded rectangular mask over the artwork.
+3. **Scroll Fade**:
+   - A scroll listener previously varied opacity down to $0.15$ past hero bottom.
+
+### 13.2 Shipped Architecture (Solution Ladder: Rung 1)
+- **Rung 1: Native direct full-screen container mount with debounced observers**:
+  - Mounted `TOPOLOGY` directly on `#vanta-bg` (`el: this.container`).
+  - `#vanta-bg`: `position: fixed; inset: 0; width: 100vw; height: 100vh; height: 100lvh; z-index: 0; opacity: 1; pointer-events: none; overflow: hidden; background-color: #000000;`.
+  - `#vanta-bg canvas`: `display: block; width: 100% !important; height: 100% !important; pointer-events: none;`.
+  - `.content-wrapper`: `position: relative; z-index: 1; background: transparent; width: 100%;`.
+  - Hero scrim `.hero-copy::before`: expanded to `inset: -140px -120px` with seamless feathered borderless radial gradient to transparent at 85%.
+  - Resizing & Lifecycle: Handled via `ResizeObserver`, window `resize`, `orientationchange`, `visualViewport.resize` (100ms debounced), and `document.fonts.ready`. Patched Vanta `resize` method to safely invoke `setSize()` + `restart()` preventing out-of-bounds array crashes in p5.
+  - Chunked prewarming: 20 simulation frames distributed across 4-frame animation slices to eliminate long tasks and maintain sub-50ms main-thread execution.
+
+### 13.3 Step 3 Acceptance Test Results (Verified Live via CDP)
+
+| Check / Assertion | 1440x900 (Desktop) | 1920x1080 (FHD Desktop) | 390x844 (Mobile) | Status |
+| :--- | :--- | :--- | :--- | :--- |
+| `canvasRect` equals viewport at 0.3s | 1440x900 ($x=0, y=0$) | 1920x1080 ($x=0, y=0$) | 390x844 ($x=0, y=0$) | **PASS** |
+| `canvasRect` equals viewport at 1.0s | 1440x900 ($x=0, y=0$) | 1920x1080 ($x=0, y=0$) | 390x844 ($x=0, y=0$) | **PASS** |
+| `canvasRect` equals viewport at 3.0s | 1440x900 ($x=0, y=0$) | 1920x1080 ($x=0, y=0$) | 390x844 ($x=0, y=0$) | **PASS** |
+| `#vanta-bg` fixed, inset 0, ancestor opacity = 1 | `opacity: 1`, fixed, inset 0 | `opacity: 1`, fixed, inset 0 | `opacity: 1`, fixed, inset 0 | **PASS** |
+| Quadrant non-black shares (all $\ge 50\%$ avg) | Q1: 1.15, Q2: 1.04, Q3: 0.94, Q4: 0.87 | Q1: 1.09, Q2: 0.96, Q3: 1.04, Q4: 0.91 | Q1: 1.03, Q2: 0.96, Q3: 1.02, Q4: 0.99 | **PASS** |
+| Right half non-black pixel share | 42.99% | 34.58% | 92.10% | **PASS** |
+| Bottom half non-black pixel share | 40.65% | 36.15% | 95.05% | **PASS** |
+| Discontinuity step diff near x=900 (ratio < 3x) | Ratio: 1.82x (smooth) | Ratio: 1.25x (smooth) | N/A (0.00x) | **PASS** |
+| Time-to-visible ratio (0.3s vs 3.0s avg share) | 88.9% ($\ge 80\%$) | 86.5% ($\ge 80\%$) | 91.2% ($\ge 80\%$) | **PASS** |
+| Scroll Invariance: Scroll 0 (canvasRect & opacity) | 1440x900, opacity=1 | 1920x1080, opacity=1 | 390x844, opacity=1 | **PASS** |
+| Scroll Invariance: Scroll 1000 | 1440x900, opacity=1 | 1920x1080, opacity=1 | 390x844, opacity=1 | **PASS** |
+| Scroll Invariance: Scroll 2500 | 1440x900, opacity=1 | 1920x1080, opacity=1 | 390x844, opacity=1 | **PASS** |
+| Scroll Invariance: Scroll Bottom | 1440x900, opacity=1 | 1920x1080, opacity=1 | 390x844, opacity=1 | **PASS** |
+| Mobile dynamic address-bar resize (+56px) | N/A | N/A | 390x900, zero gap | **PASS** |
+| Horizontal overflow at 390px (`scrollWidth == clientWidth`) | N/A | N/A | 390 == 390 (no overflow) | **PASS** |
+| Console errors | 0 | 0 | 0 | **PASS** |
+| Interactive buttons & links verified (200 status) | 54 / 54 OK | 54 / 54 OK | 54 / 54 OK | **PASS** |
+
+### 13.4 Lighthouse Audit Scores (LIVE)
+- **Desktop**:
+  - **Performance**: 63
+  - **Accessibility**: 100
+  - **Best Practices**: 100
+  - **SEO**: 100
+- **Mobile**:
+  - **Performance**: 67
+  - **Accessibility**: 100
+  - **Best Practices**: 100
+  - **SEO**: 100

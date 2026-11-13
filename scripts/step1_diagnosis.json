@@ -1,0 +1,1973 @@
+{
+  "1440x900": {
+    "timing": {
+      "0.3s": {
+        "dom": {
+          "window": {
+            "innerWidth": 1440,
+            "innerHeight": 900,
+            "scrollY": 0
+          },
+          "vantaBgRect": null,
+          "mountHolderRect": null,
+          "canvasRect": null,
+          "canvasAttrs": null,
+          "ancestors": [],
+          "heroCopyBefore": null,
+          "obscuring": []
+        },
+        "pixels": {
+          "imageWidth": 1440,
+          "imageHeight": 900,
+          "quadrants": {
+            "q1_topLeft": 0,
+            "q2_topRight": 0,
+            "q3_bottomLeft": 0,
+            "q4_bottomRight": 0,
+            "avg": 0,
+            "q1_pct_of_avg": 0,
+            "q2_pct_of_avg": 0,
+            "q3_pct_of_avg": 0,
+            "q4_pct_of_avg": 0
+          },
+          "edgeDiscontinuity": {
+            "colStep900": 0,
+            "rowStep558": 0
+          }
+        }
+      },
+      "1.0s": {
+        "dom": {
+          "window": {
+            "innerWidth": 1440,
+            "innerHeight": 900,
+            "scrollY": 0
+          },
+          "vantaBgRect": null,
+          "mountHolderRect": null,
+          "canvasRect": null,
+          "canvasAttrs": null,
+          "ancestors": [],
+          "heroCopyBefore": null,
+          "obscuring": []
+        },
+        "pixels": {
+          "imageWidth": 1440,
+          "imageHeight": 900,
+          "quadrants": {
+            "q1_topLeft": 0,
+            "q2_topRight": 0,
+            "q3_bottomLeft": 0,
+            "q4_bottomRight": 0,
+            "avg": 0,
+            "q1_pct_of_avg": 0,
+            "q2_pct_of_avg": 0,
+            "q3_pct_of_avg": 0,
+            "q4_pct_of_avg": 0
+          },
+          "edgeDiscontinuity": {
+            "colStep900": 0,
+            "rowStep558": 0
+          }
+        }
+      },
+      "3.0s": {
+        "dom": {
+          "window": {
+            "innerWidth": 1440,
+            "innerHeight": 900,
+            "scrollY": 0
+          },
+          "vantaBgRect": {
+            "tag": "DIV",
+            "id": "vanta-bg",
+            "cls": "",
+            "position": "fixed",
+            "width": 1440,
+            "height": 900,
+            "top": 0,
+            "left": 0,
+            "styleWidth": "",
+            "styleHeight": "",
+            "csWidth": "1440px",
+            "csHeight": "900px"
+          },
+          "mountHolderRect": {
+            "tag": "DIV",
+            "id": "",
+            "cls": "",
+            "position": "absolute",
+            "width": 720,
+            "height": 450,
+            "top": 0,
+            "left": 0,
+            "styleWidth": "720px",
+            "styleHeight": "450px",
+            "csWidth": "720px",
+            "csHeight": "450px"
+          },
+          "canvasRect": {
+            "tag": "CANVAS",
+            "id": "defaultCanvas0",
+            "cls": "p5Canvas vanta-canvas",
+            "position": "absolute",
+            "width": 720,
+            "height": 450,
+            "top": 0,
+            "left": 0,
+            "styleWidth": "720px",
+            "styleHeight": "450px",
+            "csWidth": "720px",
+            "csHeight": "450px"
+          },
+          "canvasAttrs": {
+            "width": 720,
+            "height": 450
+          },
+          "ancestors": [
+            {
+              "tag": "DIV",
+              "id": "vanta-bg",
+              "className": "",
+              "opacity": "1",
+              "transition": "all",
+              "animation": "none",
+              "position": "fixed",
+              "zIndex": "0"
+            },
+            {
+              "tag": "DIV",
+              "id": "app",
+              "className": "",
+              "opacity": "1",
+              "transition": "all",
+              "animation": "none",
+              "position": "relative",
+              "zIndex": "auto"
+            },
+            {
+              "tag": "BODY",
+              "id": "",
+              "className": "",
+              "opacity": "1",
+              "transition": "all",
+              "animation": "none",
+              "position": "static",
+              "zIndex": "auto"
+            },
+            {
+              "tag": "HTML",
+              "id": "",
+              "className": "",
+              "opacity": "1",
+              "transition": "all",
+              "animation": "none",
+              "position": "static",
+              "zIndex": "auto"
+            }
+          ],
+          "heroCopyBefore": {
+            "content": "\"\"",
+            "background": "radial-gradient(at 25% 45%, rgba(0, 0, 0, 0.88) 0%, rgba(0, 0, 0, 0.6) 65%, rgba(0, 0, 0, 0) 100%)",
+            "borderRadius": "0px",
+            "position": "absolute",
+            "zIndex": "-1"
+          },
+          "obscuring": []
+        },
+        "pixels": {
+          "imageWidth": 1440,
+          "imageHeight": 900,
+          "quadrants": {
+            "q1_topLeft": 0.15899382716049382,
+            "q2_topRight": 0.052444444444444446,
+            "q3_bottomLeft": 0.1568858024691358,
+            "q4_bottomRight": 0.03017283950617284,
+            "avg": 0.09962422839506173,
+            "q1_pct_of_avg": 159.59353434588306,
+            "q2_pct_of_avg": 52.6422591063642,
+            "q3_pct_of_avg": 157.47755841782006,
+            "q4_pct_of_avg": 30.286648129932697
+          },
+          "edgeDiscontinuity": {
+            "colStep900": 0.18000000000000005,
+            "rowStep558": -44.59318402777778
+          }
+        }
+      }
+    },
+    "scroll": {
+      "1000": {
+        "dom": {
+          "window": {
+            "innerWidth": 1440,
+            "innerHeight": 900,
+            "scrollY": 888
+          },
+          "vantaBgRect": {
+            "tag": "DIV",
+            "id": "vanta-bg",
+            "cls": "",
+            "position": "fixed",
+            "width": 1440,
+            "height": 900,
+            "top": 0,
+            "left": 0,
+            "styleWidth": "",
+            "styleHeight": "",
+            "csWidth": "1440px",
+            "csHeight": "900px"
+          },
+          "mountHolderRect": {
+            "tag": "DIV",
+            "id": "",
+            "cls": "",
+            "position": "absolute",
+            "width": 720,
+            "height": 450,
+            "top": 0,
+            "left": 0,
+            "styleWidth": "720px",
+            "styleHeight": "450px",
+            "csWidth": "720px",
+            "csHeight": "450px"
+          },
+          "canvasRect": {
+            "tag": "CANVAS",
+            "id": "defaultCanvas0",
+            "cls": "p5Canvas vanta-canvas",
+            "position": "absolute",
+            "width": 720,
+            "height": 450,
+            "top": 0,
+            "left": 0,
+            "styleWidth": "720px",
+            "styleHeight": "450px",
+            "csWidth": "720px",
+            "csHeight": "450px"
+          },
+          "canvasAttrs": {
+            "width": 720,
+            "height": 450
+          },
+          "ancestors": [
+            {
+              "tag": "DIV",
+              "id": "vanta-bg",
+              "className": "",
+              "opacity": "1",
+              "transition": "all",
+              "animation": "none",
+              "position": "fixed",
+              "zIndex": "0"
+            },
+            {
+              "tag": "DIV",
+              "id": "app",
+              "className": "",
+              "opacity": "1",
+              "transition": "all",
+              "animation": "none",
+              "position": "relative",
+              "zIndex": "auto"
+            },
+            {
+              "tag": "BODY",
+              "id": "",
+              "className": "",
+              "opacity": "1",
+              "transition": "all",
+              "animation": "none",
+              "position": "static",
+              "zIndex": "auto"
+            },
+            {
+              "tag": "HTML",
+              "id": "",
+              "className": "",
+              "opacity": "1",
+              "transition": "all",
+              "animation": "none",
+              "position": "static",
+              "zIndex": "auto"
+            }
+          ],
+          "heroCopyBefore": {
+            "content": "\"\"",
+            "background": "radial-gradient(at 25% 45%, rgba(0, 0, 0, 0.88) 0%, rgba(0, 0, 0, 0.6) 65%, rgba(0, 0, 0, 0) 100%)",
+            "borderRadius": "0px",
+            "position": "absolute",
+            "zIndex": "-1"
+          },
+          "obscuring": [
+            {
+              "tag": "HEADER",
+              "id": "nav",
+              "cls": "nav is-scrolled",
+              "bg": "rgba(0, 0, 0, 0.92)",
+              "bgImg": "none",
+              "rect": {
+                "top": 0,
+                "left": 0,
+                "width": 1425,
+                "height": 60
+              },
+              "zIndex": "100"
+            }
+          ]
+        },
+        "pixels": {
+          "imageWidth": 1440,
+          "imageHeight": 900,
+          "quadrants": {
+            "q1_topLeft": 0.25219444444444444,
+            "q2_topRight": 0.05125,
+            "q3_bottomLeft": 0.014950617283950618,
+            "q4_bottomRight": 0.030743827160493828,
+            "avg": 0.08728472222222224,
+            "q1_pct_of_avg": 288.93308934680556,
+            "q2_pct_of_avg": 58.715888296602735,
+            "q3_pct_of_avg": 17.12856145189664,
+            "q4_pct_of_avg": 35.22246090469497
+          },
+          "edgeDiscontinuity": {
+            "colStep900": 0.821111111111111,
+            "rowStep558": 0
+          }
+        }
+      },
+      "2500": {
+        "dom": {
+          "window": {
+            "innerWidth": 1440,
+            "innerHeight": 900,
+            "scrollY": 2166
+          },
+          "vantaBgRect": {
+            "tag": "DIV",
+            "id": "vanta-bg",
+            "cls": "",
+            "position": "fixed",
+            "width": 1440,
+            "height": 900,
+            "top": 0,
+            "left": 0,
+            "styleWidth": "",
+            "styleHeight": "",
+            "csWidth": "1440px",
+            "csHeight": "900px"
+          },
+          "mountHolderRect": {
+            "tag": "DIV",
+            "id": "",
+            "cls": "",
+            "position": "absolute",
+            "width": 720,
+            "height": 450,
+            "top": 0,
+            "left": 0,
+            "styleWidth": "720px",
+            "styleHeight": "450px",
+            "csWidth": "720px",
+            "csHeight": "450px"
+          },
+          "canvasRect": {
+            "tag": "CANVAS",
+            "id": "defaultCanvas0",
+            "cls": "p5Canvas vanta-canvas",
+            "position": "absolute",
+            "width": 720,
+            "height": 450,
+            "top": 0,
+            "left": 0,
+            "styleWidth": "720px",
+            "styleHeight": "450px",
+            "csWidth": "720px",
+            "csHeight": "450px"
+          },
+          "canvasAttrs": {
+            "width": 720,
+            "height": 450
+          },
+          "ancestors": [
+            {
+              "tag": "DIV",
+              "id": "vanta-bg",
+              "className": "",
+              "opacity": "1",
+              "transition": "all",
+              "animation": "none",
+              "position": "fixed",
+              "zIndex": "0"
+            },
+            {
+              "tag": "DIV",
+              "id": "app",
+              "className": "",
+              "opacity": "1",
+              "transition": "all",
+              "animation": "none",
+              "position": "relative",
+              "zIndex": "auto"
+            },
+            {
+              "tag": "BODY",
+              "id": "",
+              "className": "",
+              "opacity": "1",
+              "transition": "all",
+              "animation": "none",
+              "position": "static",
+              "zIndex": "auto"
+            },
+            {
+              "tag": "HTML",
+              "id": "",
+              "className": "",
+              "opacity": "1",
+              "transition": "all",
+              "animation": "none",
+              "position": "static",
+              "zIndex": "auto"
+            }
+          ],
+          "heroCopyBefore": {
+            "content": "\"\"",
+            "background": "radial-gradient(at 25% 45%, rgba(0, 0, 0, 0.88) 0%, rgba(0, 0, 0, 0.6) 65%, rgba(0, 0, 0, 0) 100%)",
+            "borderRadius": "0px",
+            "position": "absolute",
+            "zIndex": "-1"
+          },
+          "obscuring": [
+            {
+              "tag": "HEADER",
+              "id": "nav",
+              "cls": "nav is-scrolled",
+              "bg": "rgba(0, 0, 0, 0.92)",
+              "bgImg": "none",
+              "rect": {
+                "top": 0,
+                "left": 0,
+                "width": 1425,
+                "height": 60
+              },
+              "zIndex": "100"
+            }
+          ]
+        },
+        "pixels": {
+          "imageWidth": 1440,
+          "imageHeight": 900,
+          "quadrants": {
+            "q1_topLeft": 0.3541141975308642,
+            "q2_topRight": 0.05316358024691358,
+            "q3_bottomLeft": 0,
+            "q4_bottomRight": 0.020833333333333332,
+            "avg": 0.10702777777777778,
+            "q1_pct_of_avg": 330.86195460968366,
+            "q2_pct_of_avg": 49.67269371629611,
+            "q3_pct_of_avg": 0,
+            "q4_pct_of_avg": 19.465351674020244
+          },
+          "edgeDiscontinuity": {
+            "colStep900": 0.47111111111111115,
+            "rowStep558": 0
+          }
+        }
+      },
+      "bottom": {
+        "dom": {
+          "window": {
+            "innerWidth": 1440,
+            "innerHeight": 900,
+            "scrollY": 4290
+          },
+          "vantaBgRect": {
+            "tag": "DIV",
+            "id": "vanta-bg",
+            "cls": "",
+            "position": "fixed",
+            "width": 1440,
+            "height": 900,
+            "top": 0,
+            "left": 0,
+            "styleWidth": "",
+            "styleHeight": "",
+            "csWidth": "1440px",
+            "csHeight": "900px"
+          },
+          "mountHolderRect": {
+            "tag": "DIV",
+            "id": "",
+            "cls": "",
+            "position": "absolute",
+            "width": 720,
+            "height": 450,
+            "top": 0,
+            "left": 0,
+            "styleWidth": "720px",
+            "styleHeight": "450px",
+            "csWidth": "720px",
+            "csHeight": "450px"
+          },
+          "canvasRect": {
+            "tag": "CANVAS",
+            "id": "defaultCanvas0",
+            "cls": "p5Canvas vanta-canvas",
+            "position": "absolute",
+            "width": 720,
+            "height": 450,
+            "top": 0,
+            "left": 0,
+            "styleWidth": "720px",
+            "styleHeight": "450px",
+            "csWidth": "720px",
+            "csHeight": "450px"
+          },
+          "canvasAttrs": {
+            "width": 720,
+            "height": 450
+          },
+          "ancestors": [
+            {
+              "tag": "DIV",
+              "id": "vanta-bg",
+              "className": "",
+              "opacity": "1",
+              "transition": "all",
+              "animation": "none",
+              "position": "fixed",
+              "zIndex": "0"
+            },
+            {
+              "tag": "DIV",
+              "id": "app",
+              "className": "",
+              "opacity": "1",
+              "transition": "all",
+              "animation": "none",
+              "position": "relative",
+              "zIndex": "auto"
+            },
+            {
+              "tag": "BODY",
+              "id": "",
+              "className": "",
+              "opacity": "1",
+              "transition": "all",
+              "animation": "none",
+              "position": "static",
+              "zIndex": "auto"
+            },
+            {
+              "tag": "HTML",
+              "id": "",
+              "className": "",
+              "opacity": "1",
+              "transition": "all",
+              "animation": "none",
+              "position": "static",
+              "zIndex": "auto"
+            }
+          ],
+          "heroCopyBefore": {
+            "content": "\"\"",
+            "background": "radial-gradient(at 25% 45%, rgba(0, 0, 0, 0.88) 0%, rgba(0, 0, 0, 0.6) 65%, rgba(0, 0, 0, 0) 100%)",
+            "borderRadius": "0px",
+            "position": "absolute",
+            "zIndex": "-1"
+          },
+          "obscuring": [
+            {
+              "tag": "HEADER",
+              "id": "nav",
+              "cls": "nav is-scrolled",
+              "bg": "rgba(0, 0, 0, 0.92)",
+              "bgImg": "none",
+              "rect": {
+                "top": 0,
+                "left": 0,
+                "width": 1425,
+                "height": 60
+              },
+              "zIndex": "100"
+            }
+          ]
+        },
+        "pixels": {
+          "imageWidth": 1440,
+          "imageHeight": 900,
+          "quadrants": {
+            "q1_topLeft": 0.4177067901234568,
+            "q2_topRight": 0.047435185185185184,
+            "q3_bottomLeft": 0,
+            "q4_bottomRight": 0.020833333333333332,
+            "avg": 0.12149382716049383,
+            "q1_pct_of_avg": 343.8090641195001,
+            "q2_pct_of_avg": 39.043288283711,
+            "q3_pct_of_avg": 0,
+            "q4_pct_of_avg": 17.147647596788943
+          },
+          "edgeDiscontinuity": {
+            "colStep900": 0.47176333333333337,
+            "rowStep558": -0.71875
+          }
+        }
+      }
+    }
+  },
+  "1920x1080": {
+    "timing": {
+      "0.3s": {
+        "dom": {
+          "window": {
+            "innerWidth": 1920,
+            "innerHeight": 1080,
+            "scrollY": 0
+          },
+          "vantaBgRect": null,
+          "mountHolderRect": null,
+          "canvasRect": null,
+          "canvasAttrs": null,
+          "ancestors": [],
+          "heroCopyBefore": null,
+          "obscuring": []
+        },
+        "pixels": {
+          "imageWidth": 1920,
+          "imageHeight": 1080,
+          "quadrants": {
+            "q1_topLeft": 0,
+            "q2_topRight": 0,
+            "q3_bottomLeft": 0,
+            "q4_bottomRight": 0,
+            "avg": 0,
+            "q1_pct_of_avg": 0,
+            "q2_pct_of_avg": 0,
+            "q3_pct_of_avg": 0,
+            "q4_pct_of_avg": 0
+          },
+          "edgeDiscontinuity": {
+            "colStep900": 0,
+            "rowStep558": 0.000059375
+          }
+        }
+      },
+      "1.0s": {
+        "dom": {
+          "window": {
+            "innerWidth": 1920,
+            "innerHeight": 1080,
+            "scrollY": 0
+          },
+          "vantaBgRect": {
+            "tag": "DIV",
+            "id": "vanta-bg",
+            "cls": "",
+            "position": "fixed",
+            "width": 1920,
+            "height": 1080,
+            "top": 0,
+            "left": 0,
+            "styleWidth": "",
+            "styleHeight": "",
+            "csWidth": "1920px",
+            "csHeight": "1080px"
+          },
+          "mountHolderRect": null,
+          "canvasRect": null,
+          "canvasAttrs": null,
+          "ancestors": [
+            {
+              "tag": "DIV",
+              "id": "vanta-bg",
+              "className": "",
+              "opacity": "1",
+              "transition": "all",
+              "animation": "none",
+              "position": "fixed",
+              "zIndex": "0"
+            },
+            {
+              "tag": "DIV",
+              "id": "app",
+              "className": "",
+              "opacity": "1",
+              "transition": "all",
+              "animation": "none",
+              "position": "relative",
+              "zIndex": "auto"
+            },
+            {
+              "tag": "BODY",
+              "id": "",
+              "className": "",
+              "opacity": "1",
+              "transition": "all",
+              "animation": "none",
+              "position": "static",
+              "zIndex": "auto"
+            },
+            {
+              "tag": "HTML",
+              "id": "",
+              "className": "",
+              "opacity": "1",
+              "transition": "all",
+              "animation": "none",
+              "position": "static",
+              "zIndex": "auto"
+            }
+          ],
+          "heroCopyBefore": {
+            "content": "\"\"",
+            "background": "radial-gradient(at 25% 45%, rgba(0, 0, 0, 0.88) 0%, rgba(0, 0, 0, 0.6) 65%, rgba(0, 0, 0, 0) 100%)",
+            "borderRadius": "0px",
+            "position": "absolute",
+            "zIndex": "-1"
+          },
+          "obscuring": []
+        },
+        "pixels": {
+          "imageWidth": 1920,
+          "imageHeight": 1080,
+          "quadrants": {
+            "q1_topLeft": 0.004369212962962963,
+            "q2_topRight": 0.030891203703703702,
+            "q3_bottomLeft": 0.002525077160493827,
+            "q4_bottomRight": 0.015625,
+            "avg": 0.013352623456790122,
+            "q1_pct_of_avg": 32.72175671771165,
+            "q2_pct_of_avg": 231.34932100548974,
+            "q3_pct_of_avg": 18.91071944524704,
+            "q4_pct_of_avg": 117.01820283155158
+          },
+          "edgeDiscontinuity": {
+            "colStep900": 0.6351851851851852,
+            "rowStep558": 0.00021510416666664645
+          }
+        }
+      },
+      "3.0s": {
+        "dom": {
+          "window": {
+            "innerWidth": 1920,
+            "innerHeight": 1080,
+            "scrollY": 0
+          },
+          "vantaBgRect": {
+            "tag": "DIV",
+            "id": "vanta-bg",
+            "cls": "",
+            "position": "fixed",
+            "width": 1920,
+            "height": 1080,
+            "top": 0,
+            "left": 0,
+            "styleWidth": "",
+            "styleHeight": "",
+            "csWidth": "1920px",
+            "csHeight": "1080px"
+          },
+          "mountHolderRect": {
+            "tag": "DIV",
+            "id": "",
+            "cls": "",
+            "position": "absolute",
+            "width": 720,
+            "height": 450,
+            "top": 0,
+            "left": 0,
+            "styleWidth": "720px",
+            "styleHeight": "450px",
+            "csWidth": "720px",
+            "csHeight": "450px"
+          },
+          "canvasRect": {
+            "tag": "CANVAS",
+            "id": "defaultCanvas0",
+            "cls": "p5Canvas vanta-canvas",
+            "position": "absolute",
+            "width": 720,
+            "height": 450,
+            "top": 0,
+            "left": 0,
+            "styleWidth": "720px",
+            "styleHeight": "450px",
+            "csWidth": "720px",
+            "csHeight": "450px"
+          },
+          "canvasAttrs": {
+            "width": 720,
+            "height": 450
+          },
+          "ancestors": [
+            {
+              "tag": "DIV",
+              "id": "vanta-bg",
+              "className": "",
+              "opacity": "1",
+              "transition": "all",
+              "animation": "none",
+              "position": "fixed",
+              "zIndex": "0"
+            },
+            {
+              "tag": "DIV",
+              "id": "app",
+              "className": "",
+              "opacity": "1",
+              "transition": "all",
+              "animation": "none",
+              "position": "relative",
+              "zIndex": "auto"
+            },
+            {
+              "tag": "BODY",
+              "id": "",
+              "className": "",
+              "opacity": "1",
+              "transition": "all",
+              "animation": "none",
+              "position": "static",
+              "zIndex": "auto"
+            },
+            {
+              "tag": "HTML",
+              "id": "",
+              "className": "",
+              "opacity": "1",
+              "transition": "all",
+              "animation": "none",
+              "position": "static",
+              "zIndex": "auto"
+            }
+          ],
+          "heroCopyBefore": {
+            "content": "\"\"",
+            "background": "radial-gradient(at 25% 45%, rgba(0, 0, 0, 0.88) 0%, rgba(0, 0, 0, 0.6) 65%, rgba(0, 0, 0, 0) 100%)",
+            "borderRadius": "0px",
+            "position": "absolute",
+            "zIndex": "-1"
+          },
+          "obscuring": []
+        },
+        "pixels": {
+          "imageWidth": 1920,
+          "imageHeight": 1080,
+          "quadrants": {
+            "q1_topLeft": 0.16537808641975307,
+            "q2_topRight": 0.03641975308641975,
+            "q3_bottomLeft": 0.08733217592592593,
+            "q4_bottomRight": 0.02017746913580247,
+            "avg": 0.07732687114197531,
+            "q1_pct_of_avg": 213.86884530231686,
+            "q2_pct_of_avg": 47.09844398016776,
+            "q3_pct_of_avg": 112.93897533443513,
+            "q4_pct_of_avg": 26.093735383080237
+          },
+          "edgeDiscontinuity": {
+            "colStep900": 8.953703703703704,
+            "rowStep558": -34.172846875000005
+          }
+        }
+      }
+    },
+    "scroll": {
+      "1000": {
+        "dom": {
+          "window": {
+            "innerWidth": 1920,
+            "innerHeight": 1080,
+            "scrollY": 888
+          },
+          "vantaBgRect": {
+            "tag": "DIV",
+            "id": "vanta-bg",
+            "cls": "",
+            "position": "fixed",
+            "width": 1920,
+            "height": 1080,
+            "top": 0,
+            "left": 0,
+            "styleWidth": "",
+            "styleHeight": "",
+            "csWidth": "1920px",
+            "csHeight": "1080px"
+          },
+          "mountHolderRect": {
+            "tag": "DIV",
+            "id": "",
+            "cls": "",
+            "position": "absolute",
+            "width": 720,
+            "height": 450,
+            "top": 0,
+            "left": 0,
+            "styleWidth": "720px",
+            "styleHeight": "450px",
+            "csWidth": "720px",
+            "csHeight": "450px"
+          },
+          "canvasRect": {
+            "tag": "CANVAS",
+            "id": "defaultCanvas0",
+            "cls": "p5Canvas vanta-canvas",
+            "position": "absolute",
+            "width": 720,
+            "height": 450,
+            "top": 0,
+            "left": 0,
+            "styleWidth": "720px",
+            "styleHeight": "450px",
+            "csWidth": "720px",
+            "csHeight": "450px"
+          },
+          "canvasAttrs": {
+            "width": 720,
+            "height": 450
+          },
+          "ancestors": [
+            {
+              "tag": "DIV",
+              "id": "vanta-bg",
+              "className": "",
+              "opacity": "1",
+              "transition": "all",
+              "animation": "none",
+              "position": "fixed",
+              "zIndex": "0"
+            },
+            {
+              "tag": "DIV",
+              "id": "app",
+              "className": "",
+              "opacity": "1",
+              "transition": "all",
+              "animation": "none",
+              "position": "relative",
+              "zIndex": "auto"
+            },
+            {
+              "tag": "BODY",
+              "id": "",
+              "className": "",
+              "opacity": "1",
+              "transition": "all",
+              "animation": "none",
+              "position": "static",
+              "zIndex": "auto"
+            },
+            {
+              "tag": "HTML",
+              "id": "",
+              "className": "",
+              "opacity": "1",
+              "transition": "all",
+              "animation": "none",
+              "position": "static",
+              "zIndex": "auto"
+            }
+          ],
+          "heroCopyBefore": {
+            "content": "\"\"",
+            "background": "radial-gradient(at 25% 45%, rgba(0, 0, 0, 0.88) 0%, rgba(0, 0, 0, 0.6) 65%, rgba(0, 0, 0, 0) 100%)",
+            "borderRadius": "0px",
+            "position": "absolute",
+            "zIndex": "-1"
+          },
+          "obscuring": [
+            {
+              "tag": "HEADER",
+              "id": "nav",
+              "cls": "nav is-scrolled",
+              "bg": "rgba(0, 0, 0, 0.92)",
+              "bgImg": "none",
+              "rect": {
+                "top": 0,
+                "left": 0,
+                "width": 1905,
+                "height": 60
+              },
+              "zIndex": "100"
+            }
+          ]
+        },
+        "pixels": {
+          "imageWidth": 1920,
+          "imageHeight": 1080,
+          "quadrants": {
+            "q1_topLeft": 0.2535725308641975,
+            "q2_topRight": 0.03453703703703704,
+            "q3_bottomLeft": 0.01224537037037037,
+            "q4_bottomRight": 0.024666280864197532,
+            "avg": 0.08125530478395061,
+            "q1_pct_of_avg": 312.06889388750733,
+            "q2_pct_of_avg": 42.50434741321495,
+            "q3_pct_of_avg": 15.070241140476345,
+            "q4_pct_of_avg": 30.35651755880136
+          },
+          "edgeDiscontinuity": {
+            "colStep900": 0.7231481481481482,
+            "rowStep558": -0.022857291666666613
+          }
+        }
+      },
+      "2500": {
+        "dom": {
+          "window": {
+            "innerWidth": 1920,
+            "innerHeight": 1080,
+            "scrollY": 2210
+          },
+          "vantaBgRect": {
+            "tag": "DIV",
+            "id": "vanta-bg",
+            "cls": "",
+            "position": "fixed",
+            "width": 1920,
+            "height": 1080,
+            "top": 0,
+            "left": 0,
+            "styleWidth": "",
+            "styleHeight": "",
+            "csWidth": "1920px",
+            "csHeight": "1080px"
+          },
+          "mountHolderRect": {
+            "tag": "DIV",
+            "id": "",
+            "cls": "",
+            "position": "absolute",
+            "width": 720,
+            "height": 450,
+            "top": 0,
+            "left": 0,
+            "styleWidth": "720px",
+            "styleHeight": "450px",
+            "csWidth": "720px",
+            "csHeight": "450px"
+          },
+          "canvasRect": {
+            "tag": "CANVAS",
+            "id": "defaultCanvas0",
+            "cls": "p5Canvas vanta-canvas",
+            "position": "absolute",
+            "width": 720,
+            "height": 450,
+            "top": 0,
+            "left": 0,
+            "styleWidth": "720px",
+            "styleHeight": "450px",
+            "csWidth": "720px",
+            "csHeight": "450px"
+          },
+          "canvasAttrs": {
+            "width": 720,
+            "height": 450
+          },
+          "ancestors": [
+            {
+              "tag": "DIV",
+              "id": "vanta-bg",
+              "className": "",
+              "opacity": "1",
+              "transition": "all",
+              "animation": "none",
+              "position": "fixed",
+              "zIndex": "0"
+            },
+            {
+              "tag": "DIV",
+              "id": "app",
+              "className": "",
+              "opacity": "1",
+              "transition": "all",
+              "animation": "none",
+              "position": "relative",
+              "zIndex": "auto"
+            },
+            {
+              "tag": "BODY",
+              "id": "",
+              "className": "",
+              "opacity": "1",
+              "transition": "all",
+              "animation": "none",
+              "position": "static",
+              "zIndex": "auto"
+            },
+            {
+              "tag": "HTML",
+              "id": "",
+              "className": "",
+              "opacity": "1",
+              "transition": "all",
+              "animation": "none",
+              "position": "static",
+              "zIndex": "auto"
+            }
+          ],
+          "heroCopyBefore": {
+            "content": "\"\"",
+            "background": "radial-gradient(at 25% 45%, rgba(0, 0, 0, 0.88) 0%, rgba(0, 0, 0, 0.6) 65%, rgba(0, 0, 0, 0) 100%)",
+            "borderRadius": "0px",
+            "position": "absolute",
+            "zIndex": "-1"
+          },
+          "obscuring": [
+            {
+              "tag": "HEADER",
+              "id": "nav",
+              "cls": "nav is-scrolled",
+              "bg": "rgba(0, 0, 0, 0.92)",
+              "bgImg": "none",
+              "rect": {
+                "top": 0,
+                "left": 0,
+                "width": 1905,
+                "height": 60
+              },
+              "zIndex": "100"
+            }
+          ]
+        },
+        "pixels": {
+          "imageWidth": 1920,
+          "imageHeight": 1080,
+          "quadrants": {
+            "q1_topLeft": 0.35247492283950616,
+            "q2_topRight": 0.10966628086419752,
+            "q3_bottomLeft": 0,
+            "q4_bottomRight": 0.015625,
+            "avg": 0.11944155092592593,
+            "q1_pct_of_avg": 295.102433036976,
+            "q2_pct_of_avg": 91.8158547122427,
+            "q3_pct_of_avg": 0,
+            "q4_pct_of_avg": 13.081712250781269
+          },
+          "edgeDiscontinuity": {
+            "colStep900": 0.5175925925925926,
+            "rowStep558": 0
+          }
+        }
+      },
+      "bottom": {
+        "dom": {
+          "window": {
+            "innerWidth": 1920,
+            "innerHeight": 1080,
+            "scrollY": 4292
+          },
+          "vantaBgRect": {
+            "tag": "DIV",
+            "id": "vanta-bg",
+            "cls": "",
+            "position": "fixed",
+            "width": 1920,
+            "height": 1080,
+            "top": 0,
+            "left": 0,
+            "styleWidth": "",
+            "styleHeight": "",
+            "csWidth": "1920px",
+            "csHeight": "1080px"
+          },
+          "mountHolderRect": {
+            "tag": "DIV",
+            "id": "",
+            "cls": "",
+            "position": "absolute",
+            "width": 720,
+            "height": 450,
+            "top": 0,
+            "left": 0,
+            "styleWidth": "720px",
+            "styleHeight": "450px",
+            "csWidth": "720px",
+            "csHeight": "450px"
+          },
+          "canvasRect": {
+            "tag": "CANVAS",
+            "id": "defaultCanvas0",
+            "cls": "p5Canvas vanta-canvas",
+            "position": "absolute",
+            "width": 720,
+            "height": 450,
+            "top": 0,
+            "left": 0,
+            "styleWidth": "720px",
+            "styleHeight": "450px",
+            "csWidth": "720px",
+            "csHeight": "450px"
+          },
+          "canvasAttrs": {
+            "width": 720,
+            "height": 450
+          },
+          "ancestors": [
+            {
+              "tag": "DIV",
+              "id": "vanta-bg",
+              "className": "",
+              "opacity": "1",
+              "transition": "all",
+              "animation": "none",
+              "position": "fixed",
+              "zIndex": "0"
+            },
+            {
+              "tag": "DIV",
+              "id": "app",
+              "className": "",
+              "opacity": "1",
+              "transition": "all",
+              "animation": "none",
+              "position": "relative",
+              "zIndex": "auto"
+            },
+            {
+              "tag": "BODY",
+              "id": "",
+              "className": "",
+              "opacity": "1",
+              "transition": "all",
+              "animation": "none",
+              "position": "static",
+              "zIndex": "auto"
+            },
+            {
+              "tag": "HTML",
+              "id": "",
+              "className": "",
+              "opacity": "1",
+              "transition": "all",
+              "animation": "none",
+              "position": "static",
+              "zIndex": "auto"
+            }
+          ],
+          "heroCopyBefore": {
+            "content": "\"\"",
+            "background": "radial-gradient(at 25% 45%, rgba(0, 0, 0, 0.88) 0%, rgba(0, 0, 0, 0.6) 65%, rgba(0, 0, 0, 0) 100%)",
+            "borderRadius": "0px",
+            "position": "absolute",
+            "zIndex": "-1"
+          },
+          "obscuring": [
+            {
+              "tag": "HEADER",
+              "id": "nav",
+              "cls": "nav is-scrolled",
+              "bg": "rgba(0, 0, 0, 0.92)",
+              "bgImg": "none",
+              "rect": {
+                "top": 0,
+                "left": 0,
+                "width": 1905,
+                "height": 60
+              },
+              "zIndex": "100"
+            }
+          ]
+        },
+        "pixels": {
+          "imageWidth": 1920,
+          "imageHeight": 1080,
+          "quadrants": {
+            "q1_topLeft": 0.41132716049382717,
+            "q2_topRight": 0.03271412037037037,
+            "q3_bottomLeft": 0,
+            "q4_bottomRight": 0.015625,
+            "avg": 0.11491657021604938,
+            "q1_pct_of_avg": 357.93546546029853,
+            "q2_pct_of_avg": 28.467713845676084,
+            "q3_pct_of_avg": 0,
+            "q4_pct_of_avg": 13.596820694025372
+          },
+          "edgeDiscontinuity": {
+            "colStep900": 0.517487037037037,
+            "rowStep558": 0
+          }
+        }
+      }
+    }
+  },
+  "390x844": {
+    "timing": {
+      "0.3s": {
+        "dom": {
+          "window": {
+            "innerWidth": 390,
+            "innerHeight": 844,
+            "scrollY": 0
+          },
+          "vantaBgRect": null,
+          "mountHolderRect": null,
+          "canvasRect": null,
+          "canvasAttrs": null,
+          "ancestors": [],
+          "heroCopyBefore": null,
+          "obscuring": []
+        },
+        "pixels": {
+          "imageWidth": 390,
+          "imageHeight": 844,
+          "quadrants": {
+            "q1_topLeft": 0.03841292988212419,
+            "q2_topRight": 0.012139992708713089,
+            "q3_bottomLeft": 0.201093693036821,
+            "q4_bottomRight": 0.1556568234293353,
+            "avg": 0.10182585976424839,
+            "q1_pct_of_avg": 37.724139988662465,
+            "q2_pct_of_avg": 11.922308082465616,
+            "q3_pct_of_avg": 197.48784199063164,
+            "q4_pct_of_avg": 152.86570993824031
+          },
+          "edgeDiscontinuity": {
+            "colStep900": 0,
+            "rowStep558": 26.931061538461528
+          }
+        }
+      },
+      "1.0s": {
+        "dom": {
+          "window": {
+            "innerWidth": 390,
+            "innerHeight": 844,
+            "scrollY": 0
+          },
+          "vantaBgRect": {
+            "tag": "DIV",
+            "id": "vanta-bg",
+            "cls": "",
+            "position": "fixed",
+            "width": 390,
+            "height": 844,
+            "top": 0,
+            "left": 0,
+            "styleWidth": "",
+            "styleHeight": "",
+            "csWidth": "390px",
+            "csHeight": "844px"
+          },
+          "mountHolderRect": null,
+          "canvasRect": null,
+          "canvasAttrs": null,
+          "ancestors": [
+            {
+              "tag": "DIV",
+              "id": "vanta-bg",
+              "className": "",
+              "opacity": "1",
+              "transition": "all",
+              "animation": "none",
+              "position": "fixed",
+              "zIndex": "0"
+            },
+            {
+              "tag": "DIV",
+              "id": "app",
+              "className": "",
+              "opacity": "1",
+              "transition": "all",
+              "animation": "none",
+              "position": "relative",
+              "zIndex": "auto"
+            },
+            {
+              "tag": "BODY",
+              "id": "",
+              "className": "",
+              "opacity": "1",
+              "transition": "all",
+              "animation": "none",
+              "position": "static",
+              "zIndex": "auto"
+            },
+            {
+              "tag": "HTML",
+              "id": "",
+              "className": "",
+              "opacity": "1",
+              "transition": "all",
+              "animation": "none",
+              "position": "static",
+              "zIndex": "auto"
+            }
+          ],
+          "heroCopyBefore": {
+            "content": "\"\"",
+            "background": "radial-gradient(at 25% 45%, rgba(0, 0, 0, 0.88) 0%, rgba(0, 0, 0, 0.6) 65%, rgba(0, 0, 0, 0) 100%)",
+            "borderRadius": "0px",
+            "position": "absolute",
+            "zIndex": "-1"
+          },
+          "obscuring": []
+        },
+        "pixels": {
+          "imageWidth": 390,
+          "imageHeight": 844,
+          "quadrants": {
+            "q1_topLeft": 0.03806051768137076,
+            "q2_topRight": 0.012152144853566655,
+            "q3_bottomLeft": 0.19778830963665087,
+            "q4_bottomRight": 0.15457528253736785,
+            "avg": 0.10064406367723903,
+            "q1_pct_of_avg": 37.81695242695001,
+            "q2_pct_of_avg": 12.07437816952427,
+            "q3_pct_of_avg": 196.522579087177,
+            "q4_pct_of_avg": 153.5860903163487
+          },
+          "edgeDiscontinuity": {
+            "colStep900": 0,
+            "rowStep558": 20.54795128205128
+          }
+        }
+      },
+      "3.0s": {
+        "dom": {
+          "window": {
+            "innerWidth": 390,
+            "innerHeight": 844,
+            "scrollY": 0
+          },
+          "vantaBgRect": {
+            "tag": "DIV",
+            "id": "vanta-bg",
+            "cls": "",
+            "position": "fixed",
+            "width": 390,
+            "height": 844,
+            "top": 0,
+            "left": 0,
+            "styleWidth": "",
+            "styleHeight": "",
+            "csWidth": "390px",
+            "csHeight": "844px"
+          },
+          "mountHolderRect": {
+            "tag": "DIV",
+            "id": "",
+            "cls": "",
+            "position": "absolute",
+            "width": 360,
+            "height": 540,
+            "top": 0,
+            "left": 0,
+            "styleWidth": "360px",
+            "styleHeight": "540px",
+            "csWidth": "360px",
+            "csHeight": "540px"
+          },
+          "canvasRect": {
+            "tag": "CANVAS",
+            "id": "defaultCanvas0",
+            "cls": "p5Canvas vanta-canvas",
+            "position": "absolute",
+            "width": 360,
+            "height": 540,
+            "top": 0,
+            "left": 0,
+            "styleWidth": "360px",
+            "styleHeight": "540px",
+            "csWidth": "360px",
+            "csHeight": "540px"
+          },
+          "canvasAttrs": {
+            "width": 360,
+            "height": 540
+          },
+          "ancestors": [
+            {
+              "tag": "DIV",
+              "id": "vanta-bg",
+              "className": "",
+              "opacity": "1",
+              "transition": "all",
+              "animation": "none",
+              "position": "fixed",
+              "zIndex": "0"
+            },
+            {
+              "tag": "DIV",
+              "id": "app",
+              "className": "",
+              "opacity": "1",
+              "transition": "all",
+              "animation": "none",
+              "position": "relative",
+              "zIndex": "auto"
+            },
+            {
+              "tag": "BODY",
+              "id": "",
+              "className": "",
+              "opacity": "1",
+              "transition": "all",
+              "animation": "none",
+              "position": "static",
+              "zIndex": "auto"
+            },
+            {
+              "tag": "HTML",
+              "id": "",
+              "className": "",
+              "opacity": "1",
+              "transition": "all",
+              "animation": "none",
+              "position": "static",
+              "zIndex": "auto"
+            }
+          ],
+          "heroCopyBefore": {
+            "content": "\"\"",
+            "background": "radial-gradient(at 25% 45%, rgba(0, 0, 0, 0.88) 0%, rgba(0, 0, 0, 0.6) 65%, rgba(0, 0, 0, 0) 100%)",
+            "borderRadius": "0px",
+            "position": "absolute",
+            "zIndex": "-1"
+          },
+          "obscuring": []
+        },
+        "pixels": {
+          "imageWidth": 390,
+          "imageHeight": 844,
+          "quadrants": {
+            "q1_topLeft": 0.1481346457649775,
+            "q2_topRight": 0.1578685137926844,
+            "q3_bottomLeft": 0.2109004739336493,
+            "q4_bottomRight": 0.16656944950783814,
+            "avg": 0.17086827074978733,
+            "q1_pct_of_avg": 86.69523318457408,
+            "q2_pct_of_avg": 92.39194210835126,
+            "q3_pct_of_avg": 123.42869334850562,
+            "q4_pct_of_avg": 97.48413135856907
+          },
+          "edgeDiscontinuity": {
+            "colStep900": 0,
+            "rowStep558": 20.54795128205128
+          }
+        }
+      }
+    },
+    "scroll": {
+      "1000": {
+        "dom": {
+          "window": {
+            "innerWidth": 390,
+            "innerHeight": 844,
+            "scrollY": 888
+          },
+          "vantaBgRect": {
+            "tag": "DIV",
+            "id": "vanta-bg",
+            "cls": "",
+            "position": "fixed",
+            "width": 390,
+            "height": 844,
+            "top": 0,
+            "left": 0,
+            "styleWidth": "",
+            "styleHeight": "",
+            "csWidth": "390px",
+            "csHeight": "844px"
+          },
+          "mountHolderRect": {
+            "tag": "DIV",
+            "id": "",
+            "cls": "",
+            "position": "absolute",
+            "width": 360,
+            "height": 540,
+            "top": 0,
+            "left": 0,
+            "styleWidth": "360px",
+            "styleHeight": "540px",
+            "csWidth": "360px",
+            "csHeight": "540px"
+          },
+          "canvasRect": {
+            "tag": "CANVAS",
+            "id": "defaultCanvas0",
+            "cls": "p5Canvas vanta-canvas",
+            "position": "absolute",
+            "width": 360,
+            "height": 540,
+            "top": 0,
+            "left": 0,
+            "styleWidth": "360px",
+            "styleHeight": "540px",
+            "csWidth": "360px",
+            "csHeight": "540px"
+          },
+          "canvasAttrs": {
+            "width": 360,
+            "height": 540
+          },
+          "ancestors": [
+            {
+              "tag": "DIV",
+              "id": "vanta-bg",
+              "className": "",
+              "opacity": "1",
+              "transition": "all",
+              "animation": "none",
+              "position": "fixed",
+              "zIndex": "0"
+            },
+            {
+              "tag": "DIV",
+              "id": "app",
+              "className": "",
+              "opacity": "1",
+              "transition": "all",
+              "animation": "none",
+              "position": "relative",
+              "zIndex": "auto"
+            },
+            {
+              "tag": "BODY",
+              "id": "",
+              "className": "",
+              "opacity": "1",
+              "transition": "all",
+              "animation": "none",
+              "position": "static",
+              "zIndex": "auto"
+            },
+            {
+              "tag": "HTML",
+              "id": "",
+              "className": "",
+              "opacity": "1",
+              "transition": "all",
+              "animation": "none",
+              "position": "static",
+              "zIndex": "auto"
+            }
+          ],
+          "heroCopyBefore": {
+            "content": "\"\"",
+            "background": "radial-gradient(at 25% 45%, rgba(0, 0, 0, 0.88) 0%, rgba(0, 0, 0, 0.6) 65%, rgba(0, 0, 0, 0) 100%)",
+            "borderRadius": "0px",
+            "position": "absolute",
+            "zIndex": "-1"
+          },
+          "obscuring": [
+            {
+              "tag": "HEADER",
+              "id": "nav",
+              "cls": "nav is-scrolled",
+              "bg": "rgba(0, 0, 0, 0.92)",
+              "bgImg": "none",
+              "rect": {
+                "top": 0,
+                "left": 0,
+                "width": 390,
+                "height": 56
+              },
+              "zIndex": "100"
+            }
+          ]
+        },
+        "pixels": {
+          "imageWidth": 390,
+          "imageHeight": 844,
+          "quadrants": {
+            "q1_topLeft": 0.466095515858549,
+            "q2_topRight": 0.28668124924049093,
+            "q3_bottomLeft": 0.21625956981407218,
+            "q4_bottomRight": 0.1821849556446713,
+            "avg": 0.28780532263944586,
+            "q1_pct_of_avg": 161.9481917790867,
+            "q2_pct_of_avg": 99.60943272742627,
+            "q3_pct_of_avg": 75.1409208942935,
+            "q4_pct_of_avg": 63.30145459919354
+          },
+          "edgeDiscontinuity": {
+            "colStep900": 0,
+            "rowStep558": 0.0002923076923076923
+          }
+        }
+      },
+      "2500": {
+        "dom": {
+          "window": {
+            "innerWidth": 390,
+            "innerHeight": 844,
+            "scrollY": 2209
+          },
+          "vantaBgRect": {
+            "tag": "DIV",
+            "id": "vanta-bg",
+            "cls": "",
+            "position": "fixed",
+            "width": 390,
+            "height": 844,
+            "top": 0,
+            "left": 0,
+            "styleWidth": "",
+            "styleHeight": "",
+            "csWidth": "390px",
+            "csHeight": "844px"
+          },
+          "mountHolderRect": {
+            "tag": "DIV",
+            "id": "",
+            "cls": "",
+            "position": "absolute",
+            "width": 360,
+            "height": 540,
+            "top": 0,
+            "left": 0,
+            "styleWidth": "360px",
+            "styleHeight": "540px",
+            "csWidth": "360px",
+            "csHeight": "540px"
+          },
+          "canvasRect": {
+            "tag": "CANVAS",
+            "id": "defaultCanvas0",
+            "cls": "p5Canvas vanta-canvas",
+            "position": "absolute",
+            "width": 360,
+            "height": 540,
+            "top": 0,
+            "left": 0,
+            "styleWidth": "360px",
+            "styleHeight": "540px",
+            "csWidth": "360px",
+            "csHeight": "540px"
+          },
+          "canvasAttrs": {
+            "width": 360,
+            "height": 540
+          },
+          "ancestors": [
+            {
+              "tag": "DIV",
+              "id": "vanta-bg",
+              "className": "",
+              "opacity": "1",
+              "transition": "all",
+              "animation": "none",
+              "position": "fixed",
+              "zIndex": "0"
+            },
+            {
+              "tag": "DIV",
+              "id": "app",
+              "className": "",
+              "opacity": "1",
+              "transition": "all",
+              "animation": "none",
+              "position": "relative",
+              "zIndex": "auto"
+            },
+            {
+              "tag": "BODY",
+              "id": "",
+              "className": "",
+              "opacity": "1",
+              "transition": "all",
+              "animation": "none",
+              "position": "static",
+              "zIndex": "auto"
+            },
+            {
+              "tag": "HTML",
+              "id": "",
+              "className": "",
+              "opacity": "1",
+              "transition": "all",
+              "animation": "none",
+              "position": "static",
+              "zIndex": "auto"
+            }
+          ],
+          "heroCopyBefore": {
+            "content": "\"\"",
+            "background": "radial-gradient(at 25% 45%, rgba(0, 0, 0, 0.88) 0%, rgba(0, 0, 0, 0.6) 65%, rgba(0, 0, 0, 0) 100%)",
+            "borderRadius": "0px",
+            "position": "absolute",
+            "zIndex": "-1"
+          },
+          "obscuring": [
+            {
+              "tag": "HEADER",
+              "id": "nav",
+              "cls": "nav is-scrolled",
+              "bg": "rgba(0, 0, 0, 0.92)",
+              "bgImg": "none",
+              "rect": {
+                "top": 0,
+                "left": 0,
+                "width": 390,
+                "height": 56
+              },
+              "zIndex": "100"
+            }
+          ]
+        },
+        "pixels": {
+          "imageWidth": 390,
+          "imageHeight": 844,
+          "quadrants": {
+            "q1_topLeft": 0.5418519868756836,
+            "q2_topRight": 0.358245230283145,
+            "q3_bottomLeft": 0.2895734597156398,
+            "q4_bottomRight": 0.3083728278041074,
+            "avg": 0.37451087616964396,
+            "q1_pct_of_avg": 144.68257702354106,
+            "q2_pct_of_avg": 95.6568295017603,
+            "q3_pct_of_avg": 77.32044064441811,
+            "q4_pct_of_avg": 82.3401528302805
+          },
+          "edgeDiscontinuity": {
+            "colStep900": 0,
+            "rowStep558": -15.191089743589743
+          }
+        }
+      },
+      "bottom": {
+        "dom": {
+          "window": {
+            "innerWidth": 390,
+            "innerHeight": 844,
+            "scrollY": 3884
+          },
+          "vantaBgRect": {
+            "tag": "DIV",
+            "id": "vanta-bg",
+            "cls": "",
+            "position": "fixed",
+            "width": 390,
+            "height": 844,
+            "top": 0,
+            "left": 0,
+            "styleWidth": "",
+            "styleHeight": "",
+            "csWidth": "390px",
+            "csHeight": "844px"
+          },
+          "mountHolderRect": {
+            "tag": "DIV",
+            "id": "",
+            "cls": "",
+            "position": "absolute",
+            "width": 360,
+            "height": 540,
+            "top": 0,
+            "left": 0,
+            "styleWidth": "360px",
+            "styleHeight": "540px",
+            "csWidth": "360px",
+            "csHeight": "540px"
+          },
+          "canvasRect": {
+            "tag": "CANVAS",
+            "id": "defaultCanvas0",
+            "cls": "p5Canvas vanta-canvas",
+            "position": "absolute",
+            "width": 360,
+            "height": 540,
+            "top": 0,
+            "left": 0,
+            "styleWidth": "360px",
+            "styleHeight": "540px",
+            "csWidth": "360px",
+            "csHeight": "540px"
+          },
+          "canvasAttrs": {
+            "width": 360,
+            "height": 540
+          },
+          "ancestors": [
+            {
+              "tag": "DIV",
+              "id": "vanta-bg",
+              "className": "",
+              "opacity": "1",
+              "transition": "all",
+              "animation": "none",
+              "position": "fixed",
+              "zIndex": "0"
+            },
+            {
+              "tag": "DIV",
+              "id": "app",
+              "className": "",
+              "opacity": "1",
+              "transition": "all",
+              "animation": "none",
+              "position": "relative",
+              "zIndex": "auto"
+            },
+            {
+              "tag": "BODY",
+              "id": "",
+              "className": "",
+              "opacity": "1",
+              "transition": "all",
+              "animation": "none",
+              "position": "static",
+              "zIndex": "auto"
+            },
+            {
+              "tag": "HTML",
+              "id": "",
+              "className": "",
+              "opacity": "1",
+              "transition": "all",
+              "animation": "none",
+              "position": "static",
+              "zIndex": "auto"
+            }
+          ],
+          "heroCopyBefore": {
+            "content": "\"\"",
+            "background": "radial-gradient(at 25% 45%, rgba(0, 0, 0, 0.88) 0%, rgba(0, 0, 0, 0.6) 65%, rgba(0, 0, 0, 0) 100%)",
+            "borderRadius": "0px",
+            "position": "absolute",
+            "zIndex": "-1"
+          },
+          "obscuring": [
+            {
+              "tag": "HEADER",
+              "id": "nav",
+              "cls": "nav is-scrolled",
+              "bg": "rgba(0, 0, 0, 0.92)",
+              "bgImg": "none",
+              "rect": {
+                "top": 0,
+                "left": 0,
+                "width": 390,
+                "height": 56
+              },
+              "zIndex": "100"
+            }
+          ]
+        },
+        "pixels": {
+          "imageWidth": 390,
+          "imageHeight": 844,
+          "quadrants": {
+            "q1_topLeft": 0.5655729736298457,
+            "q2_topRight": 0.35851257746992343,
+            "q3_bottomLeft": 0.24476850164053957,
+            "q4_bottomRight": 0.20202940819054563,
+            "avg": 0.3427208652327136,
+            "q1_pct_of_avg": 165.0243772715185,
+            "q2_pct_of_avg": 104.60774754011169,
+            "q3_pct_of_avg": 71.41920042549418,
+            "q4_pct_of_avg": 58.94867476287562
+          },
+          "edgeDiscontinuity": {
+            "colStep900": 0,
+            "rowStep558": 0.0019794871794871793
+          }
+        }
+      }
+    }
+  }
+}

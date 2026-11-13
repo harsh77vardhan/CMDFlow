@@ -170,6 +170,7 @@ img, svg {
   inset: 0;
   width: 100vw;
   height: 100vh;
+  height: 100lvh;
   z-index: 0;
   pointer-events: none;
   overflow: hidden;
@@ -182,6 +183,13 @@ img, svg {
   width: 100% !important;
   height: 100% !important;
   pointer-events: none;
+}
+
+.content-wrapper {
+  position: relative;
+  z-index: 1;
+  background: transparent;
+  width: 100%;
 }
 
 /* ===========================
@@ -486,11 +494,10 @@ img, svg {
 .hero-copy::before {
   content: '';
   position: absolute;
-  inset: -32px -48px;
-  background: radial-gradient(ellipse at 25% 45%, rgba(0, 0, 0, 0.88) 0%, rgba(0, 0, 0, 0.60) 65%, rgba(0, 0, 0, 0) 100%);
+  inset: -140px -120px;
+  background: radial-gradient(ellipse 75% 75% at 35% 45%, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.45) 50%, rgba(0, 0, 0, 0) 85%);
   pointer-events: none;
   z-index: -1;
-  border-radius: var(--rad-lg);
 }
 
 .eyebrow {
