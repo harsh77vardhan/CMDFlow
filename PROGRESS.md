@@ -63,7 +63,7 @@
   - Tested: `b`, `gs`, `ll`, context-aware `s`, `deploy` flow, and `cmdflow doctor`
   - Reversibility proven: `cmdflow uninstall` restores rc files cleanly with 0 leftover directives.
 - [x] **M10: Cloudflare Edge Deployment, KV Rate Limiting & Live Verification**
-  - Production Cloudflare Worker deployed live at `https://cmdflow.sudsy-bus.workers.dev`
+  - Production Cloudflare Worker deployed live at `https://cmdflow.cmdflow.workers.dev`
   - Production D1 database (`cmdflow-db`) and KV namespace (`cmdflow-rate-limits`) created and wired into `wrangler.jsonc`
   - D1 migrations applied with `--remote`
   - Live endpoints verified: `/api/health` (HTTP 200), `/api/releases/latest` (exact SHA-256 match), `/api/waitlist` (validation, dedup, honeypot, KV rate limit 429), `/api/*` 404, foreign origin 403 CORS rejection
@@ -96,11 +96,27 @@
     - **LEFT INSTALLED** on host machine with documented undo steps.
   - **Hygiene Scan (Step 5)**:
     - Zero tokens (`cfat_`, `ghp_`, API keys) across working tree and entire git history.
-    - Zero occurrences of `/home/harsh` in source files or templates.
+    - Zero occurrences of personal home directory paths in source files or templates.
+
+- [x] **M12: Tier-1 Production Cloudflare Deployment & v1.0.3 Release**
+  - **Cloudflare Authentication & Deployment (Tier 1)**:
+    - OAuth browser authentication completed for user's personal Cloudflare account (`Harshvsvardhan22@gmail.com`).
+    - Created production D1 database `cmdflow-db` (`d14b0317-bf1c-4ddb-b3b5-d0ba86baa4d8`) and KV rate limits `cmdflow-rate-limits` (`cb74f441ffda42458a7c335c281c8532`).
+    - Migrations applied remotely (`0001_init.sql`).
+    - Deployed live Cloudflare Worker to `https://cmdflow.cmdflow.workers.dev` with active Universal SSL.
+  - **Configurable Endpoints & Fallback Telemetry**:
+    - Eradicated all references to legacy preview domains across codebase.
+    - Added `CMDFLOW_API` env var and `settings.api_endpoint` configuration resolution.
+    - Updated `cmdflow update` to explicitly report whether release data is fetched from Cloudflare Edge Worker or GitHub Releases API fallback.
+    - Implemented streaming timeouts (5s connect, 45s read) in CLI update client.
+    - Added automated integration tests for endpoint fallback.
+  - **v1.0.3 Version Bump & Distribution Assets**:
+    - Bumped version to `1.0.3` across Cargo, npm, worker, settings-ui, and client.
+    - Prepared release pipeline for tag `v1.0.3`.
 
 ## Final Summary
-- **Current Milestone**: M11 Completed
-- **Status**: Release v1.0.2 Published, Host Machine Configured, 100/100 Lighthouse & Zero-Overflow Mobile Verified
-- **Blocked / Paused Action**: Step 1 production Cloudflare redeployment paused pending user account login (clear instructions provided).
+- **Current Milestone**: M12 Completed / Deploying v1.0.3
+- **Status**: Live Production Cloudflare Worker Operational at `https://cmdflow.cmdflow.workers.dev`, v1.0.3 Tag & Release in progress.
+- **Active URL**: `https://cmdflow.cmdflow.workers.dev`
 
 

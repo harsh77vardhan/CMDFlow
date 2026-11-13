@@ -1,6 +1,6 @@
 [package]
 name = "cmdflow-core"
-version = "1.0.2"
+version = "1.0.3"
 edition = "2021"
 authors = ["CMDFlow Team"]
 description = "Core engine for CMDFlow command layer"

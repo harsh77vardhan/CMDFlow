@@ -7,6 +7,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [1.0.3] - 2026-11-13
+
+### Added
+- **Configurable API Endpoint**:
+  - Added support for `CMDFLOW_API` environment variable and `api_endpoint` in `settings.toml`.
+  - Added explicit update source reporting in `cmdflow update` (identifies whether updates are fetched via Cloudflare Edge Worker or GitHub Releases API).
+  - Added automated integration tests for graceful fallback when primary API endpoints are unreachable.
+- **Production Edge Deployment**:
+  - Deployed production Cloudflare Worker to `https://cmdflow.cmdflow.workers.dev` backed by production D1 database and KV rate-limiting.
+  - Fully eradicated legacy temporary endpoints.
+
+### Changed
+- **CLI Network Reliability**:
+  - Upgraded CLI update network client with 5s connect timeout and 45s streaming read timeout for dependable multi-megabyte binary downloads.
+
+---
+
 ## [1.0.2] - 2026-11-13
 
 ### Changed

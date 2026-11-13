@@ -24,30 +24,30 @@ interface ReleaseInfo {
 }
 
 const LATEST_RELEASE: ReleaseInfo = {
-  version: '1.0.2',
+  version: '1.0.3',
   release_date: '2026-11-13',
   notes: 'Production release: cross-platform command layer for Bash, Zsh, Fish, and PowerShell with embedded settings UI and AI assistant',
   platforms: {
     'linux-x86_64': {
-      url: 'https://github.com/harsh77vardhan/CMDFlow/releases/download/v1.0.2/cmdflow-linux-x86_64.tar.gz',
+      url: 'https://github.com/harsh77vardhan/CMDFlow/releases/download/v1.0.3/cmdflow-linux-x86_64.tar.gz',
       sha256: '88a50d4461ee52494b69b055062f0cf582d6cc9706c6bd413c07b8805a1360a2',
     },
     'darwin-arm64': {
-      url: 'https://github.com/harsh77vardhan/CMDFlow/releases/download/v1.0.2/cmdflow-darwin-arm64.tar.gz',
+      url: 'https://github.com/harsh77vardhan/CMDFlow/releases/download/v1.0.3/cmdflow-darwin-arm64.tar.gz',
       sha256: '59e98451121aa0c0851b338f7aac6de61fe4a4cbf52b0bc1bfa26ae694085c22',
     },
     'darwin-x86_64': {
-      url: 'https://github.com/harsh77vardhan/CMDFlow/releases/download/v1.0.2/cmdflow-darwin-x86_64.tar.gz',
+      url: 'https://github.com/harsh77vardhan/CMDFlow/releases/download/v1.0.3/cmdflow-darwin-x86_64.tar.gz',
       sha256: 'daef67d443ea8eb4c38c359acd5088c806cf63df7c2ae509452749b194eb247c',
     },
     'windows-x86_64': {
-      url: 'https://github.com/harsh77vardhan/CMDFlow/releases/download/v1.0.2/cmdflow-windows-x86_64.zip',
+      url: 'https://github.com/harsh77vardhan/CMDFlow/releases/download/v1.0.3/cmdflow-windows-x86_64.zip',
       sha256: 'f6f30dc44de99387420007ec312d6413882de31f7bab0f26d057ebbfb0e78821',
     },
   },
   install_scripts: {
-    unix: 'curl -fsSL https://cmdflow.sudsy-bus.workers.dev/install.sh | bash',
-    powershell: 'iwr -useb https://cmdflow.sudsy-bus.workers.dev/install.ps1 | iex',
+    unix: 'curl -fsSL https://cmdflow.cmdflow.workers.dev/install.sh | bash',
+    powershell: 'iwr -useb https://cmdflow.cmdflow.workers.dev/install.ps1 | iex',
   },
 }
 
@@ -56,7 +56,8 @@ const memoryRateLimits = new Map<string, { count: number; resetAt: number }>()
 const ALLOWED_ORIGIN_PATTERNS = [
   /^https?:\/\/localhost(:\d+)?$/,
   /^https?:\/\/127\.0\.0\.1(:\d+)?$/,
-  /^https:\/\/cmdflow\.sudsy-bus\.workers\.dev$/,
+  /^https?:\/\/cmdflow\.cmdflow\.workers\.dev$/,
+  /^https:\/\/harsh77vardhan\.github\.io$/,
   /^https:\/\/.*\.cmdflow\.pages\.dev$/,
   /^https:\/\/cmdflow\.dev$/,
 ]

@@ -149,6 +149,8 @@ pub struct Settings {
     pub ai_provider: String,
     #[serde(default = "default_ai_model")]
     pub ai_model: String,
+    #[serde(default)]
+    pub api_endpoint: Option<String>,
 }
 
 fn default_true() -> bool {
@@ -181,6 +183,7 @@ impl Default for Settings {
             theme: default_theme(),
             ai_provider: default_ai_provider(),
             ai_model: default_ai_model(),
+            api_endpoint: None,
         }
     }
 }

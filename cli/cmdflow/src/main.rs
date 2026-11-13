@@ -19,7 +19,7 @@ struct Asset;
 #[command(
     name = "cmdflow",
     author = "CMDFlow Team",
-    version = "1.0.2",
+    version = "1.0.3",
     about = "The Command Line. Finally Speaks Your Language."
 )]
 struct Cli {
@@ -1373,7 +1373,13 @@ fn handle_audit() -> Result<(), Box<dyn std::error::Error>> {
 
 fn handle_update(_force: bool) -> Result<(), Box<dyn std::error::Error>> {
     let current_version = env!("CARGO_PKG_VERSION");
-    let release_url = "https://cmdflow.sudsy-bus.workers.dev/api/releases/latest";
+    let configured_url = std::env::var("CMDFLOW_API").ok().or_else(|| {
+        ConfigManager::load_or_init()
+            .ok()
+            .and_then(|cfg| cfg.settings.api_endpoint)
+    });
+    let default_endpoint = "https://cmdflow.cmdflow.workers.dev/api/releases/latest";
+    let release_url = configured_url.as_deref().unwrap_or(default_endpoint);
     eprintln!(
         "{} Checking for updates from {}...",
         "▶".cyan(),
@@ -1392,12 +1398,13 @@ fn handle_update(_force: bool) -> Result<(), Box<dyn std::error::Error>> {
     };
 
     let agent = ureq::AgentBuilder::new()
-        .timeout(std::time::Duration::from_secs(15))
+        .timeout_connect(std::time::Duration::from_secs(5))
+        .timeout_read(std::time::Duration::from_secs(45))
         .user_agent("cmdflow")
         .build();
 
     let release_resp = agent.get(release_url).call();
-    let (latest_version, download_url, expected_sha256) = match release_resp {
+    let (latest_version, download_url, expected_sha256, source_name) = match release_resp {
         Ok(resp) => {
             let release: serde_json::Value = resp.into_json()?;
             let ver = release["version"].as_str().unwrap_or("unknown").to_string();
@@ -1407,11 +1414,16 @@ fn handle_update(_force: bool) -> Result<(), Box<dyn std::error::Error>> {
                 dl = platform_info["url"].as_str().unwrap_or("").to_string();
                 sha = platform_info["sha256"].as_str().unwrap_or("").to_string();
             }
-            (ver, dl, sha)
+            (
+                ver,
+                dl,
+                sha,
+                format!("Cloudflare Edge Worker ({})", release_url),
+            )
         }
         Err(_) => {
             eprintln!(
-                "  {} Edge proxy unreachable, querying GitHub Releases directly...",
+                "  {} Primary endpoint unreachable, falling back to source: GitHub Releases API",
                 "ℹ".cyan()
             );
             let gh_url = "https://api.github.com/repos/harsh77vardhan/CMDFlow/releases/latest";
@@ -1458,10 +1470,11 @@ fn handle_update(_force: bool) -> Result<(), Box<dyn std::error::Error>> {
                 }
             }
 
-            (tag, dl, sha)
+            (tag, dl, sha, "GitHub Releases API".to_string())
         }
     };
 
+    eprintln!("  Update source:   {}", source_name);
     eprintln!("  Current version: v{}", current_version);
     eprintln!("  Latest version:  v{}", latest_version);
     eprintln!("  Target platform: {}", platform);
@@ -1520,9 +1533,10 @@ fn handle_update(_force: bool) -> Result<(), Box<dyn std::error::Error>> {
 
     if current_version >= latest_version.as_str() {
         println!(
-            "{} CMDFlow is up to date (v{})!",
+            "{} CMDFlow is up to date (v{}) via {}!",
             "✓".green().bold(),
-            current_version
+            current_version,
+            source_name
         );
     } else {
         println!(

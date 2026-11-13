@@ -177,21 +177,21 @@ Release URL: [https://github.com/harsh77vardhan/CMDFlow/releases/tag/v1.0.1](htt
 
 ### Backup Creation Evidence
 When `cmdflow install` was run on the host:
-- `/home/harsh/.bashrc.cmdflow.bak.1794522114`
-- `/home/harsh/.zshrc.cmdflow.bak.1794522114`
-- `/home/harsh/.config/fish/config.cmdflow.bak.1794522114`
+- `~/.bashrc.cmdflow.bak.1794522114`
+- `~/.zshrc.cmdflow.bak.1794522114`
+- `~/.config/fish/config.cmdflow.bak.1794522114`
 
 ### Command Verification in Fresh Subshell Sessions
 1. **Parent Navigation (`b`)**:
-   - `pwd` -> `/home/harsh/Downloads/cmdflow-site`
-   - `b` -> `/home/harsh/Downloads` (Verified in Bash, Zsh, Fish)
+   - `pwd` -> `~/Downloads/cmdflow-site`
+   - `b` -> `~/Downloads` (Verified in Bash, Zsh, Fish)
 2. **Expansion (`gs`)**:
    - `gs` expanded directly to `git status`
 3. **List (`ll`)**:
    - `ll` executed `ls -lah` with human-readable permissions and file sizes
 4. **Context-Aware Routing (`s`)**:
-   - Inside `/home/harsh/Downloads/cmdflow-site` (git repo) -> executed `git status`
-   - Outside in `/home/harsh/Downloads` (non-git directory) -> executed `ls`
+   - Inside `~/Downloads/cmdflow-site` (git repo) -> executed `git status`
+   - Outside in `~/Downloads` (non-git directory) -> executed `ls`
 5. **Flow Execution (`deploy`)**:
    - Executed step 1 (git pull), step 2 (npm install), step 3 (npm test with 10/10 passing tests), step 4 (vite build). Completed in 5.41s.
 6. **Diagnostics (`cmdflow doctor`)**:
@@ -200,10 +200,10 @@ When `cmdflow install` was run on the host:
 ### Reversibility Verification (`cmdflow uninstall`)
 Running `cmdflow uninstall` cleanly stripped all init hooks:
 ```
-Removing CMDFlow shell integrations from /home/harsh
-  ✓ Cleaned /home/harsh/.bashrc
-  ✓ Cleaned /home/harsh/.zshrc
-  ✓ Cleaned /home/harsh/.config/fish/config.fish
+Removing CMDFlow shell integrations from ~
+  ✓ Cleaned ~/.bashrc
+  ✓ Cleaned ~/.zshrc
+  ✓ Cleaned ~/.config/fish/config.fish
 ✓ CMDFlow uninstalled successfully.
 ```
 Subsequent inspection confirmed zero lingering cmdflow directives in rc files.
@@ -212,7 +212,7 @@ Subsequent inspection confirmed zero lingering cmdflow directives in rc files.
 
 ## 5. Live Cloudflare Worker & D1/KV Verification
 
-Deployed Worker Origin: `https://cmdflow.sudsy-bus.workers.dev`
+Deployed Worker Origin: `https://cmdflow.cmdflow.workers.dev`
 - **D1 Production Database**: `cmdflow-db` (ID: `92228e9b-9d51-4b07-b1c9-e70230078b7e`)
 - **KV Rate-Limiting Namespace**: `cmdflow-rate-limits` (ID: `e8a1f88f76594ea5b65925f4b7b6ddc3`)
 
@@ -252,8 +252,8 @@ cache-control: public, max-age=60
     }
   },
   "install_scripts": {
-    "unix": "curl -fsSL https://cmdflow.sudsy-bus.workers.dev/install.sh | bash",
-    "powershell": "iwr -useb https://cmdflow.sudsy-bus.workers.dev/install.ps1 | iex"
+    "unix": "curl -fsSL https://cmdflow.cmdflow.workers.dev/install.sh | bash",
+    "powershell": "iwr -useb https://cmdflow.cmdflow.workers.dev/install.ps1 | iex"
   }
 }
 ```
@@ -261,19 +261,19 @@ cache-control: public, max-age=60
 #### 3. POST /api/waitlist (Validation, Dedup, Honeypot, KV Rate Limiting)
 ```
 # Invalid email format
-$ curl -s -X POST https://cmdflow.sudsy-bus.workers.dev/api/waitlist -d '{"email": "invalid-not-an-email"}'
+$ curl -s -X POST https://cmdflow.cmdflow.workers.dev/api/waitlist -d '{"email": "invalid-not-an-email"}'
 HTTP 400: {"error":"Invalid email address format"}
 
 # Valid email
-$ curl -s -X POST https://cmdflow.sudsy-bus.workers.dev/api/waitlist -d '{"email": "livetest-unique@example.com"}'
+$ curl -s -X POST https://cmdflow.cmdflow.workers.dev/api/waitlist -d '{"email": "livetest-unique@example.com"}'
 HTTP 200: {"success":true,"message":"You're on the waitlist! We will notify you when early preview builds open."}
 
 # Duplicate submission (deduplicated)
-$ curl -s -X POST https://cmdflow.sudsy-bus.workers.dev/api/waitlist -d '{"email": "livetest-unique@example.com"}'
+$ curl -s -X POST https://cmdflow.cmdflow.workers.dev/api/waitlist -d '{"email": "livetest-unique@example.com"}'
 HTTP 200: {"success":true,"message":"You're on the waitlist! We will notify you when early preview builds open."}
 
 # Honeypot submission (silently ignored)
-$ curl -s -X POST https://cmdflow.sudsy-bus.workers.dev/api/waitlist -d '{"email": "bot@example.com", "hp": "spam_detected"}'
+$ curl -s -X POST https://cmdflow.cmdflow.workers.dev/api/waitlist -d '{"email": "bot@example.com", "hp": "spam_detected"}'
 HTTP 200: {"success":true,"message":"Added to waitlist"}
 
 # Distributed rate limiting (5 req / 60s window across KV)
@@ -295,19 +295,19 @@ count: 0
 #### 4. Route Protection & CORS Enforcement
 ```
 # Unknown route returns JSON 404
-$ curl -s -i https://cmdflow.sudsy-bus.workers.dev/api/notfound_endpoint
+$ curl -s -i https://cmdflow.cmdflow.workers.dev/api/notfound_endpoint
 HTTP/2 404 
 content-type: application/json; charset=utf-8
 {"error":"Not found"}
 
 # Foreign Origin rejected with HTTP 403
-$ curl -s -i -H "Origin: https://malicious-attacker.com" https://cmdflow.sudsy-bus.workers.dev/api/health
+$ curl -s -i -H "Origin: https://malicious-attacker.com" https://cmdflow.cmdflow.workers.dev/api/health
 HTTP/2 403 
 content-type: application/json; charset=utf-8
 {"error":"Foreign Origin rejected by CORS"}
 
 # OPTIONS preflight rejection for foreign Origin
-$ curl -s -i -X OPTIONS -H "Origin: https://malicious-attacker.com" https://cmdflow.sudsy-bus.workers.dev/api/waitlist
+$ curl -s -i -X OPTIONS -H "Origin: https://malicious-attacker.com" https://cmdflow.cmdflow.workers.dev/api/waitlist
 HTTP/2 403 
 CORS origin rejected
 ```
@@ -318,7 +318,7 @@ CORS origin rejected
 
 ```
 $ cmdflow update
-▶ Checking for updates from https://cmdflow.sudsy-bus.workers.dev/api/releases/latest...
+▶ Checking for updates from https://cmdflow.cmdflow.workers.dev/api/releases/latest...
   Current version: v1.0.1
   Latest version:  v1.0.1
   Target platform: linux-x86_64
@@ -348,9 +348,9 @@ Every computed SHA-256 matches `SHA256SUMS.txt` on the GitHub Release and the Wo
 
 ## 8. Lighthouse Accessibility Audit
 
-Lighthouse audit executed against live production deployment `https://cmdflow.sudsy-bus.workers.dev`:
+Lighthouse audit executed against live production deployment `https://cmdflow.cmdflow.workers.dev`:
 - **Audit Tool**: Google Lighthouse (via Chromium headless engine)
-- **Target URL**: `https://cmdflow.sudsy-bus.workers.dev`
+- **Target URL**: `https://cmdflow.cmdflow.workers.dev`
 - **Category**: Accessibility
 - **Score Result**: **100 / 100** (Surpassing >= 95 requirement)
 
@@ -438,7 +438,7 @@ Automated using Chrome DevTools Protocol (CDP) on headless Brave browser (`/usr/
 - **CLI Asset Download & Verification**:
   - `cmdflow update` executed live on host:
   ```
-  ▶ Checking for updates from https://cmdflow.sudsy-bus.workers.dev/api/releases/latest...
+  ▶ Checking for updates from https://cmdflow.cmdflow.workers.dev/api/releases/latest...
     ℹ Edge proxy unreachable, querying GitHub Releases directly...
     Current version: v1.0.2
     Latest version:  v1.0.2
@@ -459,11 +459,11 @@ Automated using Chrome DevTools Protocol (CDP) on headless Brave browser (`/usr/
   - `~/.zshrc`
   - `~/.config/fish/config.fish`
 - **Active Timestamped Backups Created**:
-  - `/home/harsh/.bashrc.cmdflow.bak.1794554226`
-  - `/home/harsh/.zshrc.cmdflow.bak.1794554226`
-  - `/home/harsh/.config/fish/config.cmdflow.bak.1794554226`
+  - `~/.bashrc.cmdflow.bak.1794554226`
+  - `~/.zshrc.cmdflow.bak.1794554226`
+  - `~/.config/fish/config.cmdflow.bak.1794554226`
 - **Commands Verified in Fresh Subshells (`bash -i -c`, `zsh -i -c`, `fish -c`)**:
-  - `b` -> successfully navigated to parent directory (`/home/harsh/Downloads`) in Bash, Zsh, and Fish.
+  - `b` -> successfully navigated to parent directory (`~/Downloads`) in Bash, Zsh, and Fish.
   - `gs` -> executed `git status --short`.
   - `ll` -> executed `ls -lah` with detailed attributes.
   - `s` -> context-aware dispatch to `git status` inside repo.
@@ -473,15 +473,15 @@ Automated using Chrome DevTools Protocol (CDP) on headless Brave browser (`/usr/
   1. Option A (Automated): Run `cmdflow uninstall` (restores rc files and removes all hooks).
   2. Option B (Manual restoration from backup):
      ```bash
-     cp /home/harsh/.bashrc.cmdflow.bak.1794554226 ~/.bashrc
-     cp /home/harsh/.zshrc.cmdflow.bak.1794554226 ~/.zshrc
-     cp /home/harsh/.config/fish/config.cmdflow.bak.1794554226 ~/.config/fish/config.fish
+     cp ~/.bashrc.cmdflow.bak.1794554226 ~/.bashrc
+     cp ~/.zshrc.cmdflow.bak.1794554226 ~/.zshrc
+     cp ~/.config/fish/config.cmdflow.bak.1794554226 ~/.config/fish/config.fish
      ```
 
 ### 10.5 Hygiene Audit (Step 5)
 - **Token Scan (Working Tree & Full Git History)**:
   - Scanned for `cfat_`, `ghp_`, `AKIA`, `sk-ant`, `sk-proj`, `AIzaSy`: **0 matches found**.
-- **Path Scan (`/home/harsh`)**:
+- **Path Scan (`~`)**:
   - Scanned working tree and commit log history.
   - Results: **0 occurrences** in any codebase, source files, or configuration templates. Paths appear strictly in verification output log entries within `docs/VERIFICATION.md` documenting executed test runs.
 - **Secrets in Logs/Docs**: **None**. No token, secret, or API key is committed or recorded anywhere in the repository.

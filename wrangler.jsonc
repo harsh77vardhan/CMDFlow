@@ -13,14 +13,14 @@
     {
       "binding": "DB",
       "database_name": "cmdflow-db",
-      "database_id": "92228e9b-9d51-4b07-b1c9-e70230078b7e",
+      "database_id": "d14b0317-bf1c-4ddb-b3b5-d0ba86baa4d8",
       "migrations_dir": "migrations"
     }
   ],
   "kv_namespaces": [
     {
       "binding": "RATE_LIMIT_KV",
-      "id": "e8a1f88f76594ea5b65925f4b7b6ddc3"
+      "id": "cb74f441ffda42458a7c335c281c8532"
     }
   ],
   "observability": { "enabled": true }
