@@ -48,6 +48,8 @@ const icons = {
     '<path d="M4 3h16a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1ZM8 21h8M12 15v6"/>',
   lock: '<path d="M5 11h14v10H5zM8 11V7a4 4 0 0 1 8 0v4"/>',
   clock: '<path d="M12 22a10 10 0 1 0 0-20 10 10 0 0 0 0 20ZM12 6v6l4 2"/>',
+  copy: '<rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/>',
+  terminal: '<polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/>',
 }
 
 type IconName = keyof typeof icons
@@ -379,14 +381,14 @@ $('#app').innerHTML = `
       <nav class="nav-links" id="nav-links" aria-label="Main">
         <a href="#features">Features</a>
         <a href="#demo">Demo</a>
-        <a href="#customize">Customize</a>
-        <a href="#ai">AI</a>
+        <a href="#install">Install</a>
+        <a href="#settings">Settings</a>
         <a href="#roadmap">Roadmap</a>
         <a href="#docs">Docs</a>
       </nav>
       <div class="nav-actions">
-        <button class="text-button nav-github" data-toast="github">${icon('github')}<span>GitHub</span></button>
-        <button class="primary primary--sm" data-toast="download"><span class="download-label">Download v1.0.3</span>${icon('arrow')}</button>
+        <a class="text-button nav-github" href="https://github.com/harsh77vardhan/CMDFlow" target="_blank" rel="noopener noreferrer">${icon('github')}<span>GitHub</span></a>
+        <a class="primary primary--sm download-btn" id="nav-download-btn" href="https://github.com/harsh77vardhan/CMDFlow/releases/latest" target="_blank" rel="noopener noreferrer"><span class="download-label">Download v1.0.3</span>${icon('arrow')}</a>
         <button class="icon-button nav-toggle" id="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="nav-links">${icon('menu')}</button>
       </div>
     </div>
@@ -399,8 +401,20 @@ $('#app').innerHTML = `
         <h1 data-reveal>The Command Line.<br /><span class="grad">Finally Speaks Your Language.</span></h1>
         <p class="lede" data-reveal>Create your own command language. Stop memorizing commands. Build workflows that match the way you think.</p>
         <div class="hero-actions" data-reveal>
-          <button class="primary" data-toast="download"><span class="download-label">Download CMDFlow v1.0.3</span>${icon('download')}</button>
-          <button class="secondary" data-toast="github">${icon('github')}<span>View on GitHub</span></button>
+          <a class="primary download-btn" id="hero-download-btn" href="https://github.com/harsh77vardhan/CMDFlow/releases/latest" target="_blank" rel="noopener noreferrer"><span class="download-label">Download CMDFlow v1.0.3</span>${icon('download')}</a>
+          <a class="secondary" href="https://github.com/harsh77vardhan/CMDFlow" target="_blank" rel="noopener noreferrer">${icon('github')}<span>View on GitHub</span></a>
+        </div>
+        <div class="hero-platforms" data-reveal>
+          <span class="hero-platforms-label">Other platforms:</span>
+          <a href="https://github.com/harsh77vardhan/CMDFlow/releases/latest/download/cmdflow-linux-x86_64.tar.gz" class="platform-chip" target="_blank" rel="noopener noreferrer">Linux (x86_64)</a>
+          <span class="platform-sep">·</span>
+          <a href="https://github.com/harsh77vardhan/CMDFlow/releases/latest/download/cmdflow-darwin-arm64.tar.gz" class="platform-chip" target="_blank" rel="noopener noreferrer">macOS (Apple Silicon)</a>
+          <span class="platform-sep">·</span>
+          <a href="https://github.com/harsh77vardhan/CMDFlow/releases/latest/download/cmdflow-darwin-x86_64.tar.gz" class="platform-chip" target="_blank" rel="noopener noreferrer">macOS (Intel)</a>
+          <span class="platform-sep">·</span>
+          <a href="https://github.com/harsh77vardhan/CMDFlow/releases/latest/download/cmdflow-windows-x86_64.zip" class="platform-chip" target="_blank" rel="noopener noreferrer">Windows (x86_64)</a>
+          <span class="platform-sep">·</span>
+          <a href="https://github.com/harsh77vardhan/CMDFlow/releases/latest/download/SHA256SUMS.txt" class="platform-chip platform-chip--sums" target="_blank" rel="noopener noreferrer">SHA256SUMS.txt</a>
         </div>
         <p class="hero-meta" data-reveal>No new terminal. No new habits. Your shell already knows how to run things.</p>
       </div>
@@ -438,6 +452,38 @@ $('#app').innerHTML = `
           <li>Fish</li><li>Bash</li><li>Zsh</li><li>PowerShell</li>
         </ul>
         <span class="shellbar-note">One config, any shell.</span>
+      </div>
+    </section>
+
+    <section class="section" id="install">
+      <div class="section-head" data-reveal>
+        <span class="eyebrow">Quick Install</span>
+        <h2>Drop into your terminal in seconds.</h2>
+        <p class="section-lede">Run the one-liner for your shell. CMDFlow integrates with Fish, Bash, Zsh, and PowerShell with zero dependencies.</p>
+      </div>
+      <div class="install-grid" data-reveal>
+        <div class="install-card">
+          <div class="install-card-head">
+            <span class="install-badge">${icon('terminal')}Linux & macOS (Bash, Zsh, Fish)</span>
+            <button class="copy-btn" data-copy="curl -fsSL https://cmdflow.cmdflow.workers.dev/install.sh | bash" aria-label="Copy Linux/macOS install command">
+              ${icon('copy')}<span>Copy</span>
+            </button>
+          </div>
+          <pre class="install-code"><code>curl -fsSL https://cmdflow.cmdflow.workers.dev/install.sh | bash</code></pre>
+        </div>
+        <div class="install-card">
+          <div class="install-card-head">
+            <span class="install-badge">${icon('monitor')}Windows (PowerShell)</span>
+            <button class="copy-btn" data-copy="iwr -useb https://cmdflow.cmdflow.workers.dev/install.ps1 | iex" aria-label="Copy PowerShell install command">
+              ${icon('copy')}<span>Copy</span>
+            </button>
+          </div>
+          <pre class="install-code"><code>iwr -useb https://cmdflow.cmdflow.workers.dev/install.ps1 | iex</code></pre>
+        </div>
+      </div>
+      <div class="install-footer" data-reveal>
+        <span>Looking for direct binaries?</span>
+        <a href="https://github.com/harsh77vardhan/CMDFlow/releases/latest" target="_blank" rel="noopener noreferrer">View all assets on GitHub Releases →</a>
       </div>
     </section>
 
@@ -528,7 +574,7 @@ $('#app').innerHTML = `
       </div>
     </section>
 
-    <section class="section" id="customize">
+    <section class="section" id="settings">
       <div class="section-head" data-reveal>
         <span class="eyebrow">Customization</span>
         <h2>A console for your console.</h2>
@@ -606,42 +652,45 @@ $('#app').innerHTML = `
         <p class="section-lede">Specifications, security threat models, shell hooks, flows and contributing guidelines.</p>
       </div>
       <div class="feature-grid" data-reveal>
-        <article class="card">
+        <a class="card" href="https://github.com/harsh77vardhan/CMDFlow/blob/main/docs/SPEC.md" target="_blank" rel="noopener noreferrer">
           <div class="card-head"><span class="card-icon">${icon('book')}</span></div>
           <h3>Technical Spec</h3>
           <p>Architecture, layered TOML resolution, and sub-20ms resolve engine.</p>
           <div class="snip">${cmd('docs/SPEC.md')}</div>
-        </article>
-        <article class="card">
+        </a>
+        <a class="card" href="https://github.com/harsh77vardhan/CMDFlow/blob/main/docs/SECURITY.md" target="_blank" rel="noopener noreferrer">
           <div class="card-head"><span class="card-icon">${icon('shield')}</span></div>
           <h3>Security & Sandboxing</h3>
           <p>Threat model, project trust boundaries, and injection defense.</p>
           <div class="snip">${cmd('docs/SECURITY.md')}</div>
-        </article>
-        <article class="card">
+        </a>
+        <a class="card" href="https://github.com/harsh77vardhan/CMDFlow/blob/main/docs/SHELLS.md" target="_blank" rel="noopener noreferrer">
           <div class="card-head"><span class="card-icon">${icon('branch')}</span></div>
           <h3>Shell Integration</h3>
           <p>Zoxide-style directive protocol for Bash, Zsh, Fish, and PowerShell.</p>
           <div class="snip">${cmd('docs/SHELLS.md')}</div>
-        </article>
-        <article class="card">
+        </a>
+        <a class="card" href="https://github.com/harsh77vardhan/CMDFlow/blob/main/docs/FLOWS.md" target="_blank" rel="noopener noreferrer">
           <div class="card-head"><span class="card-icon">${icon('flow')}</span></div>
           <h3>Automation Flows</h3>
           <p>Sequential pipelines, live step streaming, and directory tracking.</p>
           <div class="snip">${cmd('docs/FLOWS.md')}</div>
-        </article>
-        <article class="card">
+        </a>
+        <a class="card" href="https://github.com/harsh77vardhan/CMDFlow/blob/main/docs/AI.md" target="_blank" rel="noopener noreferrer">
           <div class="card-head"><span class="card-icon">${icon('sparkles')}</span></div>
           <h3>AI & Risk Classifier</h3>
           <p>Deterministic AST/regex classifier and gated approval rules.</p>
           <div class="snip">${cmd('docs/AI.md')}</div>
-        </article>
-        <article class="card">
+        </a>
+        <a class="card" href="https://github.com/harsh77vardhan/CMDFlow/blob/main/docs/PLUGINS.md" target="_blank" rel="noopener noreferrer">
           <div class="card-head"><span class="card-icon">${icon('blocks')}</span></div>
           <h3>Plugin System</h3>
           <p>Subprocess extensions with declared permissions and prompt hooks.</p>
           <div class="snip">${cmd('docs/PLUGINS.md')}</div>
-        </article>
+        </a>
+      </div>
+      <div class="install-footer" data-reveal style="margin-top: 24px;">
+        <a href="https://github.com/harsh77vardhan/CMDFlow/tree/main/docs" target="_blank" rel="noopener noreferrer">${icon('book')} Browse complete documentation directory on GitHub →</a>
       </div>
     </section>
 
@@ -659,8 +708,8 @@ $('#app').innerHTML = `
           <div id="waitlist-status" style="font-size: 13px; min-height: 20px;"></div>
         </form>
         <div class="hero-actions" style="margin-top: 20px;">
-          <button class="primary" data-toast="download"><span>Download CMDFlow</span>${icon('download')}</button>
-          <button class="secondary" data-toast="github">${icon('github')}<span>View on GitHub</span></button>
+          <a class="primary download-btn" id="cta-download-btn" href="https://github.com/harsh77vardhan/CMDFlow/releases/latest" target="_blank" rel="noopener noreferrer"><span class="download-label">Download CMDFlow</span>${icon('download')}</a>
+          <a class="secondary" href="https://github.com/harsh77vardhan/CMDFlow" target="_blank" rel="noopener noreferrer">${icon('github')}<span>View on GitHub</span></a>
         </div>
       </div>
     </section>
@@ -676,11 +725,11 @@ $('#app').innerHTML = `
         <p>A command layer for the shell you already love. Open source, local-first, no account required.</p>
       </div>
       <nav class="footer-links" aria-label="Footer">
-        <button data-toast="github">${icon('github')}GitHub</button>
-        <button data-toast="docs">${icon('book')}Documentation</button>
-        <button data-toast="download">${icon('download')}Download</button>
-        <button data-toast="community">${icon('chat')}Discord</button>
-        <button data-toast="license">${icon('scale')}License</button>
+        <a href="https://github.com/harsh77vardhan/CMDFlow" target="_blank" rel="noopener noreferrer">${icon('github')}GitHub</a>
+        <a href="https://github.com/harsh77vardhan/CMDFlow/tree/main/docs" target="_blank" rel="noopener noreferrer">${icon('book')}Documentation</a>
+        <a href="https://github.com/harsh77vardhan/CMDFlow/releases/latest" target="_blank" rel="noopener noreferrer">${icon('download')}Download</a>
+        <a href="https://github.com/harsh77vardhan/CMDFlow/issues" target="_blank" rel="noopener noreferrer">${icon('chat')}Community & Issues</a>
+        <a href="https://github.com/harsh77vardhan/CMDFlow/blob/main/LICENSE" target="_blank" rel="noopener noreferrer">${icon('scale')}MIT License</a>
       </nav>
     </div>
     <div class="footer-bottom">
@@ -688,8 +737,6 @@ $('#app').innerHTML = `
       <span>Built for people who live in the terminal.</span>
     </div>
   </footer>
-
-  <div id="toast" class="toast" role="status" hidden></div>
 `
 
 /* ------------------------------------------------------------------ *
@@ -742,47 +789,143 @@ window.addEventListener('keydown', (e) => {
 })
 
 /* ------------------------------------------------------------------ *
- * Toasts (links are not live yet)
+ * Download platform detection & dynamic release wiring
  * ------------------------------------------------------------------ */
 
-const messages: Record<string, string> = {
-  download: 'CMDFlow v0.1.0 ready! Install: curl -fsSL https://cmdflow.dev/install.sh | bash',
-  github: 'The public repository opens with the first preview build.',
-  docs: 'Documentation available in docs/ (SPEC.md, SECURITY.md, SHELLS.md, FLOWS.md, AI.md).',
-  community: 'Community channels open with the first preview build.',
-  license: 'CMDFlow is released under the MIT open-source license.',
-}
-const toastEl = $('#toast')
-let toastTimer = 0
-const toast = (text: string) => {
-  toastEl.textContent = messages[text] ?? text
-  toastEl.hidden = false
-  window.clearTimeout(toastTimer)
-  toastTimer = window.setTimeout(() => {
-    toastEl.hidden = true
-  }, 3800)
+interface PlatformInfo {
+  key: string
+  name: string
+  file: string
+  label: string
 }
 
-document.querySelectorAll<HTMLElement>('[data-toast]').forEach((el) => {
-  el.addEventListener('click', async () => {
-    const key = el.dataset.toast ?? ''
-    if (key === 'download') {
-      try {
-        const res = await fetch('/api/releases/latest')
-        if (res.ok) {
-          const data = (await res.json()) as { version: string; install_scripts: { unix: string } }
-          toast(`CMDFlow v${data.version} install: ${data.install_scripts.unix}`)
-          return
-        }
-      } catch {
-        // Fallback to static message
+function detectVisitorPlatform(): PlatformInfo {
+  const ua = (navigator.userAgent || '').toLowerCase()
+  const p = ((navigator as any).userAgentData?.platform || navigator.platform || '').toLowerCase()
+
+  if (p.includes('win') || ua.includes('windows')) {
+    return {
+      key: 'windows-x86_64',
+      name: 'Windows',
+      file: 'cmdflow-windows-x86_64.zip',
+      label: 'Windows (x86_64)',
+    }
+  }
+
+  if (p.includes('mac') || ua.includes('macintosh') || ua.includes('mac os')) {
+    const isArm =
+      (navigator as any).userAgentData?.architecture === 'arm' ||
+      ua.includes('arm') ||
+      (!ua.includes('intel') && !ua.includes('x86'))
+    if (isArm) {
+      return {
+        key: 'darwin-arm64',
+        name: 'macOS (Apple Silicon)',
+        file: 'cmdflow-darwin-arm64.tar.gz',
+        label: 'macOS (Apple Silicon)',
       }
     }
-    toast(key)
+    return {
+      key: 'darwin-x86_64',
+      name: 'macOS (Intel)',
+      file: 'cmdflow-darwin-x86_64.tar.gz',
+      label: 'macOS (Intel)',
+    }
+  }
+
+  return {
+    key: 'linux-x86_64',
+    name: 'Linux',
+    file: 'cmdflow-linux-x86_64.tar.gz',
+    label: 'Linux (x86_64)',
+  }
+}
+
+const visitorPlatform = detectVisitorPlatform()
+const directReleaseBase = 'https://github.com/harsh77vardhan/CMDFlow/releases/latest/download'
+const initialDownloadUrl = `${directReleaseBase}/${visitorPlatform.file}`
+
+// Wire initial download URLs immediately
+document.querySelectorAll<HTMLAnchorElement>('.download-btn').forEach((btn) => {
+  btn.href = initialDownloadUrl
+})
+
+// Dynamically refresh version and exact platform download URLs
+fetch('/api/releases/latest')
+  .then((res) => (res.ok ? res.json() : null))
+  .then((data: { version?: string; platforms?: Record<string, { url?: string }> } | null) => {
+    const version = data?.version || '1.0.3'
+    const platformUrl = data?.platforms?.[visitorPlatform.key]?.url || `${directReleaseBase}/${visitorPlatform.file}`
+
+    document.querySelectorAll<HTMLAnchorElement>('.download-btn').forEach((btn) => {
+      btn.href = platformUrl
+      const labelEl = btn.querySelector('.download-label')
+      if (labelEl) {
+        if (btn.id === 'hero-download-btn' || btn.id === 'cta-download-btn') {
+          labelEl.textContent = `Download CMDFlow v${version} (${visitorPlatform.name})`
+        } else {
+          labelEl.textContent = `Download v${version}`
+        }
+      }
+    })
+
+    const settingsVer = document.querySelector('.settings-version')
+    if (settingsVer) settingsVer.textContent = `v${version}`
+  })
+  .catch(() => {
+    document.querySelectorAll<HTMLAnchorElement>('.download-btn').forEach((btn) => {
+      if (!btn.href || btn.href.endsWith('#') || btn.href === '') {
+        btn.href = initialDownloadUrl
+      }
+    })
+  })
+
+/* ------------------------------------------------------------------ *
+ * Copy buttons for installation one-liners
+ * ------------------------------------------------------------------ */
+
+document.querySelectorAll<HTMLButtonElement>('.copy-btn').forEach((btn) => {
+  btn.addEventListener('click', async () => {
+    const text = btn.dataset.copy || ''
+    if (!text) return
+    let copied = false
+    try {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        await navigator.clipboard.writeText(text)
+        copied = true
+      }
+    } catch {
+      // Fallback
+    }
+    if (!copied) {
+      try {
+        const ta = document.createElement('textarea')
+        ta.value = text
+        ta.style.position = 'fixed'
+        ta.style.opacity = '0'
+        document.body.appendChild(ta)
+        ta.select()
+        document.execCommand('copy')
+        document.body.removeChild(ta)
+        copied = true
+      } catch {
+        // Fallback
+      }
+    }
+    const label = btn.querySelector('span')
+    if (label) label.textContent = 'Copied!'
+    btn.classList.add('is-copied')
+    window.setTimeout(() => {
+      if (label) label.textContent = 'Copy'
+      btn.classList.remove('is-copied')
+    }, 2000)
   })
 })
 
-// Waitlist form live submission
+/* ------------------------------------------------------------------ *
+ * Waitlist form live submission
+ * ------------------------------------------------------------------ */
+
 const waitlistForm = document.getElementById('waitlist-form') as HTMLFormElement | null
 const waitlistEmail = document.getElementById('waitlist-email') as HTMLInputElement | null
 const waitlistHp = document.getElementById('waitlist-hp') as HTMLInputElement | null
@@ -817,24 +960,6 @@ if (waitlistForm && waitlistEmail && waitlistStatus) {
     }
   }
 }
-
-// Dynamically refresh version from release proxy
-fetch('/api/releases/latest')
-  .then((res) => (res.ok ? res.json() : null))
-  .then((data: { version?: string } | null) => {
-    if (data?.version) {
-      document.querySelectorAll<HTMLElement>('.download-label').forEach((el) => {
-        if (el.textContent?.includes('CMDFlow')) {
-          el.textContent = `Download CMDFlow v${data.version}`
-        } else {
-          el.textContent = `Download v${data.version}`
-        }
-      })
-      const settingsVer = document.querySelector('.settings-version')
-      if (settingsVer) settingsVer.textContent = `v${data.version}`
-    }
-  })
-  .catch(() => {})
 
 /* ------------------------------------------------------------------ *
  * Hero terminal loop
@@ -968,7 +1093,7 @@ function paneMarkup(pane: Pane) {
           )
           .join('')}
       </div>
-      <button class="text-button pane-action">${icon('command')}New alias</button>`
+      <a class="text-button pane-action" href="https://github.com/harsh77vardhan/CMDFlow/blob/main/docs/SPEC.md" target="_blank" rel="noopener noreferrer">${icon('command')}Configure in CLI: cmdflow alias add</a>`
   }
   if (pane.kind === 'flows') {
     return `${header}
@@ -985,7 +1110,7 @@ function paneMarkup(pane: Pane) {
           .join('')}
         <div class="flow-card-foot">Runs top to bottom · stops on the first failure</div>
       </div>
-      <button class="text-button pane-action">${icon('flow')}New flow</button>`
+      <a class="text-button pane-action" href="https://github.com/harsh77vardhan/CMDFlow/blob/main/docs/FLOWS.md" target="_blank" rel="noopener noreferrer">${icon('flow')}Configure in CLI: cmdflow flow add</a>`
   }
   if (pane.kind === 'theme') {
     const themes = [
