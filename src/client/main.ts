@@ -3,7 +3,7 @@ import '@fontsource-variable/geist-mono'
 import '@fontsource/instrument-serif/400-italic.css'
 import './style.css'
 import starterPack from '../../shared/starter-pack.json'
-import { StippleBackground } from './background'
+import { VantaBackground } from './vanta-bg'
 import {
   TerminalTyper,
   printLines,
@@ -325,7 +325,7 @@ const aiCapabilities = [
  * ------------------------------------------------------------------ */
 
 $('#app').innerHTML = `
-  <canvas id="stipple-bg" aria-hidden="true" style="position:fixed;inset:0;z-index:0;pointer-events:none;"></canvas>
+  <div id="vanta-bg" aria-hidden="true"></div>
 
   <a class="skip-link" href="#main-content">Skip to content</a>
 
@@ -660,7 +660,7 @@ $('#app').innerHTML = `
  * Background, reveal, navigation
  * ------------------------------------------------------------------ */
 
-const ambient = new StippleBackground($<HTMLCanvasElement>('#stipple-bg'))
+const ambient = new VantaBackground($<HTMLElement>('#vanta-bg'))
 
 const reveal = new IntersectionObserver(
   (entries) => {

@@ -162,16 +162,26 @@ img, svg {
 }
 
 /* ===========================
-   CANVAS BACKGROUND
+   VANTA.JS 3D BACKGROUND
    =========================== */
 
-#stipple-bg {
+#vanta-bg {
   position: fixed;
   inset: 0;
+  width: 100vw;
+  height: 100vh;
   z-index: 0;
   pointer-events: none;
-  aria-hidden: true;
-  /* opacity driven by JS */
+  overflow: hidden;
+  background-color: #000000;
+  transition: opacity 0.6s ease;
+}
+
+#vanta-bg canvas {
+  display: block;
+  width: 100% !important;
+  height: 100% !important;
+  pointer-events: none;
 }
 
 /* ===========================
@@ -449,9 +459,9 @@ img, svg {
 
 .hero {
   min-height: 100svh;
-  padding-top: var(--nav-h);
+  padding-top: calc(var(--nav-h) + var(--sp-500));
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   position: relative;
   overflow: hidden;
 }
@@ -471,6 +481,16 @@ img, svg {
   position: relative;
   z-index: 2;
   max-width: 560px;
+}
+
+.hero-copy::before {
+  content: '';
+  position: absolute;
+  inset: -32px -48px;
+  background: radial-gradient(ellipse at 25% 45%, rgba(0, 0, 0, 0.88) 0%, rgba(0, 0, 0, 0.60) 65%, rgba(0, 0, 0, 0) 100%);
+  pointer-events: none;
+  z-index: -1;
+  border-radius: var(--rad-lg);
 }
 
 .eyebrow {
