@@ -6,7 +6,7 @@
   "architecture": {
     "64bit": {
       "url": "https://github.com/harsh77vardhan/CMDFlow/releases/download/v1.0.3/cmdflow-windows-x86_64.zip",
-      "hash": "f6f30dc44de99387420007ec312d6413882de31f7bab0f26d057ebbfb0e78821"
+      "hash": "623f6ec5b10d0b5df593d6aba8d4c6684477fc37104caaf8a741be9954fba444"
     }
   },
   "bin": "cmdflow.exe",

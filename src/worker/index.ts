@@ -30,19 +30,19 @@ const LATEST_RELEASE: ReleaseInfo = {
   platforms: {
     'linux-x86_64': {
       url: 'https://github.com/harsh77vardhan/CMDFlow/releases/download/v1.0.3/cmdflow-linux-x86_64.tar.gz',
-      sha256: '88a50d4461ee52494b69b055062f0cf582d6cc9706c6bd413c07b8805a1360a2',
+      sha256: '60b6e0d535cb8d6407a8ad269ccaafe13b6841fc4270feb220103ad26c7e3872',
     },
     'darwin-arm64': {
       url: 'https://github.com/harsh77vardhan/CMDFlow/releases/download/v1.0.3/cmdflow-darwin-arm64.tar.gz',
-      sha256: '59e98451121aa0c0851b338f7aac6de61fe4a4cbf52b0bc1bfa26ae694085c22',
+      sha256: '919bfda5ddfa61b2ca5f0cc63180b849dce9c79b4e658016733c80979cf6a801',
     },
     'darwin-x86_64': {
       url: 'https://github.com/harsh77vardhan/CMDFlow/releases/download/v1.0.3/cmdflow-darwin-x86_64.tar.gz',
-      sha256: 'daef67d443ea8eb4c38c359acd5088c806cf63df7c2ae509452749b194eb247c',
+      sha256: '3111da46b793ed1d282772c593b6e9fe4b961aed2af70cd96965f2f3376e990a',
     },
     'windows-x86_64': {
       url: 'https://github.com/harsh77vardhan/CMDFlow/releases/download/v1.0.3/cmdflow-windows-x86_64.zip',
-      sha256: 'f6f30dc44de99387420007ec312d6413882de31f7bab0f26d057ebbfb0e78821',
+      sha256: '623f6ec5b10d0b5df593d6aba8d4c6684477fc37104caaf8a741be9954fba444',
     },
   },
   install_scripts: {
