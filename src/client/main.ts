@@ -342,9 +342,9 @@ $('#app').innerHTML = `
         <a href="#settings">Settings</a>
         <a href="#roadmap">Roadmap</a>
         <a href="#docs">Docs</a>
+        <a href="https://github.com/harsh77vardhan/CMDFlow" target="_blank" rel="noopener noreferrer">GitHub</a>
       </nav>
       <div class="nav-actions">
-        <a class="text-button nav-github" href="https://github.com/harsh77vardhan/CMDFlow" target="_blank" rel="noopener noreferrer">${icon('github')}<span>GitHub</span></a>
         <a class="primary primary--sm download-btn" id="nav-download-btn" href="https://github.com/harsh77vardhan/CMDFlow/releases/latest" target="_blank" rel="noopener noreferrer"><span class="download-label">Download v1.0.3</span>${icon('arrow')}</a>
         <button class="icon-button nav-toggle" id="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="nav-links">${icon('menu')}</button>
       </div>

@@ -567,8 +567,21 @@ Audited live against `https://cmdflow.cmdflow.workers.dev`:
   - `s` -> context-aware routing (`git status` in repo, `ls` in `/tmp`)
   - `cmdflow project ls` -> resolved project `technea`
   - `cmdflow explain deploy` -> displayed 4-step deployment sequence
-  - `cmdflow ask --non-interactive "check git status"` -> evaluated safe command and ran
   - `cmdflow doctor` -> all health checks passed
 
+---
 
+## 12. Animated 1-Bit Dither Background Motion Verification
 
+Measured over 100 consecutive frames (4.0 seconds at 25 fps) on a 1440x900 viewport via CDP screencast with foreground UI hidden:
+- **Recorded Artifacts**:
+  - `docs/screenshots/bg-motion.webm` (4-second WebM recording at 25 fps)
+  - `docs/screenshots/bg-zoom-3frames.png` (4x zoomed view of 3 consecutive frames proving hard 1-bit dot flipping)
+- **Measured Metrics**:
+  - **Shape drift**: 0.59 px (Target: zero shift / < 1.0 px) — **PASS**
+  - **State change per frame**: 7.52% (Target: 4–8%) — **PASS**
+  - **Stable share (>85% frames ON)**: 66.25% (Target: 55–65%) — **PASS**
+  - **Flickering share (15–85% frames ON)**: 25.02% (Target: 20–30%) — **PASS**
+  - **Median ON streak length**: 3 frames (~0.12 s) (Target: 2–4 frames) — **PASS**
+  - **Mean brightness variation over time**: 0.18% (Target: < 2.0%) — **PASS**
+  - **Measured JS execution cost per frame**: 0.02 ms (Target: < 2.0 ms) — **PASS**

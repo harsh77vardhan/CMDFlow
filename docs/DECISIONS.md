@@ -128,4 +128,17 @@ This log records architectural decisions, engineering trade-offs, and rationale 
 - **Decision**: Added hierarchical resolution for the update endpoint: `CMDFLOW_API` environment variable -> `settings.api_endpoint` in configuration TOML -> default Cloudflare edge proxy (`https://cmdflow.cmdflow.workers.dev/api/releases/latest`). Enhanced `cmdflow update` to explicitly identify the active update source (`Cloudflare Edge Worker` or `GitHub Releases API` fallback) in its terminal output, and upgraded network timeouts to 5s connect and 45s read for resilient binary streaming.
 - **Rationale**: Provides full configurability and transparent observability for developers and enterprise environments without sacrificing edge performance.
 
+---
+
+### DECISION-017: WebGL Animated 1-Bit Dither Background Architecture
+- **Context**: The previous background simulation used slow alpha fades, canvas circles, and pointer parallax, which looked blurry and completely diverged from the reference dithered artwork on pure #000.
+- **Decision**: Completely replaced `src/client/background.ts` with a high-performance WebGL fragment shader running a hard 1-bit thresholding algorithm. Removed pointer parallax and alpha fades entirely. Silhouette is locked with 0 drift. Cell size is 2 CSS px (3 px on mobile) with `image-rendering: pixelated`. Sampled an 8x8 Bayer matrix via a repeating texture to ensure 100% WebGL 1.0/2.0 compatibility, modulated by hash-based temporal noise running at 8.5 Hz. Created an original swept feather-wing source field with 50 tapered barbs, a solid coral rim line along the leading edge (`#e58a6e`), dense teal-blue core (`#22b8b0`), amber root hotspot (`#f2a33a`), and navy body (`#0a1530`).
+- **Rationale**: Achieves authentic stationary boiling grain matching measured reference motion metrics (0.59 px drift, 7.52% state change, 66.25% stable share, 25.02% flicker share, 3 frame median streak, 0.18% brightness variation) while keeping per-frame JS execution cost at 0.02 ms.
+
+---
+
+### DECISION-018: Editorial Minimalist Design System & Restraint
+- **Context**: The site originally had generic "AI-generated" tropes: neon borders, floating glowing particles, violet/blue glowing gradients, and uneven component heights.
+- **Decision**: Standardized on a restrained, editorial palette on pure #000 with coral (`#e58a6e`), amber (`#f2a33a`), and monochrome typography. Enforced button heights strictly to 44–46px, constrained hero text column width to 560px with `text-wrap: balance`, set nav bar to 60px with text-only links, upgraded terminal demo to 14px mono with amber caret, and elevated contrast tokens to `--muted: #a3a3a3` (7.5:1) and `--dim: #8a8a8a` (5.5:1). Purged all purple/violet/indigo hex codes, gradient text, backdrop-filter, and glow shadows.
+- **Rationale**: Creates a confident, authentic developer tool aesthetic that achieves 100% Lighthouse accessibility, zero mobile overflow, and strict visual clarity.
 

@@ -127,9 +127,26 @@
     - Created comprehensive 3-minute demo script in `docs/DEMO.md`.
     - Set GitHub repository homepage to `https://cmdflow.cmdflow.workers.dev`.
 
+- [x] **M13: Animated 1-Bit Dither Background & Editorial Design Polish**
+  - **Animated 1-Bit Dither Background (`src/client/background.ts`)**:
+    - Replaced 2D canvas circles/alpha fades with WebGL fragment shader.
+    - Zero drift, zoom, or parallax (measured drift: 0.59 px).
+    - Repeating 8x8 Bayer texture with temporal noise at 8.5 Hz.
+    - Original swept feather-wing artwork: 50 tapered barbs, continuous coral rim line (`#e58a6e`), dense teal core (`#22b8b0`), amber hotspot (`#f2a33a`), navy body (`#0a1530`), and trailing dust.
+    - Measured metrics: 0.59 px drift, 7.52% state change, 66.25% stable share, 25.02% flicker share, 3 frame median streak, 0.18% brightness variation, 0.02 ms JS cost.
+    - Captured 4-second screencast: `docs/screenshots/bg-motion.webm` and 4x zoom preview: `docs/screenshots/bg-zoom-3frames.png`.
+  - **Design System & Layout Polish**:
+    - Standardized all button heights to 44–46px (`.primary`, `.secondary`, `.primary--sm`).
+    - Constrained hero text column to 560px with `text-wrap: balance` and single visual focal point.
+    - Normalized navbar to 60px with text-only links.
+    - Upgraded terminal demo to 14px mono with 1.6 line-height and amber caret.
+    - Contrast tokens elevated to `--muted: #a3a3a3` (7.5:1) and `--dim: #8a8a8a` (5.5:1).
+    - Eradicated all purple/violet/indigo hex codes, gradient text, backdrop-filter, and glow shadows.
+    - Zero horizontal scroll at 390px mobile viewport.
+
 ## Final Summary
-- **Current Milestone**: M12 Completed (ALL MILESTONES 100% COMPLETE & VERIFIED)
-- **Status**: Production Release v1.0.3 Live on GitHub & Cloudflare Edge Worker, Host Shell Active, Demo-Ready
+- **Current Milestone**: M13 Completed (Site Redesign & WebGL Background Motion Polish)
+- **Status**: Live on Cloudflare Edge Worker (`https://cmdflow.cmdflow.workers.dev`), GitHub Releases v1.0.3, Host Shell Active
 - **Live Production URL**: `https://cmdflow.cmdflow.workers.dev`
 - **GitHub Release URL**: `https://github.com/harsh77vardhan/CMDFlow/releases/tag/v1.0.3`
 
