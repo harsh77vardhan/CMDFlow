@@ -114,4 +114,18 @@ This log records architectural decisions, engineering trade-offs, and rationale 
 - **Decision**: Enforced `overflow-x: hidden`, `width: 100%`, and `max-width: 100vw` across `html`, `body`, `#app`, and `.hero-visual` in `src/client/style.css`.
 - **Rationale**: Eliminates mobile horizontal wobble and guarantees a pixel-perfect, responsive UI across all mobile devices.
 
+---
+
+### DECISION-015: Tier-1 Cloudflare Deployment & Personal Account Provisioning
+- **Context**: The user required a fully deployed production environment under their real personal Cloudflare account without manual friction.
+- **Decision**: Authenticated via Brave browser OAuth with the user's permanent Cloudflare account (`Harshvsvardhan22@gmail.com`). Provisioned dedicated production D1 database `cmdflow-db` (`d14b0317-bf1c-4ddb-b3b5-d0ba86baa4d8`) and KV rate limits `cmdflow-rate-limits` (`cb74f441ffda42458a7c335c281c8532`). Deployed the Worker live at `https://cmdflow.cmdflow.workers.dev` with active Universal SSL, rejecting CORS requests from unauthorized foreign origins while permitting official production domains.
+- **Rationale**: Completely establishes Tier-1 production edge infrastructure while strictly adhering to secret-handling rules (never storing or logging credentials).
+
+---
+
+### DECISION-016: Configurable API Endpoint & Transparent Failover Telemetry
+- **Context**: CLI clients in varied corporate or local test networks might have blocked access to edge worker proxies or wish to use custom mirrors/staging endpoints.
+- **Decision**: Added hierarchical resolution for the update endpoint: `CMDFLOW_API` environment variable -> `settings.api_endpoint` in configuration TOML -> default Cloudflare edge proxy (`https://cmdflow.cmdflow.workers.dev/api/releases/latest`). Enhanced `cmdflow update` to explicitly identify the active update source (`Cloudflare Edge Worker` or `GitHub Releases API` fallback) in its terminal output, and upgraded network timeouts to 5s connect and 45s read for resilient binary streaming.
+- **Rationale**: Provides full configurability and transparent observability for developers and enterprise environments without sacrificing edge performance.
+
 

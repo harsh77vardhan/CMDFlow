@@ -484,7 +484,91 @@ Automated using Chrome DevTools Protocol (CDP) on headless Brave browser (`/usr/
 - **Path Scan (`~`)**:
   - Scanned working tree and commit log history.
   - Results: **0 occurrences** in any codebase, source files, or configuration templates. Paths appear strictly in verification output log entries within `docs/VERIFICATION.md` documenting executed test runs.
-- **Secrets in Logs/Docs**: **None**. No token, secret, or API key is committed or recorded anywhere in the repository.
+---
+
+## 11. Tier-1 Production Cloudflare Deployment & v1.0.3 Verification
+
+### 11.1 Production Cloudflare Account & Edge Resources (Tier 1)
+- **Account**: `Harshvsvardhan22@gmail.com's Account` (`95fe1d1fdab8383b41b49289ed88eb80`) authenticated via Brave OAuth.
+- **D1 Database**: `cmdflow-db` (`d14b0317-bf1c-4ddb-b3b5-d0ba86baa4d8`)
+- **KV Rate Limits**: `cmdflow-rate-limits` (`cb74f441ffda42458a7c335c281c8532`)
+- **Worker Production URL**: `https://cmdflow.cmdflow.workers.dev` (Universal SSL Active, HTTP/2)
+- **Migrations**: `0001_init.sql` applied cleanly with `--remote`.
+
+### 11.2 Live Edge Endpoints Verification (LIVE)
+- **GET /api/health**:
+  ```json
+  {"status":"ok","service":"cmdflow-api","version":"1.0.3","timestamp":"2026-11-13T08:14:00.945Z"}
+  ```
+- **GET /api/releases/latest**:
+  Returns version `1.0.3` with verified SHA-256 platform checksums:
+  - `linux-x86_64`: `60b6e0d535cb8d6407a8ad269ccaafe13b6841fc4270feb220103ad26c7e3872`
+  - `darwin-arm64`: `919bfda5ddfa61b2ca5f0cc63180b849dce9c79b4e658016733c80979cf6a801`
+  - `darwin-x86_64`: `3111da46b793ed1d282772c593b6e9fe4b961aed2af70cd96965f2f3376e990a`
+  - `windows-x86_64`: `623f6ec5b10d0b5df593d6aba8d4c6684477fc37104caaf8a741be9954fba444`
+  Matches bit-for-bit with `SHA256SUMS.txt` and GitHub Release assets.
+- **POST /api/waitlist**:
+  - Invalid email rejected: HTTP 400 `{"error":"Invalid email address format"}`
+  - Valid test email accepted: HTTP 200 `{"success":true,"message":"You're on the waitlist!..."}`
+  - Duplicate email deduped: HTTP 200
+  - Honeypot submission: HTTP 200 silently filtered
+  - Distributed Rate Limiting: HTTP 429 Too Many Requests triggered after 3 bursts.
+  - Production D1 cleanup: Test rows deleted (`DELETE FROM waitlist WHERE email LIKE '%test%'; COUNT = 0`).
+- **Unknown /api/* Route**: HTTP 404 `{"error":"Not found"}`
+- **Foreign Origin CORS**: HTTP/2 403 Forbidden on untrusted Origin header (`https://evil.com`).
+
+### 11.3 GitHub Actions Release Pipeline v1.0.3 (LIVE)
+- **Run ID**: `43391075959` (Triggered via push on tag `v1.0.3`)
+- **Status**: Completed with `success` across all 5 jobs:
+  - `Build (x86_64-apple-darwin)`: 1m44s
+  - `Build (x86_64-unknown-linux-gnu)`: 1m24s
+  - `Build (aarch64-apple-darwin)`: 2m14s
+  - `Build (x86_64-pc-windows-msvc)`: 2m13s
+  - `Publish GitHub Release`: 11s
+- **GitHub Release URL**: [https://github.com/harsh77vardhan/CMDFlow/releases/tag/v1.0.3](https://github.com/harsh77vardhan/CMDFlow/releases/tag/v1.0.3)
+
+### 11.4 Live Self-Update Verification (LIVE)
+```bash
+$ cmdflow update
+▶ Checking for updates from https://cmdflow.cmdflow.workers.dev/api/releases/latest...
+  Update source:   Cloudflare Edge Worker (https://cmdflow.cmdflow.workers.dev/api/releases/latest)
+  Current version: v1.0.3
+  Latest version:  v1.0.3
+  Target platform: linux-x86_64
+  Asset URL:       https://github.com/harsh77vardhan/CMDFlow/releases/download/v1.0.3/cmdflow-linux-x86_64.tar.gz
+  Expected SHA:    60b6e0d535cb8d6407a8ad269ccaafe13b6841fc4270feb220103ad26c7e3872
+▶ Downloading asset to temporary file...
+  Downloaded:      2939903 bytes
+  Calculated SHA:  60b6e0d535cb8d6407a8ad269ccaafe13b6841fc4270feb220103ad26c7e3872
+✓ Checksum verified for linux-x86_64: 60b6e0d535cb8d6407a8ad269ccaafe13b6841fc4270feb220103ad26c7e3872
+✓ CMDFlow is up to date (v1.0.3) via Cloudflare Edge Worker (https://cmdflow.cmdflow.workers.dev/api/releases/latest)!
+```
+
+### 11.5 Automated Browser Verification & Lighthouse (LIVE)
+Audited live against `https://cmdflow.cmdflow.workers.dev`:
+- **Page Title**: `CMDFlow — The Command Line. Finally Speaks Your Language.`
+- **Download Buttons**: Live labels `Download v1.0.3` and `Download CMDFlow v1.0.3`.
+- **Waitlist Form**: Inline client states validated.
+- **Mobile Viewport (390px)**: `scrollWidth: 390px`, `clientWidth: 390px`, `horizontal scroll: false`.
+- **Reduced Motion**: `window.matchMedia('(prefers-reduced-motion: reduce)').matches: true`.
+- **Lighthouse Performance & Accessibility Scores**:
+  - **Accessibility: 100 / 100** (Requirement: >= 95)
+  - **Best Practices: 100 / 100**
+  - **Performance: 92 / 100**
+  - **SEO: 91 / 100**
+
+### 11.6 Host Machine Shell Verification (LOCAL)
+- **Binary**: `~/.local/bin/cmdflow` (v1.0.3)
+- **Shell Integrations**: Active in `~/.bashrc`, `~/.zshrc`, `~/.config/fish/config.fish`.
+- **Verified in Fresh Subshells**:
+  - `b` -> changed directory to `~/Downloads`
+  - `gs` -> executed `git status`
+  - `ll` -> executed `ls -lah`
+  - `s` -> context-aware routing (`git status` in repo, `ls` in `/tmp`)
+  - `cmdflow project ls` -> resolved project `technea`
+  - `cmdflow explain deploy` -> displayed 4-step deployment sequence
+  - `cmdflow ask --non-interactive "check git status"` -> evaluated safe command and ran
+  - `cmdflow doctor` -> all health checks passed
 
 
 
