@@ -1,8 +1,9 @@
-import '@fontsource-variable/dm-sans'
-import '@fontsource-variable/space-grotesk'
+import '@fontsource-variable/geist'
+import '@fontsource-variable/geist-mono'
+import '@fontsource/instrument-serif/400-italic.css'
 import './style.css'
 import starterPack from '../../shared/starter-pack.json'
-import { AmbientBackground } from './background'
+import { StippleBackground } from './background'
 import {
   TerminalTyper,
   printLines,
@@ -74,16 +75,25 @@ type Feature = {
   planned?: boolean
 }
 
-const feature = (f: Feature) => `
-  <article class="card${f.wide ? ' card--wide' : ''}" data-reveal>
-    <div class="card-head">
-      <span class="card-icon">${icon(f.icon)}</span>
-      ${f.planned ? '<span class="pill">Planned</span>' : ''}
+let featureIndex = 0
+const feature = (f: Feature) => {
+  featureIndex++
+  const num = String(featureIndex).padStart(2, '0')
+  return `
+  <div class="feature-row" data-reveal>
+    <span class="feature-num">${num}</span>
+    <div class="feature-title-group">
+      <span class="feature-title">
+        ${f.title}
+        ${f.planned ? '<span class="pill">Planned</span>' : ''}
+      </span>
+      <p class="feature-desc">${f.text}</p>
     </div>
-    <h3>${f.title}</h3>
-    <p>${f.text}</p>
-    ${f.body}
-  </article>`
+    <div class="feature-body">
+      ${f.body}
+    </div>
+  </div>`
+}
 
 const cmd = (text: string) =>
   `<div class="snip-line"><span class="snip-mark">❯</span><code>${text}</code></div>`
@@ -100,18 +110,6 @@ const features: Feature[] = [
     body: `<div class="pair">
         <div><span class="pair-label">Before</span>${snip(cmd('cd ../'))}</div>
         <div><span class="pair-label">After</span>${snip(cmd('b'))}</div>
-      </div>`,
-  },
-  {
-    icon: 'chat',
-    title: 'Natural language',
-    text: 'Describe what you want in plain words. CMDFlow works out the command.',
-    wide: true,
-    planned: true,
-    body: `<div class="stack">
-        ${snip(cmd('go to downloads'))}
-        <span class="stack-arrow">↓</span>
-        ${snip(out('cd ~/Downloads'))}
       </div>`,
   },
   {
@@ -134,30 +132,6 @@ const features: Feature[] = [
       </div>`,
   },
   {
-    icon: 'layers',
-    title: 'Workspaces',
-    text: 'One command opens the editor, the servers and the browser you need.',
-    planned: true,
-    body: `<ul class="ticks">
-        <li>${icon('check')}VS Code</li>
-        <li>${icon('check')}Backend</li>
-        <li>${icon('check')}Frontend</li>
-        <li>${icon('check')}Browser</li>
-      </ul>`,
-  },
-  {
-    icon: 'sparkles',
-    title: 'AI assistance',
-    text: 'Describe the outcome. CMDFlow suggests the command and explains it first.',
-    wide: true,
-    planned: true,
-    body: `<div class="stack">
-        ${snip(cmd('delete node modules'))}
-        <span class="stack-arrow">↓</span>
-        ${snip(`${out('rm -rf node_modules')}<div class="snip-note">${icon('shield')}Waits for your approval</div>`)}
-      </div>`,
-  },
-  {
     icon: 'flow',
     title: 'Automation flows',
     text: 'Bundle a whole routine behind one word, with progress as it runs.',
@@ -173,27 +147,10 @@ const features: Feature[] = [
       </div>`,
   },
   {
-    icon: 'package',
-    title: 'Community packs',
-    text: 'Install a pack and pick up a workflow that already works.',
-    planned: true,
-    body: `<div class="chips">
-        <span class="chip">Python</span><span class="chip">Docker</span><span class="chip">React</span>
-        <span class="chip">Node</span><span class="chip">Git</span><span class="chip">Linux</span>
-      </div>`,
-  },
-  {
-    icon: 'blocks',
-    title: 'Plugin system',
-    text: 'Add commands, flows and integrations from a small, typed API.',
-    planned: true,
-    body: `<div class="chips"><span class="chip">Commands</span><span class="chip">Flows</span><span class="chip">AI tools</span><span class="chip">Integrations</span></div>`,
-  },
-  {
     icon: 'sliders',
     title: 'Fully customizable',
-    text: 'Aliases, projects, themes, profiles and AI all live in one config.',
-    body: `<div class="chips"><span class="chip">Aliases</span><span class="chip">Themes</span><span class="chip">Profiles</span><span class="chip">Flows</span><span class="chip">AI</span></div>`,
+    text: 'Aliases, projects, themes, profiles and flows all live in one config.',
+    body: `<div class="chips"><span class="chip">Aliases</span><span class="chip">Projects</span><span class="chip">Flows</span><span class="chip">Themes</span><span class="chip">Profiles</span></div>`,
   },
 ]
 
@@ -345,8 +302,8 @@ const panes: Pane[] = [
 ]
 
 const roadmap = [
-  { version: 'Version 1', title: 'Custom aliases', text: 'Short commands, real expansion preview, safe defaults.', now: true },
-  { version: 'Version 2', title: 'Projects', text: 'Named project shortcuts and per-project aliases.' },
+  { version: 'Version 1', title: 'Custom aliases', text: 'Short commands, real expansion preview, safe defaults.', shipped: true },
+  { version: 'Version 2', title: 'Projects', text: 'Named project shortcuts and per-project aliases.', now: true },
   { version: 'Version 3', title: 'Workspaces', text: 'Launch an entire environment from one word.' },
   { version: 'Version 4', title: 'Automation flows', text: 'Multi-step routines with live progress.' },
   { version: 'Version 5', title: 'AI assistant', text: 'Natural language, explanations and error fixes.' },
@@ -368,9 +325,9 @@ const aiCapabilities = [
  * ------------------------------------------------------------------ */
 
 $('#app').innerHTML = `
-  <canvas id="ambient" aria-hidden="true"></canvas>
-  <div class="aura aura--blue" aria-hidden="true"></div>
-  <div class="aura aura--purple" aria-hidden="true"></div>
+  <canvas id="stipple-bg" aria-hidden="true" style="position:fixed;inset:0;z-index:0;pointer-events:none;"></canvas>
+
+  <a class="skip-link" href="#main-content">Skip to content</a>
 
   <header class="nav" id="nav">
     <div class="nav-inner">
@@ -394,54 +351,58 @@ $('#app').innerHTML = `
     </div>
   </header>
 
-  <main id="top">
-    <section class="hero">
-      <div class="hero-copy">
-        <span class="badge" data-reveal><span class="live-dot"></span>Works on Fish · Bash · Zsh · PowerShell</span>
-        <h1 data-reveal>The Command Line.<br /><span class="grad">Finally Speaks Your Language.</span></h1>
-        <p class="lede" data-reveal>Create your own command language. Stop memorizing commands. Build workflows that match the way you think.</p>
-        <div class="hero-actions" data-reveal>
-          <a class="primary download-btn" id="hero-download-btn" href="https://github.com/harsh77vardhan/CMDFlow/releases/latest" target="_blank" rel="noopener noreferrer"><span class="download-label">Download CMDFlow v1.0.3</span>${icon('download')}</a>
-          <a class="secondary" href="https://github.com/harsh77vardhan/CMDFlow" target="_blank" rel="noopener noreferrer">${icon('github')}<span>View on GitHub</span></a>
-        </div>
-        <div class="hero-platforms" data-reveal>
-          <span class="hero-platforms-label">Other platforms:</span>
-          <a href="https://github.com/harsh77vardhan/CMDFlow/releases/latest/download/cmdflow-linux-x86_64.tar.gz" class="platform-chip" target="_blank" rel="noopener noreferrer">Linux (x86_64)</a>
-          <span class="platform-sep">·</span>
-          <a href="https://github.com/harsh77vardhan/CMDFlow/releases/latest/download/cmdflow-darwin-arm64.tar.gz" class="platform-chip" target="_blank" rel="noopener noreferrer">macOS (Apple Silicon)</a>
-          <span class="platform-sep">·</span>
-          <a href="https://github.com/harsh77vardhan/CMDFlow/releases/latest/download/cmdflow-darwin-x86_64.tar.gz" class="platform-chip" target="_blank" rel="noopener noreferrer">macOS (Intel)</a>
-          <span class="platform-sep">·</span>
-          <a href="https://github.com/harsh77vardhan/CMDFlow/releases/latest/download/cmdflow-windows-x86_64.zip" class="platform-chip" target="_blank" rel="noopener noreferrer">Windows (x86_64)</a>
-          <span class="platform-sep">·</span>
-          <a href="https://github.com/harsh77vardhan/CMDFlow/releases/latest/download/SHA256SUMS.txt" class="platform-chip platform-chip--sums" target="_blank" rel="noopener noreferrer">SHA256SUMS.txt</a>
-        </div>
-        <p class="hero-meta" data-reveal>No new terminal. No new habits. Your shell already knows how to run things.</p>
-      </div>
-
-      <div class="hero-visual" data-reveal>
-        <div class="terminal terminal--hero">
-          <div class="terminal-bar">
-            <span class="terminal-dots" aria-hidden="true"><i></i><i></i><i></i></span>
-            <span class="terminal-title">CMDFlow — zsh</span>
-            <span class="terminal-live"><span class="live-dot"></span>translating</span>
+  <main id="main-content">
+    <section class="hero" id="top">
+      <div class="hero-inner">
+        <div class="hero-copy">
+          <span class="eyebrow" data-reveal><span class="live-dot"></span>Command layer for Bash, Zsh, Fish and PowerShell</span>
+          <h1 class="headline" data-reveal>The terminal,<br><span class="grad"><em>finally</em> yours.</span></h1>
+          <p class="lede" data-reveal>Build a command language that maps to the way you think. No new shell, no new habits — just your existing shell, speaking your language.</p>
+          <div class="hero-actions" data-reveal>
+            <a class="primary download-btn" id="hero-download-btn" href="https://github.com/harsh77vardhan/CMDFlow/releases/latest" target="_blank" rel="noopener noreferrer"><span class="download-label">Download CMDFlow v1.0.3</span>${icon('download')}</a>
+            <a class="secondary" href="https://github.com/harsh77vardhan/CMDFlow" target="_blank" rel="noopener noreferrer">${icon('github')}<span>View on GitHub</span></a>
           </div>
-          <div class="terminal-body">
-            <div class="terminal-path">~/dev/technea</div>
-            <div class="term-lines" id="hero-lines" aria-live="polite"></div>
-            <div class="term-input">
-              <span class="term-user">you@mac</span>
-              <span class="term-chevron">❯</span>
-              <span class="term-typed" id="hero-typed"></span>
-              <span class="cursor" aria-hidden="true"></span>
+          <div class="hero-install" data-reveal>
+            <code>curl -fsSL https://cmdflow.cmdflow.workers.dev/install.sh | bash</code>
+            <button class="copy-btn" data-copy="curl -fsSL https://cmdflow.cmdflow.workers.dev/install.sh | bash" aria-label="Copy install command">${icon('copy')}<span>Copy</span></button>
+          </div>
+          <div class="hero-platforms" data-reveal>
+            <span class="hero-platforms-label">Other platforms:</span>
+            <a href="https://github.com/harsh77vardhan/CMDFlow/releases/latest/download/cmdflow-linux-x86_64.tar.gz" class="platform-chip" target="_blank" rel="noopener noreferrer">Linux (x86_64)</a>
+            <span class="platform-sep">·</span>
+            <a href="https://github.com/harsh77vardhan/CMDFlow/releases/latest/download/cmdflow-darwin-arm64.tar.gz" class="platform-chip" target="_blank" rel="noopener noreferrer">macOS (Apple Silicon)</a>
+            <span class="platform-sep">·</span>
+            <a href="https://github.com/harsh77vardhan/CMDFlow/releases/latest/download/cmdflow-darwin-x86_64.tar.gz" class="platform-chip" target="_blank" rel="noopener noreferrer">macOS (Intel)</a>
+            <span class="platform-sep">·</span>
+            <a href="https://github.com/harsh77vardhan/CMDFlow/releases/latest/download/cmdflow-windows-x86_64.zip" class="platform-chip" target="_blank" rel="noopener noreferrer">Windows (x86_64)</a>
+            <span class="platform-sep">·</span>
+            <a href="https://github.com/harsh77vardhan/CMDFlow/releases/latest/download/SHA256SUMS.txt" class="platform-chip platform-chip--sums" target="_blank" rel="noopener noreferrer">SHA256SUMS.txt</a>
+          </div>
+        </div>
+
+        <div class="hero-visual" data-reveal>
+          <div class="terminal terminal--hero">
+            <div class="terminal-bar">
+              <span class="terminal-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+              <span class="terminal-title">CMDFlow — zsh</span>
+              <span class="terminal-live"><span class="live-dot"></span>translating</span>
+            </div>
+            <div class="terminal-body">
+              <div class="terminal-path">~/dev/technea</div>
+              <div class="term-lines" id="hero-lines" aria-live="polite"></div>
+              <div class="term-input">
+                <span class="term-user">you@mac</span>
+                <span class="term-chevron">❯</span>
+                <span class="term-typed" id="hero-typed"></span>
+                <span class="cursor" aria-hidden="true"></span>
+              </div>
+            </div>
+            <div class="terminal-foot">
+              <span>Shorthand in. Real commands out.</span>
+              <span class="terminal-shell">fish · bash · zsh · pwsh</span>
             </div>
           </div>
-          <div class="terminal-foot">
-            <span>Shorthand in. Real commands out.</span>
-            <span class="terminal-shell">fish · bash · zsh · pwsh</span>
-          </div>
         </div>
-        <div class="terminal-aura" aria-hidden="true"></div>
       </div>
     </section>
 
@@ -456,260 +417,214 @@ $('#app').innerHTML = `
     </section>
 
     <section class="section" id="install">
-      <div class="section-head" data-reveal>
-        <span class="eyebrow">Quick Install</span>
-        <h2>Drop into your terminal in seconds.</h2>
-        <p class="section-lede">Run the one-liner for your shell. CMDFlow integrates with Fish, Bash, Zsh, and PowerShell with zero dependencies.</p>
-      </div>
-      <div class="install-grid" data-reveal>
-        <div class="install-card">
-          <div class="install-card-head">
-            <span class="install-badge">${icon('terminal')}Linux & macOS (Bash, Zsh, Fish)</span>
-            <button class="copy-btn" data-copy="curl -fsSL https://cmdflow.cmdflow.workers.dev/install.sh | bash" aria-label="Copy Linux/macOS install command">
-              ${icon('copy')}<span>Copy</span>
-            </button>
-          </div>
-          <pre class="install-code"><code>curl -fsSL https://cmdflow.cmdflow.workers.dev/install.sh | bash</code></pre>
+      <div class="section-inner">
+        <div class="section-head" data-reveal>
+          <span class="section-label">Quick install</span>
+          <h2 class="section-title">Drop into your terminal in seconds.</h2>
+          <p class="section-lede">Run the one-liner for your shell. CMDFlow integrates with Fish, Bash, Zsh, and PowerShell with zero dependencies.</p>
         </div>
-        <div class="install-card">
-          <div class="install-card-head">
-            <span class="install-badge">${icon('monitor')}Windows (PowerShell)</span>
-            <button class="copy-btn" data-copy="iwr -useb https://cmdflow.cmdflow.workers.dev/install.ps1 | iex" aria-label="Copy PowerShell install command">
-              ${icon('copy')}<span>Copy</span>
-            </button>
+        <div class="install-grid" data-reveal>
+          <div class="install-card">
+            <div class="install-card-head">
+              <span class="install-badge">${icon('terminal')}Linux &amp; macOS (Bash, Zsh, Fish)</span>
+              <button class="copy-btn" data-copy="curl -fsSL https://cmdflow.cmdflow.workers.dev/install.sh | bash" aria-label="Copy Linux/macOS install command">
+                ${icon('copy')}<span>Copy</span>
+              </button>
+            </div>
+            <pre class="install-code"><code>curl -fsSL https://cmdflow.cmdflow.workers.dev/install.sh | bash</code></pre>
           </div>
-          <pre class="install-code"><code>iwr -useb https://cmdflow.cmdflow.workers.dev/install.ps1 | iex</code></pre>
+          <div class="install-card">
+            <div class="install-card-head">
+              <span class="install-badge">${icon('monitor')}Windows (PowerShell)</span>
+              <button class="copy-btn" data-copy="iwr -useb https://cmdflow.cmdflow.workers.dev/install.ps1 | iex" aria-label="Copy PowerShell install command">
+                ${icon('copy')}<span>Copy</span>
+              </button>
+            </div>
+            <pre class="install-code"><code>iwr -useb https://cmdflow.cmdflow.workers.dev/install.ps1 | iex</code></pre>
+          </div>
         </div>
-      </div>
-      <div class="install-footer" data-reveal>
-        <span>Looking for direct binaries?</span>
-        <a href="https://github.com/harsh77vardhan/CMDFlow/releases/latest" target="_blank" rel="noopener noreferrer">View all assets on GitHub Releases →</a>
+        <div class="install-footer" data-reveal>
+          <span>Looking for direct binaries?</span>
+          <a href="https://github.com/harsh77vardhan/CMDFlow/releases/latest" target="_blank" rel="noopener noreferrer">View all assets on GitHub Releases →</a>
+        </div>
       </div>
     </section>
 
     <section class="section" id="features">
-      <div class="section-head" data-reveal>
-        <span class="eyebrow">Features</span>
-        <h2>Your terminal, on your terms.</h2>
-        <p class="section-lede">Small building blocks that turn a wall of flags into a language you invented.</p>
-      </div>
-      <div class="feature-grid">
-        ${features.map(feature).join('')}
-      </div>
-      <p class="note" data-reveal>CMDFlow is in early development. Features marked <span class="pill pill--inline">Planned</span> are being designed, not shipped.</p>
-    </section>
-
-    <section class="section section--demo" id="demo">
-      <div class="section-head" data-reveal>
-        <span class="eyebrow">Interactive demo</span>
-        <h2>Try the idea in ten seconds.</h2>
-        <p class="section-lede">Click a command. Watch what actually reaches your shell.</p>
-      </div>
-      <div class="demo-shell" data-reveal>
-        <div class="demo-list">
-          <p class="demo-list-label">Pick a command</p>
-          <div class="demo-buttons" id="demo-buttons">
-            ${demos
-              .map(
-                (d, i) =>
-                  `<button class="demo-button${i === 0 ? ' is-active' : ''}" data-demo="${i}" aria-pressed="${i === 0}"><span class="demo-key">${d.label}</span>${icon('arrow')}</button>`,
-              )
-              .join('')}
-          </div>
-          <p class="demo-hint">Everything here runs locally in the browser. Nothing is executed.</p>
+      <div class="section-inner">
+        <div class="section-head" data-reveal>
+          <span class="section-label">Features</span>
+          <h2 class="section-title">Your terminal, on your terms.</h2>
+          <p class="section-lede">Small building blocks that turn a wall of flags into a language you invented.</p>
         </div>
-        <div class="terminal terminal--demo">
-          <div class="terminal-bar">
-            <span class="terminal-dots" aria-hidden="true"><i></i><i></i><i></i></span>
-            <span class="terminal-title">demo — sandboxed</span>
-            <span class="terminal-live terminal-live--quiet"><span class="live-dot"></span>offline</span>
-          </div>
-          <div class="terminal-body">
-            <div class="terminal-path">~/Documents/Technea</div>
-            <div class="term-lines" id="demo-lines">
-              <div class="term-line term-line--dim">CMDFlow demo — choose a command on the left</div>
-            </div>
-            <div class="term-input">
-              <span class="term-user">you@mac</span>
-              <span class="term-chevron">❯</span>
-              <span class="term-typed" id="demo-typed"></span>
-              <span class="cursor" aria-hidden="true"></span>
-            </div>
-          </div>
-          <div class="terminal-foot">
-            <span id="demo-caption">b → cd ..</span>
-            <button class="text-button demo-reset" id="demo-reset">Reset</button>
-          </div>
+        <div class="feature-list">
+          ${(featureIndex = 0, features.map(feature).join(''))}
         </div>
+        <p class="note" data-reveal>CMDFlow is in early development. Features marked <span class="pill pill--inline">Planned</span> are being designed, not shipped.</p>
       </div>
     </section>
 
-    <section class="section" id="compare">
-      <div class="section-head" data-reveal>
-        <span class="eyebrow">Comparison</span>
-        <h2>Fewer keystrokes. Less thinking.</h2>
-        <p class="section-lede">The same work, said the way you would say it out loud.</p>
+    <section class="tagline-section" aria-label="Tagline">
+      <div class="tagline-inner" data-reveal>
+        <span class="tagline-label">Why CMDFlow</span>
+        <p class="tagline-text" id="tagline-text">
+          You already know what you want the terminal to do.
+          CMDFlow just lets you say it your way.
+        </p>
       </div>
-      <div class="compare-grid">
-        <div class="compare-card compare-card--before" data-reveal>
-          <div class="compare-head"><span>Without CMDFlow</span><span class="compare-count">5 commands · 78 keystrokes</span></div>
-          <div class="compare-code">
-            <div><span>❯</span><code>cd ../../Documents</code></div>
-            <div><span>❯</span><code>git status</code></div>
-            <div><span>❯</span><code>git add .</code></div>
-            <div><span>❯</span><code>git commit</code></div>
-            <div><span>❯</span><code>git push</code></div>
-          </div>
+    </section>
+
+    <section class="section" id="demo">
+      <div class="section-inner">
+        <div class="section-head" data-reveal>
+          <span class="section-label">Interactive demo</span>
+          <h2 class="section-title">See it translate in real time.</h2>
+          <p class="section-lede">Pick a command on the left. Watch CMDFlow expand it to the real thing.</p>
         </div>
-        <div class="compare-card compare-card--after" data-reveal>
-          <span class="compare-badge">${icon('zap')}14 keystrokes</span>
-          <div class="compare-head"><span>With CMDFlow</span><span class="compare-count">4 commands · 14 keystrokes</span></div>
-          <div class="compare-code">
-            <div><span>❯</span><code>project docs</code><em>cd ~/Documents/Docs</em></div>
-            <div><span>❯</span><code>gs</code><em>git status</em></div>
-            <div><span>❯</span><code>commit</code><em>git add . && git commit</em></div>
-            <div><span>❯</span><code>push</code><em>git push</em></div>
+        <div class="demo-layout" data-reveal>
+          <div>
+            <div class="demo-menu" id="demo-buttons" aria-label="Demo commands">
+              ${demos
+                .map(
+                  (d, i) =>
+                    `<button class="demo-button${i === 0 ? ' is-active' : ''}" data-demo="${i}" aria-pressed="${i === 0}"><span class="demo-key">${d.label}</span>${icon('arrow')}</button>`,
+                )
+                .join('')}
+            </div>
+            <div class="demo-caption" id="demo-caption" aria-live="polite">b → cd ..</div>
+          </div>
+          <div>
+            <div class="terminal">
+              <div class="terminal-bar">
+                <span class="terminal-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+                <span class="terminal-title">CMDFlow demo</span>
+                <button class="demo-reset" id="demo-reset" aria-label="Reset demo">Reset</button>
+              </div>
+              <div class="terminal-body">
+                <div class="terminal-path">~/dev/technea</div>
+                <div class="term-lines" id="demo-lines" aria-live="polite"></div>
+                <div class="term-input">
+                  <span class="term-user">you@mac</span>
+                  <span class="term-chevron">❯</span>
+                  <span class="term-typed" id="demo-typed"></span>
+                  <span class="cursor" aria-hidden="true"></span>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </section>
 
     <section class="section" id="settings">
-      <div class="section-head" data-reveal>
-        <span class="eyebrow">Customization</span>
-        <h2>A console for your console.</h2>
-        <p class="section-lede">Aliases, projects, flows, themes and profiles in one calm settings surface.</p>
-      </div>
-      <div class="settings-window" data-reveal>
-        <div class="settings-bar">
-          <span class="terminal-dots" aria-hidden="true"><i></i><i></i><i></i></span>
-          <span class="settings-title">CMDFlow Settings</span>
-          <span class="settings-version">v1.0.3</span>
+      <div class="section-inner">
+        <div class="section-head" data-reveal>
+          <span class="section-label">Settings preview</span>
+          <h2 class="section-title">One config file, every setting.</h2>
+          <p class="section-lede">Aliases, project shortcuts, automation flows, themes and AI behavior — all controlled from a single TOML file or the UI.</p>
         </div>
-        <div class="settings-body">
-          <div class="settings-tabs" id="settings-tabs" role="tablist" aria-label="Settings sections"></div>
+        <div class="settings-layout" data-reveal>
+          <div class="settings-sidebar">
+            <div class="settings-sidebar-head">
+              <span class="settings-sidebar-title">CMDFlow Settings <span class="settings-version">v1.0.3</span></span>
+            </div>
+            <div id="settings-tabs" role="tablist" aria-label="Settings sections"></div>
+          </div>
           <div class="settings-pane" id="settings-pane" role="tabpanel"></div>
         </div>
-      </div>
-      <p class="note note--center" data-reveal>A design preview of the settings experience. Tabs open the real screens being built.</p>
-    </section>
-
-    <section class="section" id="ai">
-      <div class="section-head" data-reveal>
-        <span class="eyebrow">AI, later</span>
-        <h2>The terminal that understands you.</h2>
-        <p class="section-lede">CMDFlow is being built toward an assistant that helps without taking control.</p>
-      </div>
-      <div class="ai-grid">
-        ${aiCapabilities
-          .map(
-            (a) => `
-          <div class="ai-item" data-reveal>
-            <span class="ai-icon">${icon(a.icon)}</span>
-            <h3>${a.title}</h3>
-            <p>${a.text}</p>
-          </div>`,
-          )
-          .join('')}
-      </div>
-      <div class="safety" data-reveal>
-        <span class="safety-icon">${icon('shield')}</span>
-        <div>
-          <h3>AI should ask, never surprise you.</h3>
-          <p>Every AI action is previewed, explained and confirmed. Destructive commands are never executed automatically, and nothing leaves your machine without permission.</p>
-        </div>
-        <span class="pill">Planned</span>
       </div>
     </section>
 
     <section class="section" id="roadmap">
-      <div class="section-head" data-reveal>
-        <span class="eyebrow">Roadmap</span>
-        <h2>Built in small, honest steps.</h2>
-        <p class="section-lede">No release dates promised. Just the order things are being built in.</p>
+      <div class="section-inner">
+        <div class="section-head" data-reveal>
+          <span class="section-label">Roadmap</span>
+          <h2 class="section-title">Built in small, honest steps.</h2>
+          <p class="section-lede">No release dates promised. Just the order things are being built in.</p>
+        </div>
+        <div class="roadmap-list" data-reveal>
+          ${roadmap.map((r) => `
+          <div class="roadmap-item">
+            <span class="roadmap-label">${r.version}</span>
+            <span class="roadmap-title">${r.title}${r.now ? ' <span class="pill pill--inline">In progress</span>' : ''}</span>
+            <span class="roadmap-status ${r.shipped ? 'roadmap-status--shipped' : r.now ? 'roadmap-status--in-progress' : 'roadmap-status--planned'}">${r.shipped ? 'Shipped' : r.now ? 'In progress' : 'Planned'}</span>
+          </div>`).join('')}
+        </div>
       </div>
-      <ol class="roadmap">
-        ${roadmap
-          .map(
-            (r, i) => `
-          <li class="roadmap-item${r.now ? ' is-now' : ''}" data-reveal style="--i:${i}">
-            <span class="roadmap-version">${r.version}</span>
-            <div class="roadmap-content">
-              <h3>${r.title}${r.now ? '<span class="pill pill--now">In progress</span>' : ''}</h3>
-              <p>${r.text}</p>
-            </div>
-            <span class="roadmap-dot" aria-hidden="true"></span>
-          </li>`,
-          )
-          .join('')}
-      </ol>
     </section>
 
     <section class="section" id="docs">
-      <div class="section-head" data-reveal>
-        <span class="eyebrow">Documentation</span>
-        <h2>Everything you need to know.</h2>
-        <p class="section-lede">Specifications, security threat models, shell hooks, flows and contributing guidelines.</p>
-      </div>
-      <div class="feature-grid" data-reveal>
-        <a class="card" href="https://github.com/harsh77vardhan/CMDFlow/blob/main/docs/SPEC.md" target="_blank" rel="noopener noreferrer">
-          <div class="card-head"><span class="card-icon">${icon('book')}</span></div>
-          <h3>Technical Spec</h3>
-          <p>Architecture, layered TOML resolution, and sub-20ms resolve engine.</p>
-          <div class="snip">${cmd('docs/SPEC.md')}</div>
-        </a>
-        <a class="card" href="https://github.com/harsh77vardhan/CMDFlow/blob/main/docs/SECURITY.md" target="_blank" rel="noopener noreferrer">
-          <div class="card-head"><span class="card-icon">${icon('shield')}</span></div>
-          <h3>Security & Sandboxing</h3>
-          <p>Threat model, project trust boundaries, and injection defense.</p>
-          <div class="snip">${cmd('docs/SECURITY.md')}</div>
-        </a>
-        <a class="card" href="https://github.com/harsh77vardhan/CMDFlow/blob/main/docs/SHELLS.md" target="_blank" rel="noopener noreferrer">
-          <div class="card-head"><span class="card-icon">${icon('branch')}</span></div>
-          <h3>Shell Integration</h3>
-          <p>Zoxide-style directive protocol for Bash, Zsh, Fish, and PowerShell.</p>
-          <div class="snip">${cmd('docs/SHELLS.md')}</div>
-        </a>
-        <a class="card" href="https://github.com/harsh77vardhan/CMDFlow/blob/main/docs/FLOWS.md" target="_blank" rel="noopener noreferrer">
-          <div class="card-head"><span class="card-icon">${icon('flow')}</span></div>
-          <h3>Automation Flows</h3>
-          <p>Sequential pipelines, live step streaming, and directory tracking.</p>
-          <div class="snip">${cmd('docs/FLOWS.md')}</div>
-        </a>
-        <a class="card" href="https://github.com/harsh77vardhan/CMDFlow/blob/main/docs/AI.md" target="_blank" rel="noopener noreferrer">
-          <div class="card-head"><span class="card-icon">${icon('sparkles')}</span></div>
-          <h3>AI & Risk Classifier</h3>
-          <p>Deterministic AST/regex classifier and gated approval rules.</p>
-          <div class="snip">${cmd('docs/AI.md')}</div>
-        </a>
-        <a class="card" href="https://github.com/harsh77vardhan/CMDFlow/blob/main/docs/PLUGINS.md" target="_blank" rel="noopener noreferrer">
-          <div class="card-head"><span class="card-icon">${icon('blocks')}</span></div>
-          <h3>Plugin System</h3>
-          <p>Subprocess extensions with declared permissions and prompt hooks.</p>
-          <div class="snip">${cmd('docs/PLUGINS.md')}</div>
-        </a>
-      </div>
-      <div class="install-footer" data-reveal style="margin-top: 24px;">
-        <a href="https://github.com/harsh77vardhan/CMDFlow/tree/main/docs" target="_blank" rel="noopener noreferrer">${icon('book')} Browse complete documentation directory on GitHub →</a>
+      <div class="section-inner">
+        <div class="section-head" data-reveal>
+          <span class="section-label">Documentation</span>
+          <h2 class="section-title">Everything you need to know.</h2>
+          <p class="section-lede">Specifications, security threat models, shell hooks, flows and contributing guidelines.</p>
+        </div>
+        <div class="docs-grid" data-reveal>
+          <a class="doc-card" href="https://github.com/harsh77vardhan/CMDFlow/blob/main/docs/SPEC.md" target="_blank" rel="noopener noreferrer">
+            <span class="doc-card-label">${icon('book')}Technical spec</span>
+            <div class="doc-card-title">Architecture &amp; Resolve Engine</div>
+            <p class="doc-card-desc">Layered TOML resolution, sub-20ms resolve, and the full command model.</p>
+            <span class="doc-card-link">docs/SPEC.md →</span>
+          </a>
+          <a class="doc-card" href="https://github.com/harsh77vardhan/CMDFlow/blob/main/docs/SECURITY.md" target="_blank" rel="noopener noreferrer">
+            <span class="doc-card-label">${icon('shield')}Security</span>
+            <div class="doc-card-title">Threat Model &amp; Sandboxing</div>
+            <p class="doc-card-desc">Project trust boundaries, injection defense, and permission scopes.</p>
+            <span class="doc-card-link">docs/SECURITY.md →</span>
+          </a>
+          <a class="doc-card" href="https://github.com/harsh77vardhan/CMDFlow/blob/main/docs/SHELLS.md" target="_blank" rel="noopener noreferrer">
+            <span class="doc-card-label">${icon('branch')}Shell integration</span>
+            <div class="doc-card-title">Directive Protocol</div>
+            <p class="doc-card-desc">Zoxide-style hooks for Bash, Zsh, Fish, and PowerShell.</p>
+            <span class="doc-card-link">docs/SHELLS.md →</span>
+          </a>
+          <a class="doc-card" href="https://github.com/harsh77vardhan/CMDFlow/blob/main/docs/FLOWS.md" target="_blank" rel="noopener noreferrer">
+            <span class="doc-card-label">${icon('flow')}Automation flows</span>
+            <div class="doc-card-title">Pipelines &amp; Step Streaming</div>
+            <p class="doc-card-desc">Sequential pipelines, live step streaming, and directory tracking.</p>
+            <span class="doc-card-link">docs/FLOWS.md →</span>
+          </a>
+          <a class="doc-card" href="https://github.com/harsh77vardhan/CMDFlow/blob/main/docs/AI.md" target="_blank" rel="noopener noreferrer">
+            <span class="doc-card-label">${icon('sparkles')}AI &amp; risk classifier</span>
+            <div class="doc-card-title">Deterministic Safety Rules</div>
+            <p class="doc-card-desc">AST/regex classifier, gated approval, and risk boundaries.</p>
+            <span class="doc-card-link">docs/AI.md →</span>
+          </a>
+          <a class="doc-card" href="https://github.com/harsh77vardhan/CMDFlow/blob/main/docs/PLUGINS.md" target="_blank" rel="noopener noreferrer">
+            <span class="doc-card-label">${icon('blocks')}Plugin system</span>
+            <div class="doc-card-title">Subprocess Extensions</div>
+            <p class="doc-card-desc">Declared permissions, prompt hooks, and the extension API.</p>
+            <span class="doc-card-link">docs/PLUGINS.md →</span>
+          </a>
+        </div>
+        <div class="docs-footer" data-reveal>
+          <a href="https://github.com/harsh77vardhan/CMDFlow/tree/main/docs" target="_blank" rel="noopener noreferrer">${icon('book')} Browse complete documentation directory on GitHub →</a>
+        </div>
       </div>
     </section>
 
-    <section class="cta" data-reveal>
-      <div class="cta-inner">
-        <span class="cta-badge">${icon('clock')}Early preview</span>
-        <h2>Make the terminal feel like yours.</h2>
-        <p>Get the first build when it opens, and help shape the command language.</p>
-        <form class="waitlist-form" id="waitlist-form" style="margin-top: 24px; display: flex; flex-direction: column; gap: 8px; max-width: 440px; margin-inline: auto;">
-          <div style="display: flex; gap: 8px;">
-            <input type="email" id="waitlist-email" placeholder="Enter your developer email..." required style="flex: 1; padding: 12px 16px; border-radius: 8px; background: rgba(255,255,255,0.06); border: 1px solid var(--line); color: var(--text); font-family: inherit; font-size: 14px;" />
-            <input type="text" id="waitlist-hp" style="display: none;" tabindex="-1" autocomplete="off" />
-            <button type="submit" class="primary" style="white-space: nowrap;"><span>Join Waitlist</span>${icon('arrow')}</button>
+    <section class="section" id="waitlist">
+      <div class="section-inner">
+        <div class="waitlist-layout" data-reveal>
+          <div class="waitlist-copy">
+            <h2>Make the terminal feel like yours.</h2>
+            <p>Get early access when it opens and help shape what CMDFlow becomes. No spam, no noise — just a note when the first build ships.</p>
+            <div class="cta-actions">
+              <a class="primary download-btn" id="cta-download-btn" href="https://github.com/harsh77vardhan/CMDFlow/releases/latest" target="_blank" rel="noopener noreferrer"><span class="download-label">Download CMDFlow</span>${icon('download')}</a>
+              <a class="secondary" href="https://github.com/harsh77vardhan/CMDFlow" target="_blank" rel="noopener noreferrer">${icon('github')}<span>View on GitHub</span></a>
+            </div>
           </div>
-          <div id="waitlist-status" style="font-size: 13px; min-height: 20px;"></div>
-        </form>
-        <div class="hero-actions" style="margin-top: 20px;">
-          <a class="primary download-btn" id="cta-download-btn" href="https://github.com/harsh77vardhan/CMDFlow/releases/latest" target="_blank" rel="noopener noreferrer"><span class="download-label">Download CMDFlow</span>${icon('download')}</a>
-          <a class="secondary" href="https://github.com/harsh77vardhan/CMDFlow" target="_blank" rel="noopener noreferrer">${icon('github')}<span>View on GitHub</span></a>
+          <div>
+            <form class="waitlist-form" id="waitlist-form">
+              <div class="waitlist-row">
+                <input class="waitlist-input" type="email" id="waitlist-email" placeholder="your@email.dev" required autocomplete="email" />
+                <input type="text" id="waitlist-hp" style="display:none;" tabindex="-1" autocomplete="off" />
+                <button type="submit" class="primary"><span>Join waitlist</span>${icon('arrow')}</button>
+              </div>
+              <div id="waitlist-status"></div>
+            </form>
+          </div>
         </div>
       </div>
     </section>
@@ -728,7 +643,7 @@ $('#app').innerHTML = `
         <a href="https://github.com/harsh77vardhan/CMDFlow" target="_blank" rel="noopener noreferrer">${icon('github')}GitHub</a>
         <a href="https://github.com/harsh77vardhan/CMDFlow/tree/main/docs" target="_blank" rel="noopener noreferrer">${icon('book')}Documentation</a>
         <a href="https://github.com/harsh77vardhan/CMDFlow/releases/latest" target="_blank" rel="noopener noreferrer">${icon('download')}Download</a>
-        <a href="https://github.com/harsh77vardhan/CMDFlow/issues" target="_blank" rel="noopener noreferrer">${icon('chat')}Community & Issues</a>
+        <a href="https://github.com/harsh77vardhan/CMDFlow/issues" target="_blank" rel="noopener noreferrer">${icon('chat')}Community &amp; Issues</a>
         <a href="https://github.com/harsh77vardhan/CMDFlow/blob/main/LICENSE" target="_blank" rel="noopener noreferrer">${icon('scale')}MIT License</a>
       </nav>
     </div>
@@ -739,11 +654,13 @@ $('#app').innerHTML = `
   </footer>
 `
 
+
+
 /* ------------------------------------------------------------------ *
  * Background, reveal, navigation
  * ------------------------------------------------------------------ */
 
-const ambient = new AmbientBackground($<HTMLCanvasElement>('#ambient'))
+const ambient = new StippleBackground($<HTMLCanvasElement>('#stipple-bg'))
 
 const reveal = new IntersectionObserver(
   (entries) => {
@@ -765,6 +682,49 @@ if (reduceMotion)
     el.classList.add('is-visible')
     reveal.unobserve(el)
   })
+
+/* ------------------------------------------------------------------ *
+ * Tagline reveal animation (words activate in reading order on scroll)
+ * ------------------------------------------------------------------ */
+
+const taglineEl = document.querySelector<HTMLElement>('#tagline-text')
+if (taglineEl) {
+  const rawWords = taglineEl.textContent?.trim().split(/\s+/) || []
+  taglineEl.innerHTML = rawWords
+    .map((w) => `<span class="tagline-word">${w}</span>`)
+    .join(' ')
+
+  const wordSpans = Array.from(taglineEl.querySelectorAll<HTMLElement>('.tagline-word'))
+
+  if (reduceMotion) {
+    wordSpans.forEach((w) => w.classList.add('is-lit'))
+  } else {
+    let taglineTicking = false
+    const updateTagline = () => {
+      const rect = taglineEl.getBoundingClientRect()
+      const windowH = window.innerHeight
+      const start = windowH * 0.85
+      const end = windowH * 0.38
+      const progress = Math.max(0, Math.min(1, (start - rect.top) / (start - end)))
+      const litCount = Math.floor(progress * (wordSpans.length + 1))
+      wordSpans.forEach((w, i) => {
+        w.classList.toggle('is-lit', i < litCount)
+      })
+      taglineTicking = false
+    }
+    window.addEventListener(
+      'scroll',
+      () => {
+        if (!taglineTicking) {
+          requestAnimationFrame(updateTagline)
+          taglineTicking = true
+        }
+      },
+      { passive: true },
+    )
+    updateTagline()
+  }
+}
 
 const nav = $('#nav')
 const onScroll = () => nav.classList.toggle('is-scrolled', window.scrollY > 12)
