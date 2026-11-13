@@ -24,7 +24,7 @@ interface ReleaseInfo {
 }
 
 const LATEST_RELEASE: ReleaseInfo = {
-  version: '1.0.1',
+  version: '1.0.2',
   release_date: '2026-11-13',
   notes: 'Production release: cross-platform command layer for Bash, Zsh, Fish, and PowerShell with embedded settings UI and AI assistant',
   platforms: {
@@ -151,7 +151,7 @@ export default {
         {
           status: 'ok',
           service: 'cmdflow-api',
-          version: '1.0.1',
+          version: LATEST_RELEASE.version,
           timestamp: new Date().toISOString(),
         },
         200,

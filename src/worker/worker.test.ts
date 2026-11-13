@@ -22,7 +22,7 @@ describe('Cloudflare Worker API', () => {
     const res = await worker.fetch(req, mockEnv)
     expect(res.status).toBe(200)
     const data = (await res.json()) as { version: string; platforms: Record<string, { sha256: string }> }
-    expect(data.version).toBe('1.0.1')
+    expect(data.version).toBe('1.0.2')
     expect(data.platforms['linux-x86_64'].sha256).toBeDefined()
   })
 

@@ -2,7 +2,7 @@
 
 [![CI](https://github.com/harsh77vardhan/CMDFlow/actions/workflows/ci.yml/badge.svg)](https://github.com/harsh77vardhan/CMDFlow/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-[![Release](https://img.shields.io/badge/Release-v1.0.1-emerald.svg)](https://github.com/harsh77vardhan/CMDFlow/releases)
+[![Release](https://img.shields.io/badge/Release-v1.0.2-emerald.svg)](https://github.com/harsh77vardhan/CMDFlow/releases)
 [![Website](https://img.shields.io/badge/Website-cmdflow.sudsy--bus.workers.dev-indigo.svg)](https://cmdflow.sudsy-bus.workers.dev)
 
 CMDFlow is an ultra-fast (<20ms startup), deterministic command layer that sits on top of your existing shells (**Bash**, **Zsh**, **Fish**, and **PowerShell**). Instead of memorizing obscure flags or navigating nested paths, CMDFlow provides instant aliases, project jumping, multi-step flows, context-aware routing, and a sandboxed AI assistant that checks command safety before execution.

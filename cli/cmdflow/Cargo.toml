@@ -1,6 +1,6 @@
 [package]
 name = "cmdflow"
-version = "1.0.1"
+version = "1.0.2"
 edition = "2021"
 authors = ["CMDFlow Team"]
 description = "Command layer on top of Fish, Bash, Zsh, and PowerShell"
@@ -24,3 +24,4 @@ tempfile = "3.10"
 which = "6.0"
 shellexpand = "3.1"
 ureq = { version = "2.10", features = ["json"] }
+sha2 = "0.10"

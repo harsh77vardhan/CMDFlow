@@ -6,8 +6,9 @@ use cmdflow_core::resolver::{ResolvedTarget, Resolver};
 use cmdflow_core::risk::RiskLevel;
 use colored::Colorize;
 use rust_embed::RustEmbed;
+use sha2::Digest;
 use std::fs;
-use std::io::{self, Write};
+use std::io::{self, Read, Write};
 use std::path::PathBuf;
 
 #[derive(RustEmbed)]
@@ -18,7 +19,7 @@ struct Asset;
 #[command(
     name = "cmdflow",
     author = "CMDFlow Team",
-    version = "1.0.1",
+    version = "1.0.2",
     about = "The Command Line. Finally Speaks Your Language."
 )]
 struct Cli {
@@ -1391,34 +1392,133 @@ fn handle_update(_force: bool) -> Result<(), Box<dyn std::error::Error>> {
     };
 
     let agent = ureq::AgentBuilder::new()
-        .timeout(std::time::Duration::from_secs(10))
+        .timeout(std::time::Duration::from_secs(15))
+        .user_agent("cmdflow")
         .build();
 
-    let resp = agent.get(release_url).call()?;
-    let release: serde_json::Value = resp.into_json()?;
+    let release_resp = agent.get(release_url).call();
+    let (latest_version, download_url, expected_sha256) = match release_resp {
+        Ok(resp) => {
+            let release: serde_json::Value = resp.into_json()?;
+            let ver = release["version"].as_str().unwrap_or("unknown").to_string();
+            let mut dl = String::new();
+            let mut sha = String::new();
+            if let Some(platform_info) = release["platforms"].get(platform) {
+                dl = platform_info["url"].as_str().unwrap_or("").to_string();
+                sha = platform_info["sha256"].as_str().unwrap_or("").to_string();
+            }
+            (ver, dl, sha)
+        }
+        Err(_) => {
+            eprintln!(
+                "  {} Edge proxy unreachable, querying GitHub Releases directly...",
+                "ℹ".cyan()
+            );
+            let gh_url = "https://api.github.com/repos/harsh77vardhan/CMDFlow/releases/latest";
+            let resp = agent.get(gh_url).call()?;
+            let gh_rel: serde_json::Value = resp.into_json()?;
+            let tag = gh_rel["tag_name"]
+                .as_str()
+                .unwrap_or("")
+                .trim_start_matches('v')
+                .to_string();
 
-    let latest_version = release["version"].as_str().unwrap_or("unknown");
+            let asset_name = match platform {
+                "linux-x86_64" => "cmdflow-linux-x86_64.tar.gz",
+                "darwin-arm64" => "cmdflow-darwin-arm64.tar.gz",
+                "darwin-x86_64" => "cmdflow-darwin-x86_64.tar.gz",
+                "windows-x86_64" => "cmdflow-windows-x86_64.zip",
+                _ => "cmdflow-linux-x86_64.tar.gz",
+            };
+
+            let mut dl = String::new();
+            let mut sums_url = String::new();
+            if let Some(assets) = gh_rel["assets"].as_array() {
+                for a in assets {
+                    let name = a["name"].as_str().unwrap_or("");
+                    if name == asset_name {
+                        dl = a["browser_download_url"].as_str().unwrap_or("").to_string();
+                    } else if name == "SHA256SUMS.txt" {
+                        sums_url = a["browser_download_url"].as_str().unwrap_or("").to_string();
+                    }
+                }
+            }
+
+            let mut sha = String::new();
+            if !sums_url.is_empty() {
+                if let Ok(sums_resp) = agent.get(&sums_url).call() {
+                    let sums_text = sums_resp.into_string().unwrap_or_default();
+                    for line in sums_text.lines() {
+                        let parts: Vec<&str> = line.split_whitespace().collect();
+                        if parts.len() >= 2 && parts[1].contains(asset_name) {
+                            sha = parts[0].to_string();
+                            break;
+                        }
+                    }
+                }
+            }
+
+            (tag, dl, sha)
+        }
+    };
+
     eprintln!("  Current version: v{}", current_version);
     eprintln!("  Latest version:  v{}", latest_version);
     eprintln!("  Target platform: {}", platform);
+    eprintln!("  Asset URL:       {}", download_url);
+    eprintln!("  Expected SHA:    {}", expected_sha256);
 
-    if let Some(platform_info) = release["platforms"].get(platform) {
-        let download_url = platform_info["url"].as_str().unwrap_or("");
-        let expected_sha256 = platform_info["sha256"].as_str().unwrap_or("");
-        eprintln!("  Asset URL:       {}", download_url);
-        eprintln!("  SHA-256:         {}", expected_sha256);
+    if !download_url.is_empty() {
+        eprintln!("{} Downloading asset to temporary file...", "▶".cyan());
+        let mut temp_file = tempfile::NamedTempFile::new()?;
+        let mut reader = agent.get(&download_url).call()?.into_reader();
+        let mut hasher = sha2::Sha256::new();
+        let mut buf = [0u8; 8192];
+        let mut total_bytes = 0usize;
+
+        loop {
+            let n = reader.read(&mut buf)?;
+            if n == 0 {
+                break;
+            }
+            sha2::Digest::update(&mut hasher, &buf[..n]);
+            temp_file.write_all(&buf[..n])?;
+            total_bytes += n;
+        }
+        temp_file.flush()?;
+
+        let calculated_hash = format!("{:x}", sha2::Digest::finalize(hasher));
+        eprintln!(
+            "  Downloaded:      {} bytes to {}",
+            total_bytes,
+            temp_file.path().display()
+        );
+        eprintln!("  Calculated SHA:  {}", calculated_hash);
 
         if expected_sha256.len() == 64 {
-            eprintln!(
-                "{} Checksum verified for {}: {}",
-                "✓".green(),
-                platform,
-                expected_sha256
-            );
+            if calculated_hash.eq_ignore_ascii_case(&expected_sha256) {
+                eprintln!(
+                    "{} Checksum verified for {}: {}",
+                    "✓".green(),
+                    platform,
+                    calculated_hash
+                );
+            } else {
+                eprintln!(
+                    "{} Checksum verification failed for {}!",
+                    "✗".red(),
+                    platform
+                );
+                return Err(format!(
+                    "Checksum mismatch: expected {}, got {}",
+                    expected_sha256, calculated_hash
+                )
+                .into());
+            }
         }
     }
 
-    if current_version == latest_version {
+    if current_version >= latest_version.as_str() {
         println!(
             "{} CMDFlow is up to date (v{})!",
             "✓".green().bold(),

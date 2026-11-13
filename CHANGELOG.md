@@ -7,7 +7,31 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
-## [1.0.0] - 2026-11-12
+## [1.0.2] - 2026-11-13
+
+### Changed
+- **CLI Engine (`cmdflow update`)**:
+  - Implemented actual binary download to a secure temporary file (`tempfile::NamedTempFile`) with streaming SHA-256 calculation.
+  - Added cryptographically verified SHA-256 checksum matching against `expected_sha256` before reporting success.
+  - Added resilient fallback to direct GitHub Releases API and `SHA256SUMS.txt` when the edge proxy is unreachable.
+- **Continuous Integration**:
+  - Added real PowerShell execution tests on native Windows runner (`pwsh shell/tests/test_powershell.ps1`).
+  - Fixed Windows filesystem handle lock issue in PowerShell CI test cleanup.
+- **Hygiene & Documentation**:
+  - Cleaned unused dependencies in `cli/cmdflow-core/Cargo.toml`.
+  - Documented known limitations and platform targets in `README.md`.
+
+---
+
+## [1.0.1] - 2026-11-12
+
+### Added
+- **Security & Reliability**:
+  - Sourced shell function definitions made alias-expansion safe (`command cmdflow` / `builtin cd`).
+  - Added KV-backed rate limiting on Worker endpoints with memory fallback.
+  - Standardized `cmdflow settings` command name and retained `cmdflow ui` alias.
+
+---
 
 ### Added
 - **Core Engine (`cmdflow-core`)**:
